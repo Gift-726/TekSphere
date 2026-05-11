@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import createGlobe from "cobe";
 import bodyHtml from "./teksphere-body.html?raw";
 import "./teksphere.css";
 
@@ -12,14 +13,49 @@ const TWEAK_DEFAULTS: Tweaks = {
   blur: 18,
 };
 
+const showcaseDefaultMarkers = [
+  {
+    id: "default-sf",
+    location: [37.7595, -122.4367] as [number, number],
+    label: "Enterprise Infrastructure",
+  },
+  {
+    id: "default-tokyo",
+    location: [35.6762, 139.6503] as [number, number],
+    label: "Application Development",
+  },
+  {
+    id: "default-sydney",
+    location: [-33.8688, 151.2093] as [number, number],
+    label: "Intelligent Building",
+  },
+  {
+    id: "default-capetown",
+    location: [-33.9249, 18.4241] as [number, number],
+    label: "Telephony Solutions",
+  },
+  {
+    id: "default-dubai",
+    location: [25.2048, 55.2708] as [number, number],
+    label: "IT Support",
+  },
+  {
+    id: "default-paris",
+    location: [48.8566, 2.3522] as [number, number],
+    label: "Enterprise Security",
+  },
+];
+
 export default function TekSpherePage() {
   useEffect(() => {
     const root = document.documentElement;
     let currentTweaks = { ...TWEAK_DEFAULTS };
+    let applyGlobeTheme: (() => void) | null = null;
 
     const applyTweaks = (t: Tweaks) => {
       root.setAttribute("data-theme", t.theme || "light");
       root.style.setProperty("--blur", `${t.blur ?? 18}px`);
+      applyGlobeTheme?.();
 
       document.querySelectorAll<HTMLElement>("[data-theme-set]").forEach((button) => {
         button.classList.toggle("on", button.dataset.themeSet === (t.theme || "light"));
@@ -51,6 +87,109 @@ export default function TekSpherePage() {
     window.parent.postMessage({ type: "__edit_mode_available" }, "*");
 
     const cleanups: Array<() => void> = [];
+
+    const globeCanvas = document.getElementById("teksphereGlobe") as HTMLCanvasElement | null;
+    if (globeCanvas) {
+      let currentPhi = 0;
+      let currentTheta = 0.2;
+      let targetPhi = 0;
+      let targetTheta = 0.2;
+      let globeAnimationId = 0;
+      let isDragging = false;
+      let lastX = 0;
+      let lastY = 0;
+
+      const clampTheta = (value: number) => Math.max(-0.65, Math.min(0.85, value));
+      const getGlobeThemeOptions = () => {
+        const isDark = root.getAttribute("data-theme") === "dark";
+
+        return isDark
+          ? {
+              dark: 1,
+              diffuse: 1.25,
+              mapBrightness: 6,
+              baseColor: [0.08, 0.13, 0.24] as [number, number, number],
+              markerColor: [0.45, 0.72, 1] as [number, number, number],
+              glowColor: [0.05, 0.12, 0.26] as [number, number, number],
+              opacity: 0.9,
+            }
+          : {
+              dark: 0,
+              diffuse: 1.5,
+              mapBrightness: 10,
+              baseColor: [1, 1, 1] as [number, number, number],
+              markerColor: [0.3, 0.45, 0.85] as [number, number, number],
+              glowColor: [0.94, 0.93, 0.91] as [number, number, number],
+              opacity: 0.7,
+            };
+      };
+
+      const size = globeCanvas.offsetWidth || 560;
+      const dpr = Math.min(window.devicePixelRatio || 1, window.innerWidth < 640 ? 1.8 : 2);
+      const globe = createGlobe(globeCanvas, {
+        devicePixelRatio: dpr,
+        width: size,
+        height: size,
+        phi: 0,
+        theta: 0.2,
+        mapSamples: 16000,
+        markerElevation: 0.01,
+        markers: showcaseDefaultMarkers.map((marker) => ({
+          location: marker.location,
+          size: 0.03,
+          id: marker.id,
+        })),
+        ...getGlobeThemeOptions(),
+      });
+      applyGlobeTheme = () => globe.update(getGlobeThemeOptions());
+
+      const animateGlobe = () => {
+        if (!isDragging) targetPhi += 0.003;
+
+        currentPhi += (targetPhi - currentPhi) * 0.08;
+        currentTheta += (targetTheta - currentTheta) * 0.08;
+        globe.update({ phi: currentPhi, theta: currentTheta });
+        globeAnimationId = requestAnimationFrame(animateGlobe);
+      };
+
+      const handleMouseDown = (event: MouseEvent) => {
+        isDragging = true;
+        lastX = event.clientX;
+        lastY = event.clientY;
+      };
+
+      const handleMouseMove = (event: MouseEvent) => {
+        if (!isDragging) return;
+        const deltaX = event.clientX - lastX;
+        const deltaY = event.clientY - lastY;
+        targetPhi += deltaX * 0.01;
+        targetTheta = clampTheta(targetTheta + deltaY * 0.01);
+        lastX = event.clientX;
+        lastY = event.clientY;
+      };
+
+      const handleMouseUp = () => {
+        isDragging = false;
+      };
+
+      globeCanvas.addEventListener("mousedown", handleMouseDown);
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+      animateGlobe();
+
+      window.setTimeout(() => {
+        globeCanvas.style.opacity = "1";
+      });
+
+      cleanups.push(() => {
+        cancelAnimationFrame(globeAnimationId);
+        globe.destroy();
+        applyGlobeTheme = null;
+        globeCanvas.removeEventListener("mousedown", handleMouseDown);
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+      });
+    }
 
     document.querySelectorAll<HTMLElement>("[data-theme-set]").forEach((button) => {
       const clickHandler = () => setTweak("theme", (button.dataset.themeSet as Tweaks["theme"]) || "light");
@@ -152,6 +291,14 @@ export default function TekSpherePage() {
 
     const parallaxContainers = document.querySelectorAll<HTMLElement>("[data-parallax], [data-stage]");
     const onScroll = () => {
+      const nav = document.querySelector<HTMLElement>(".nav");
+      if (nav) {
+        if (window.scrollY > 20) {
+          nav.classList.add("scrolled");
+        } else {
+          nav.classList.remove("scrolled");
+        }
+      }
       parallaxContainers.forEach((container) => {
         const rect = container.getBoundingClientRect();
         const vh = window.innerHeight;

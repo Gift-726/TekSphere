@@ -91,13 +91,21 @@
     z-index: 50;
     padding: 10px 14px 10px 22px;
     display: flex; align-items: center; gap: 32px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 100px;
+    transition: background 0.3s, backdrop-filter 0.3s, border 0.3s, box-shadow 0.3s;
+    width: min(980px, calc(100% - 32px));
+  }
+  .nav.scrolled {
     background: var(--glass-bg);
     border: 1px solid var(--glass-bd);
     backdrop-filter: blur(var(--blur)) saturate(140%);
     -webkit-backdrop-filter: blur(var(--blur)) saturate(140%);
-    border-radius: 100px;
     box-shadow: 0 10px 40px -20px rgba(10,15,28,0.2), 0 1px 0 rgba(255,255,255,0.6) inset;
-    width: min(980px, calc(100% - 32px));
+  }
+  [data-theme="dark"] .nav.scrolled {
+    box-shadow: 0 10px 40px -20px rgba(0,0,0,0.8), 0 1px 0 rgba(255,255,255,0.05) inset;
   }
   .nav .brand { display: flex; align-items: center; gap: 10px; font-family: var(--serif); font-weight: 600; font-size: 16px; letter-spacing: -0.01em; }
   .brand-mark {
@@ -198,7 +206,7 @@
   .reveal-children.in > *:nth-child(6) { transition-delay: .40s; }
 
   /* ---------- HERO ---------- */
-  .hero { padding: 180px 32px 140px; overflow: hidden; }
+  .hero { padding: 120px 32px 140px; overflow: hidden; }
   .hero-bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
   .mesh-blob {
     position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.55;
@@ -211,6 +219,101 @@
 
   .hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 60px; align-items: center; }
   @media (max-width: 960px) { .hero-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+  .teksphere-hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: 520px;
+    margin-top: -80px;
+  }
+  .teksphere-globe-wrap {
+    position: relative;
+    width: min(580px, 100%);
+    aspect-ratio: 1;
+    user-select: none;
+  }
+  .teksphere-globe-canvas {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 50%;
+    cursor: grab;
+    touch-action: none;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+    filter: drop-shadow(0 34px 80px rgba(14, 165, 233, 0.22));
+  }
+  .teksphere-globe-canvas:active { cursor: grabbing; }
+  .teksphere-globe-center-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 5;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    font-family: var(--mono);
+    font-size: clamp(2.8rem, 4.4vw, 4.8rem);
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: #3b5bdb;
+    text-shadow:
+      0 0 20px rgba(255, 255, 255, 0.9),
+      0 0 40px rgba(255, 255, 255, 0.8),
+      0 0 10px rgba(255, 255, 255, 1);
+  }
+  [data-theme="dark"] .teksphere-globe-center-text {
+    color: #8ab4ff;
+    text-shadow:
+      0 0 18px rgba(6, 10, 20, 0.9),
+      0 0 36px rgba(14, 165, 233, 0.35);
+  }
+  .orbit-ring {
+    position: absolute;
+    inset: -2%;
+    pointer-events: none;
+    z-index: 1;
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 40%, black 48%, black 100%);
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 40%, black 48%, black 100%);
+  }
+  .orbit-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    transform: rotateX(62deg);
+    animation: globeOrbitSpin 30s linear infinite;
+  }
+  .orbit-text {
+    fill: var(--muted);
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .showcase-default-label {
+    position: absolute;
+    position-area: center;
+    z-index: 6;
+    max-width: 180px;
+    padding: 8px 12px;
+    border: 1px solid var(--glass-bd);
+    border-radius: 999px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--blur)) saturate(140%);
+    color: var(--ink-2);
+    font-family: var(--mono);
+    font-size: 10px;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    box-shadow: 0 10px 32px -18px rgba(10,15,28,0.35);
+    transition: opacity 0.2s ease, filter 0.2s ease;
+  }
+  @keyframes globeOrbitSpin {
+    from { transform: rotateX(62deg) rotateZ(0deg); }
+    to { transform: rotateX(62deg) rotateZ(-360deg); }
+  }
 
   .hero-copy .h-display em {
     font-style: normal;
