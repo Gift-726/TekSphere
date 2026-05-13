@@ -983,19 +983,68 @@
   }
 
   /* Positions */
+  .infra-globe-container {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    width: min(460px, 100%);
+    transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
   .n-core { top: 40%; left: 50%; transform: translate(-50%,-50%); z-index: 3; padding: 20px 24px; }
   .n-core .ii { width: 52px; height: 52px; background: linear-gradient(135deg, #0EA5E9, #6366F1); border: none; color: white; }
   .n-core .tt { font-size: 16px; }
-  .n-cctv   { top: 8%;  left: 10%; }
-  .n-access { top: 8%;  right: 10%; }
-  .n-net    { bottom: 8%; left: 10%; }
-  .n-server { bottom: 8%; right: 10%; }
-  .n-voip   { top: 42%; left: 4%; }
-  .n-bms    { top: 42%; right: 4%; }
+  .n-cctv   { top: 8%;  left: 10%; z-index: 10; }
+  .n-access { top: 8%;  right: 10%; z-index: 10; }
+  .n-net    { bottom: 8%; left: 10%; z-index: 10; }
+  .n-server { bottom: 8%; right: 10%; z-index: 10; }
+  .n-voip   { top: 42%; left: 4%; z-index: 10; }
+  .n-bms    { top: 42%; right: 4%; z-index: 10; }
 
+  /* End-to-End Technology Tablet Optimizations */
+  @media (max-width: 1024px) and (min-width: 761px) {
+    .infra-globe-container {
+      width: min(310px, 100%) !important;
+    }
+    .n-voip { left: 0; }
+    .n-bms { right: 0; }
+    .n-cctv { left: 2%; top: 4%; }
+    .n-access { right: 2%; top: 4%; }
+    .n-net { left: 2%; bottom: 4%; }
+    .n-server { right: 2%; bottom: 4%; }
+    .iso-node { padding: 12px 14px; gap: 10px; }
+    .iso-node .tt { font-size: 12px; }
+    .iso-node .ii { width: 34px; height: 34px; }
+  }
+
+  /* End-to-End Technology Mobile Flow Optimization */
   @media (max-width: 760px) {
-    .infra-diagram { height: auto; }
-    .iso-node { position: relative; top: auto !important; left: auto !important; right: auto !important; bottom: auto !important; transform: none !important; margin-bottom: 10px; }
+    .infra-diagram {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+      height: auto;
+    }
+    #infraLines { display: none; }
+    .infra-globe-container {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      transform: none !important;
+      width: min(300px, 100%) !important;
+      margin: 16px auto 24px !important;
+      order: -1;
+    }
+    .iso-node {
+      position: relative !important;
+      top: auto !important; left: auto !important; right: auto !important; bottom: auto !important;
+      transform: none !important;
+      width: 100%;
+      margin: 0 !important;
+    }
+    .infra-wrap { padding: 32px 20px; }
   }
 
   /* ---------- WHY US ---------- */
@@ -1269,6 +1318,122 @@
   .theme-switch { display: inline-flex; background: var(--bg); border-radius: 100px; padding: 3px; border: 1px solid var(--line); }
   .theme-switch button { padding: 5px 12px; border-radius: 100px; font-size: 12px; color: var(--muted); }
   .theme-switch button.on { background: var(--accent); color: white; }
+  /* ==========================================================================
+     PROFESSIONAL RESPONSIVE BREAKPOINT SYSTEM
+     ========================================================================== */
+
+  /* --- Hamburger & Nav Overrides (< 840px) --- */
+  @media (max-width: 840px) {
+    .nav {
+      gap: 12px;
+      padding: 10px 14px;
+      width: calc(100% - 24px);
+      flex-wrap: wrap;
+      border-radius: 28px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .nav-links {
+      display: none;
+      width: 100%;
+      flex-direction: column;
+      gap: 8px;
+      padding: 12px 6px 6px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin: 0;
+    }
+    [data-theme="dark"] .nav-links {
+      border-top-color: rgba(255, 255, 255, 0.05);
+    }
+    .nav.mobile-open {
+      border-radius: 22px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(140%);
+      -webkit-backdrop-filter: blur(20px) saturate(140%);
+      border-color: var(--glass-bd);
+    }
+    .nav.mobile-open .nav-links {
+      display: flex;
+    }
+    .nav-links a {
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 14.5px;
+      width: 100%;
+      border-radius: 10px;
+    }
+    .hamburger-btn {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(14,165,233,0.08);
+      color: var(--accent);
+      cursor: pointer;
+      border: none;
+      padding: 0;
+      transition: background 0.2s;
+    }
+    .hamburger-btn:hover { background: rgba(14,165,233,0.15); }
+    .hamburger-btn span {
+      width: 16px;
+      height: 2px;
+      background: currentColor;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      border-radius: 2px;
+    }
+    .nav.mobile-open .hamburger-btn span:nth-child(1) {
+      transform: translateY(6px) rotate(45deg);
+    }
+    .nav.mobile-open .hamburger-btn span:nth-child(2) {
+      opacity: 0;
+    }
+    .nav.mobile-open .hamburger-btn span:nth-child(3) {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+    .nav-cta { margin-left: auto; padding: 8px 14px; font-size: 12.5px; }
+  }
+  @media (min-width: 841px) {
+    .hamburger-btn { display: none; }
+  }
+
+  /* --- Global Tablet / Mobile Structure Adjustments --- */
+  @media (max-width: 960px) {
+    .hero { padding: 140px 24px 30px; }
+  }
+  @media (max-width: 768px) {
+    section { padding: 80px 20px; }
+    .h-display { font-size: clamp(30px, 7vw, 44px); line-height: 1.05; }
+    .h-section { font-size: clamp(26px, 6vw, 36px); line-height: 1.1; }
+    .lead { font-size: 15.5px; }
+    .hero { padding: 130px 20px 30px; }
+    .hero-meta { gap: 20px; flex-wrap: wrap; }
+    .hero-ctas { flex-direction: column; width: 100%; gap: 12px; }
+    .hero-ctas .btn { width: 100%; justify-content: center; }
+    .teksphere-globe-wrap { width: min(340px, 100%); margin: 0 auto; }
+    .teksphere-globe-center-text { font-size: 2.2rem; }
+    .logos { padding: 40px 20px 20px; }
+    .logos-bar { gap: 24px; justify-content: center; }
+  }
+
+  @media (max-width: 480px) {
+    section { padding: 60px 16px; }
+    .clients-grid { gap: 12px; }
+    .client-card { padding: 8px 12px; height: 70px; border-radius: 12px; }
+    .client-card img { max-height: 38px; }
+    .client-card img[alt="UBA"], .client-card img[alt="OPay"] { max-height: 48px; }
+    .client-card img[alt*="Central Bank"], .client-card img[alt*="First Bank"] { max-height: 52px; }
+    .services-grid { gap: 14px; }
+    .svc-card-header { padding: 20px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+    footer { padding: 60px 20px 30px; }
+    .footer-bottom { flex-direction: column; text-align: center; gap: 12px; margin-top: 40px; }
+    .footer-bottom .pulse-line { width: 100%; margin: 12px 0; }
+  }
 
   /* ---------- Utilities ---------- */
   .spacer { height: 1px; }

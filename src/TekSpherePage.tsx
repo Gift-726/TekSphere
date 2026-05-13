@@ -400,6 +400,23 @@ export default function TekSpherePage() {
       });
     }
 
+    const hamburgerBtn = document.getElementById("hamburgerBtn");
+    const navEl = document.querySelector<HTMLElement>(".nav");
+    if (hamburgerBtn && navEl) {
+      const toggleMenu = () => navEl.classList.toggle("mobile-open");
+      hamburgerBtn.addEventListener("click", toggleMenu);
+      const closeMenu = () => navEl.classList.remove("mobile-open");
+      navEl.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", closeMenu);
+      });
+      cleanups.push(() => {
+        hamburgerBtn.removeEventListener("click", toggleMenu);
+        navEl.querySelectorAll(".nav-links a").forEach((link) => {
+          link.removeEventListener("click", closeMenu);
+        });
+      });
+    }
+
     const ctaForm = document.getElementById("ctaForm") as HTMLFormElement | null;
     if (ctaForm) {
       const submitHandler = (e: Event) => {
