@@ -300,7 +300,6 @@ export default function TekSpherePage() {
     revealEls.forEach((el) => io.observe(el));
 
     const parallaxContainers = document.querySelectorAll<HTMLElement>("[data-parallax], [data-stage]");
-    let hasDockedGlobally = false;
     const onScroll = () => {
       const nav = document.querySelector<HTMLElement>(".nav");
       if (nav) {
@@ -358,10 +357,8 @@ export default function TekSpherePage() {
           return;
         }
 
-        if (window.scrollY > 30) {
-          hasDockedGlobally = true;
-        }
-        const weight = hasDockedGlobally ? 0 : 1;
+        const isScrolled = window.scrollY > 30;
+        const weight = isScrolled ? 0 : 1;
 
         const screenCenterX = window.innerWidth / 2;
         // Shift target Y slightly upward to reduce gap beneath the navbar and prevent bottom vh overflow
@@ -467,6 +464,60 @@ export default function TekSpherePage() {
       cleanups.push(() => ctaExpandedForm.removeEventListener("submit", expandedSubmitHandler));
     }
 
+    const servicesGrid = document.getElementById("svcAccordion");
+    if (servicesGrid) {
+      const unmanagedCards = Array.from(servicesGrid.querySelectorAll(".svc-card"));
+      const getCardByText = (text: string) =>
+        unmanagedCards.find((c) => c.querySelector("h3")?.textContent?.includes(text));
+
+      // Retrieve immutable, deterministic module references regardless of current HMR DOM state
+      const cSupport = getCardByText("IT Support");
+      const cSecurity = getCardByText("Enterprise Security");
+      const cBuilding = getCardByText("Intelligent Building");
+      const cNetwork = getCardByText("Network");
+      const cAppDev = getCardByText("Application Development");
+      const cTelephony = getCardByText("Telephony");
+
+      const origCols = Array.from(servicesGrid.querySelectorAll(".svc-col"));
+
+      const applyResponsiveServiceColumns = () => {
+        if (window.innerWidth <= 960) {
+          // Route modules into dual active flex streams to guarantee complete vertical isolation
+          if (origCols[0] && origCols[1]) {
+            // Left column track stream rigidly enforced: Support -> Building -> AppDev
+            if (cSupport) origCols[0].appendChild(cSupport);
+            if (cBuilding) origCols[0].appendChild(cBuilding);
+            if (cAppDev) origCols[0].appendChild(cAppDev);
+
+            // Right column track stream rigidly enforced: Security -> Network -> Telephony
+            if (cSecurity) origCols[1].appendChild(cSecurity);
+            if (cNetwork) origCols[1].appendChild(cNetwork);
+            if (cTelephony) origCols[1].appendChild(cTelephony);
+          }
+          if (origCols[2]) origCols[2].style.display = "none";
+        } else {
+          // Standard Desktop triple stream restoration
+          if (origCols[0]) {
+            if (cSupport) origCols[0].appendChild(cSupport);
+            if (cNetwork) origCols[0].appendChild(cNetwork);
+          }
+          if (origCols[1]) {
+            if (cSecurity) origCols[1].appendChild(cSecurity);
+            if (cAppDev) origCols[1].appendChild(cAppDev);
+          }
+          if (origCols[2]) {
+            origCols[2].style.display = "";
+            if (cBuilding) origCols[2].appendChild(cBuilding);
+            if (cTelephony) origCols[2].appendChild(cTelephony);
+          }
+        }
+      };
+
+      applyResponsiveServiceColumns();
+      window.addEventListener("resize", applyResponsiveServiceColumns);
+      cleanups.push(() => window.removeEventListener("resize", applyResponsiveServiceColumns));
+    }
+
     const accordionHeaders = document.querySelectorAll<HTMLElement>(".svc-card-header");
     accordionHeaders.forEach((header) => {
       const clickHandler = () => {
@@ -483,11 +534,24 @@ export default function TekSpherePage() {
         if (!isActive) {
           card.classList.add("active");
           if (colWrapper) {
-            colWrapper.querySelectorAll(".svc-card").forEach((partner) => {
-              if (partner !== card) {
-                partner.classList.add("shrink");
+            const streamCards = Array.from(colWrapper.querySelectorAll(".svc-card"));
+            const idx = streamCards.indexOf(card);
+
+            if (window.innerWidth <= 960 && window.innerWidth > 640) {
+              // Strictly isolated vertical stream directional squeezing logic
+              if (idx === 0 && streamCards[1]) {
+                streamCards[1].classList.add("shrink"); // Top module squeezes Middle module
+              } else if (idx === 1 && streamCards[2]) {
+                streamCards[2].classList.add("shrink"); // Middle module squeezes Bottom module
+              } else if (idx === 2 && streamCards[1]) {
+                streamCards[1].classList.add("shrink"); // Bottom module squeezes Middle module upward
               }
-            });
+            } else if (window.innerWidth > 960) {
+              // Standard Desktop Stream Logic
+              streamCards.forEach((partner) => {
+                if (partner !== card) partner.classList.add("shrink");
+              });
+            }
           }
         }
       };

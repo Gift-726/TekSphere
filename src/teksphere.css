@@ -668,12 +668,30 @@
     gap: 18px;
     align-items: stretch;
   }
-  @media (max-width: 960px) { .services-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 640px) { .services-grid { grid-template-columns: 1fr; } }
   .svc-col {
     display: flex;
     flex-direction: column;
     gap: 18px;
+  }
+  @media (max-width: 960px) {
+    .services-grid {
+      grid-template-columns: 1fr 1fr;
+      align-items: flex-start;
+    }
+  }
+  /* Enforce absolute uniform static height symmetry globally across all unexpanded modules for Desktop, Tablet, and Mobile viewports! */
+  .svc-card:not(.active):not(.shrink) {
+    height: 270px !important;
+    flex: 0 0 270px !important;
+  }
+  .svc-card.active, .svc-card.shrink {
+    height: auto !important;
+    flex: 0 0 auto !important;
+  }
+  @media (max-width: 640px) {
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   .svc-card {
@@ -685,7 +703,6 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    flex: 1;
     transition: transform .2s ease-out, background .3s, border-color .3s, flex .3s;
     transform-style: preserve-3d;
     will-change: transform;
@@ -1003,8 +1020,13 @@
   .n-bms    { top: 42%; right: 4%; z-index: 10; }
 
   /* End-to-End Technology Tablet Optimizations */
-  @media (max-width: 1024px) and (min-width: 761px) {
+  @media (max-width: 1024px) and (min-width: 641px) {
     .infra-globe-container {
+      position: absolute !important;
+      top: 50% !important;
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      margin: 0 !important;
       width: min(310px, 100%) !important;
     }
     .n-voip { left: 0; }
@@ -1019,7 +1041,7 @@
   }
 
   /* End-to-End Technology Mobile Flow Optimization */
-  @media (max-width: 760px) {
+  @media (max-width: 640px) {
     .infra-diagram {
       display: flex;
       flex-direction: column;
@@ -1143,7 +1165,7 @@
     transition: max-height 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
                 opacity 0.4s ease,
                 transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-    max-height: 400px;
+    max-height: 500px;
     opacity: 1;
     transform: translateY(0);
     overflow: hidden;
@@ -1194,6 +1216,27 @@
     color: white; font-weight: 500; font-size: 14px;
     box-shadow: 0 0 24px rgba(34,211,238,0.5);
     flex-shrink: 0;
+  }
+  @media (max-width: 520px) {
+    .cta-form {
+      flex-direction: column;
+      border-radius: 20px;
+      padding: 8px;
+      gap: 10px;
+      width: 100%;
+    }
+    .cta-form input {
+      padding: 12px 14px;
+      text-align: center;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
+    }
+    .cta-form button {
+      width: 100%;
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 14.5px;
+    }
   }
 
   /* --- Expanded Form Styles --- */
@@ -1455,7 +1498,7 @@
       margin: 16px 0 !important;
       width: 100%;
     }
-    .teksphere-globe-wrap {
+    .teksphere-hero-right .teksphere-globe-wrap {
       margin: 0 auto !important;
       transform: none !important;
       width: min(360px, 100%) !important;
@@ -1472,16 +1515,18 @@
     .hero-meta { gap: 20px; flex-wrap: wrap; }
     .hero-ctas { flex-direction: column; width: 100%; gap: 12px; }
     .hero-ctas .btn { width: 100%; justify-content: center; }
-    .teksphere-globe-wrap { width: min(320px, 100%) !important; margin: 0 auto; }
+    .teksphere-hero-right .teksphere-globe-wrap { width: min(320px, 100%) !important; margin: 0 auto; }
     .teksphere-globe-center-text { font-size: 2.2rem; }
     .logos { padding: 40px 20px 20px; }
     .logos-bar { gap: 24px; justify-content: center; }
-    .showcase-features { display: flex !important; flex-direction: column !important; gap: 12px !important; }
-    .why-grid { display: flex !important; flex-direction: column !important; gap: 16px !important; }
+    .showcase-features { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 16px !important; }
+    .why-grid { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 16px !important; }
     .device-stack { height: 380px !important; transform: scale(0.85) !important; transform-origin: top center !important; }
   }
 
   @media (max-width: 480px) {
+    .showcase-features { display: flex !important; flex-direction: column !important; gap: 12px !important; }
+    .why-grid { display: flex !important; flex-direction: column !important; gap: 16px !important; }
     section { padding: 60px 16px; }
     .clients-grid { gap: 12px; }
     .client-card { padding: 8px 12px; height: 70px; border-radius: 12px; }
