@@ -1422,17 +1422,46 @@
 
   /* --- Global Tablet / Mobile Structure Adjustments --- */
   @media (max-width: 960px) {
+    .hero-scroll-track {
+      height: auto !important;
+    }
     .hero-sticky {
-      align-items: flex-start !important;
-      overflow-y: auto !important;
+      position: relative !important;
+      height: auto !important;
+      align-items: stretch !important;
+      overflow: visible !important;
     }
     .hero {
-      align-items: flex-start !important;
-      padding-top: 150px !important;
+      align-items: stretch !important;
+      padding-top: 140px !important;
       padding-bottom: 60px !important;
       height: auto !important;
-      min-height: 100vh !important;
+      min-height: 0 !important;
     }
+    .hero-grid {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: stretch !important;
+      gap: 20px !important;
+    }
+    .hero-copy {
+      display: contents !important;
+    }
+    .h-display { order: 1; margin-top: 0 !important; }
+    .lead { order: 2; margin-top: 12px !important; }
+    .teksphere-hero-right {
+      order: 3;
+      min-height: 0 !important;
+      margin: 16px 0 !important;
+      width: 100%;
+    }
+    .teksphere-globe-wrap {
+      margin: 0 auto !important;
+      transform: none !important;
+      width: min(360px, 100%) !important;
+    }
+    .hero-ctas { order: 4; margin-top: 16px !important; }
+    .hero-meta { order: 5; margin-top: 28px !important; }
   }
   @media (max-width: 768px) {
     section { padding: 80px 20px; }
@@ -1443,7 +1472,7 @@
     .hero-meta { gap: 20px; flex-wrap: wrap; }
     .hero-ctas { flex-direction: column; width: 100%; gap: 12px; }
     .hero-ctas .btn { width: 100%; justify-content: center; }
-    .teksphere-globe-wrap { width: min(340px, 100%); margin: 0 auto; }
+    .teksphere-globe-wrap { width: min(320px, 100%) !important; margin: 0 auto; }
     .teksphere-globe-center-text { font-size: 2.2rem; }
     .logos { padding: 40px 20px 20px; }
     .logos-bar { gap: 24px; justify-content: center; }

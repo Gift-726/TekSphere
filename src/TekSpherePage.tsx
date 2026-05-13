@@ -347,6 +347,17 @@ export default function TekSpherePage() {
       const heroCopyIntro = document.getElementById("heroCopyIntro");
 
       if (introTrack && rightCol && globeWrap) {
+        // Enforce pure static rendering with no transitioning on mobile and tablet viewports
+        if (window.innerWidth <= 960) {
+          globeWrap.style.transform = "none";
+          if (heroCopyIntro) {
+            heroCopyIntro.style.opacity = "1";
+            heroCopyIntro.style.transform = "none";
+            heroCopyIntro.style.pointerEvents = "auto";
+          }
+          return;
+        }
+
         if (window.scrollY > 30) {
           hasDockedGlobally = true;
         }
