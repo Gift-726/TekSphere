@@ -241,6 +241,11 @@
   .hero-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 60px; align-items: center; }
   @media (max-width: 960px) { .hero-grid { grid-template-columns: 1fr; gap: 40px; } }
 
+  .hero-copy {
+    will-change: transform, opacity;
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.1, 0.95, 0.1, 1);
+  }
+
   .teksphere-hero-right {
     display: flex;
     align-items: center;
@@ -253,6 +258,8 @@
     width: min(580px, 100%);
     aspect-ratio: 1;
     user-select: none;
+    will-change: transform;
+    transition: transform 0.5s cubic-bezier(0.1, 0.95, 0.1, 1);
   }
   .teksphere-globe-canvas {
     width: 100% !important;
@@ -408,7 +415,7 @@
   }
   .hero-meta {
     display: flex; gap: 40px; margin-top: 28px;
-    padding-top: 28px; border-top: 1px solid var(--line);
+    padding-top: 10px; border-top: 1px solid var(--line);
   }
   .hero-meta .stat .n { font-family: var(--serif); font-size: 30px; font-weight: 600; letter-spacing: -0.02em; }
   .hero-meta .stat .l { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; font-family: var(--mono); margin-top: 4px; }
@@ -566,24 +573,31 @@
     box-shadow: 0 12px 28px -6px rgba(14,165,233,0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
   .client-card img {
-    max-height: 38px;
+    max-height: 44px;
     width: auto;
     object-fit: contain;
     transition: transform 0.3s;
   }
+  .client-card img[alt="UBA"],
+  .client-card img[alt="OPay"] {
+    max-height: 58px;
+    transform: scale(1.35);
+  }
   .client-card img[alt*="Central Bank"],
-  .client-card img[alt*="First Bank"],
-  .client-card img[alt="UBA"] {
-    max-height: 56px;
-    transform: scale(1.25);
+  .client-card img[alt*="First Bank"] {
+    max-height: 64px;
+    transform: scale(1.55);
   }
   .client-card:hover img {
-    transform: scale(1.08);
+    transform: scale(1.12);
+  }
+  .client-card:hover img[alt="UBA"],
+  .client-card:hover img[alt="OPay"] {
+    transform: scale(1.45);
   }
   .client-card:hover img[alt*="Central Bank"],
-  .client-card:hover img[alt*="First Bank"],
-  .client-card:hover img[alt="UBA"] {
-    transform: scale(1.35);
+  .client-card:hover img[alt*="First Bank"] {
+    transform: scale(1.65);
   }
 
   /* ---------- PARTNERS (LOGOS) ---------- */
@@ -1107,6 +1121,22 @@
   .cta-form input {
     flex: 1; background: transparent; border: none; outline: none;
     color: white; padding: 12px 18px; font-size: 15px; font-family: var(--sans);
+    border-radius: 100px;
+  }
+  /* Bulletproof overrides for browser native autocomplete/autofill default styling */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover, 
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    -webkit-text-fill-color: white !important;
+    -webkit-box-shadow: 0 0 0px 1000px #060A14 inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+    border-radius: inherit !important;
   }
   .cta-form input::placeholder { color: rgba(255,255,255,0.5); }
   .cta-form button {
