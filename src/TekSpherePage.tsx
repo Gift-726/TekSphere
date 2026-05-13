@@ -507,7 +507,7 @@ export default function TekSpherePage() {
       const cAppDev = getCardByText("Application Development");
       const cTelephony = getCardByText("Telephony");
 
-      const origCols = Array.from(servicesGrid.querySelectorAll(".svc-col"));
+      const origCols = Array.from(servicesGrid.querySelectorAll<HTMLElement>(".svc-col"));
 
       const applyResponsiveServiceColumns = () => {
         if (window.innerWidth <= 960) {
