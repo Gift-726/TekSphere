@@ -300,25 +300,20 @@ export default function TekSpherePage() {
     revealEls.forEach((el) => io.observe(el));
 
     const parallaxContainers = document.querySelectorAll<HTMLElement>("[data-parallax], [data-stage]");
-    let cachedTx = 0;
-    let cachedTy = 0;
-    window.addEventListener("resize", () => {
-      cachedTx = 0;
-      cachedTy = 0;
-    }, { passive: true });
-
     const onScroll = () => {
       const nav = document.querySelector<HTMLElement>(".nav");
       if (nav) {
         if (window.scrollY > 20) {
           nav.classList.add("scrolled");
           // Force backdrop-filter via inline style — cannot be stripped by build tools
-          nav.style.setProperty("backdrop-filter", "blur(18px) saturate(140%)");
-          nav.style.setProperty("-webkit-backdrop-filter", "blur(18px) saturate(140%)");
+          nav.style.setProperty("backdrop-filter", "blur(18px) saturate(140%)", "important");
+          nav.style.setProperty("-webkit-backdrop-filter", "blur(18px) saturate(140%)", "important");
         } else {
           nav.classList.remove("scrolled");
-          nav.style.removeProperty("backdrop-filter");
-          nav.style.removeProperty("-webkit-backdrop-filter");
+          if (!nav.classList.contains("mobile-open")) {
+            nav.style.removeProperty("backdrop-filter");
+            nav.style.removeProperty("-webkit-backdrop-filter");
+          }
         }
       }
       parallaxContainers.forEach((container) => {
@@ -349,8 +344,7 @@ export default function TekSpherePage() {
 
       const introTrack = document.getElementById("heroScrollTrack");
       const rightCol = document.querySelector<HTMLElement>(".teksphere-hero-right");
-      // Scope query exactly inside rightCol to guarantee resolving the Hero wrapper uniquely during production optimization builds
-      const globeWrap = rightCol?.querySelector<HTMLElement>(".teksphere-globe-wrap");
+      const globeWrap = document.querySelector<HTMLElement>(".teksphere-globe-wrap");
       const heroCopyIntro = document.getElementById("heroCopyIntro");
 
       if (introTrack && rightCol && globeWrap) {
@@ -365,23 +359,20 @@ export default function TekSpherePage() {
           return;
         }
 
-        const isScrolled = window.scrollY > 10;
-        const weight = isScrolled ? 0 : 1;
+        const weight = window.scrollY > 30 ? 0 : 1;
 
+        const screenCenterX = window.innerWidth / 2;
+        // Shift target Y slightly upward to reduce gap beneath the navbar and prevent bottom vh overflow
+        const screenCenterY = (window.innerHeight / 2) + 35;
         const colRect = rightCol.getBoundingClientRect();
-        // Compute precise centering offsets exactly once when layout has stabilized. 
-        // This locks coordinates immutably so live scaling transitions never corrupt base offset variables during scrolling.
-        if (cachedTx === 0 && colRect.width > 50 && colRect.left > 50) {
-          const screenCenterX = window.innerWidth / 2;
-          const screenCenterY = (window.innerHeight / 2) + 35;
-          const colCenterX = colRect.left + colRect.width / 2;
-          const colCenterY = colRect.top + colRect.height / 2;
-          cachedTx = screenCenterX - colCenterX;
-          cachedTy = screenCenterY - colCenterY;
-        }
+        const colCenterX = colRect.left + colRect.width / 2;
+        const colCenterY = colRect.top + colRect.height / 2;
+
+        const neededTx = screenCenterX - colCenterX;
+        const neededTy = screenCenterY - colCenterY;
 
         // Apply a gentle 1.15x standalone scale so the base 580px globe displays majestically without exceeding screen vh bounds
-        globeWrap.style.transform = `translate3d(${cachedTx * weight}px, ${cachedTy * weight}px, 0) scale(${1 + 0.40 * weight})`;
+        globeWrap.style.transform = `translate3d(${neededTx * weight}px, ${neededTy * weight}px, 0) scale(${1 + 0.40 * weight})`;
         extraRotationSpeed = weight * 0.015;
 
         if (heroCopyIntro) {
@@ -419,9 +410,37 @@ export default function TekSpherePage() {
     const hamburgerBtn = document.getElementById("hamburgerBtn");
     const navEl = document.querySelector<HTMLElement>(".nav");
     if (hamburgerBtn && navEl) {
-      const toggleMenu = () => navEl.classList.toggle("mobile-open");
+      const toggleMenu = () => {
+        const isOpen = navEl.classList.toggle("mobile-open");
+        if (isOpen) {
+          navEl.style.setProperty("backdrop-filter", "blur(20px) saturate(140%)", "important");
+          navEl.style.setProperty("-webkit-backdrop-filter", "blur(20px) saturate(140%)", "important");
+          navEl.style.setProperty("background", "var(--glass-bg)", "important");
+        } else {
+          if (window.scrollY <= 20) {
+            navEl.style.removeProperty("backdrop-filter");
+            navEl.style.removeProperty("-webkit-backdrop-filter");
+            navEl.style.removeProperty("background");
+          } else {
+            navEl.style.setProperty("backdrop-filter", "blur(18px) saturate(140%)", "important");
+            navEl.style.setProperty("-webkit-backdrop-filter", "blur(18px) saturate(140%)", "important");
+            navEl.style.removeProperty("background");
+          }
+        }
+      };
       hamburgerBtn.addEventListener("click", toggleMenu);
-      const closeMenu = () => navEl.classList.remove("mobile-open");
+      const closeMenu = () => {
+        navEl.classList.remove("mobile-open");
+        if (window.scrollY <= 20) {
+          navEl.style.removeProperty("backdrop-filter");
+          navEl.style.removeProperty("-webkit-backdrop-filter");
+          navEl.style.removeProperty("background");
+        } else {
+          navEl.style.setProperty("backdrop-filter", "blur(18px) saturate(140%)", "important");
+          navEl.style.setProperty("-webkit-backdrop-filter", "blur(18px) saturate(140%)", "important");
+          navEl.style.removeProperty("background");
+        }
+      };
       navEl.querySelectorAll(".nav-links a").forEach((link) => {
         link.addEventListener("click", closeMenu);
       });
