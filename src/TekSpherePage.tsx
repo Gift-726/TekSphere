@@ -305,8 +305,13 @@ export default function TekSpherePage() {
       if (nav) {
         if (window.scrollY > 20) {
           nav.classList.add("scrolled");
+          // Force backdrop-filter via inline style — cannot be stripped by build tools
+          nav.style.setProperty("backdrop-filter", "blur(18px) saturate(140%)");
+          nav.style.setProperty("-webkit-backdrop-filter", "blur(18px) saturate(140%)");
         } else {
           nav.classList.remove("scrolled");
+          nav.style.removeProperty("backdrop-filter");
+          nav.style.removeProperty("-webkit-backdrop-filter");
         }
       }
       parallaxContainers.forEach((container) => {
