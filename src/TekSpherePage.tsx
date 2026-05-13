@@ -346,13 +346,9 @@ export default function TekSpherePage() {
       const heroCopyIntro = document.getElementById("heroCopyIntro");
 
       if (introTrack && rightCol && globeWrap) {
-        const tr = introTrack.getBoundingClientRect();
-        const maxScroll = tr.height - window.innerHeight;
-        const progress = maxScroll > 0 ? Math.max(0, Math.min(1, -tr.top / maxScroll)) : 1;
-        const dockedProgress = Math.min(1, progress * 1.15);
-
-        // Smooth cosine interpolation for buttery, ultra-graceful cinematic docking
-        const weight = 0.5 * (1 + Math.cos(dockedProgress * Math.PI));
+        // Immediate sharp threshold trigger: scrolling past 30px instantly transitions the globe to docked state
+        const isScrolled = window.scrollY > 30;
+        const weight = isScrolled ? 0 : 1;
 
         const screenCenterX = window.innerWidth / 2;
         // Shift target Y slightly upward to reduce gap beneath the navbar and prevent bottom vh overflow
