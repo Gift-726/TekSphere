@@ -62,6 +62,10 @@ export default function TekSpherePage() {
         button.classList.toggle("on", button.dataset.themeSet === (t.theme || "light"));
       });
 
+      document.querySelectorAll<HTMLImageElement>(".brand-logo").forEach((img) => {
+        img.src = t.theme === "dark" ? "/dark-logo.png" : "/Teksphere_Logo.png";
+      });
+
       const blurRange = document.getElementById("blurRange") as HTMLInputElement | null;
       const blurVal = document.getElementById("blurVal");
       if (blurRange) blurRange.value = String(t.blur ?? 18);
