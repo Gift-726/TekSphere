@@ -663,15 +663,74 @@
     <div class="mesh-blob mesh-1" style="top:-200px;left:-100px;"></div>
     <div class="mesh-blob mesh-2" style="bottom:-200px;right:-100px;"></div>
     <div class="grid-overlay" style="opacity:0.3;"></div>
-    <div style="position:relative;z-index:2;">
-      <span class="eyebrow" style="background: rgba(34,211,238,0.15); border-color: rgba(34,211,238,0.3); color: #22D3EE;">Get in Touch</span>
-      <h2 style="margin-top: 24px;">Ready to build the future with us?</h2>
-      <p>Let's discuss how TekSphere can help your business innovate, secure, and grow. Get in touch to discuss your next project.</p>
-      <form class="cta-form" id="ctaForm" onsubmit="return false;">
-        <input type="email" id="ctaEmail" placeholder="your@company.com" required />
-        <button type="submit" class="magnetic">Send message -&gt;</button>
+    <div style="position:relative;z-index:2;" class="cta-inner-container">
+      <div id="ctaIntroContent">
+        <span class="eyebrow" style="background: rgba(34,211,238,0.15); border-color: rgba(34,211,238,0.3); color: #22D3EE;">Get in Touch</span>
+        <h2 style="margin-top: 24px;">Ready to build the future with us?</h2>
+        <p>Let's discuss how TekSphere can help your business innovate, secure, and grow. Get in touch to discuss your next project.</p>
+        <form class="cta-form" id="ctaForm" onsubmit="return false;">
+          <input type="email" id="ctaEmail" placeholder="your@company.com" required />
+          <button type="submit" class="magnetic">Continue ➔</button>
+        </form>
+      </div>
+
+      <!-- Expanded Contact Form (Revealed on Continue) -->
+      <form class="cta-expanded-form" id="ctaExpandedForm" onsubmit="return false;">
+        <div class="form-header-title">
+          <h3>Send Us a Message</h3>
+          <p>Tell us what you need and we will respond quickly.</p>
+        </div>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="contactName">Full Name</label>
+            <input type="text" id="contactName" placeholder="Enter your full name" required />
+          </div>
+          <div class="form-group">
+            <label for="contactEmail">Email Address</label>
+            <input type="email" id="contactEmail" placeholder="Enter your email" required />
+          </div>
+          <div class="form-group">
+            <label for="contactCompany">Company Name (Optional)</label>
+            <input type="text" id="contactCompany" placeholder="Enter your company name" />
+          </div>
+          <div class="form-group">
+            <label for="contactPhone">Phone Number</label>
+            <input type="tel" id="contactPhone" placeholder="Enter your phone number" required />
+          </div>
+        </div>
+        <div class="form-group mt-3">
+          <label for="contactService">Service Needed</label>
+          <div class="select-wrapper">
+            <select id="contactService" required>
+              <option value="" disabled selected>Select a service</option>
+              <option value="IT Support Services">IT Support Services</option>
+              <option value="Enterprise Security Services">Enterprise Security Services</option>
+              <option value="Intelligent Building Solutions">Intelligent Building Solutions</option>
+              <option value="Network Solutions">Network Solutions</option>
+              <option value="Application Development Services">Application Development Services</option>
+              <option value="Telephony Solutions">Telephony Solutions</option>
+            </select>
+            <span class="select-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+          </div>
+        </div>
+        <div class="form-group mt-3">
+          <label for="contactMessage">Message</label>
+          <textarea id="contactMessage" rows="4" placeholder="Tell us about your project or requirements." required></textarea>
+        </div>
+        <div class="form-actions mt-4">
+          <button type="submit" class="btn-send magnetic">
+            Send Message
+            <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </button>
+        </div>
+
+        <!-- Success Confirmation Overlay -->
+        <div class="cta-ok" id="ctaOk">
+          <div class="success-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <h4>Message Sent Successfully</h4>
+          <p>Thank you for reaching out. One of our lead engineers will contact you shortly.</p>
+        </div>
       </form>
-      <div class="cta-ok" id="ctaOk">Thanks - we will respond quickly.</div>
     </div>
   </section>
 

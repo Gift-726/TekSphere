@@ -346,8 +346,8 @@ export default function TekSpherePage() {
         const weight = 0.5 * (1 + Math.cos(dockedProgress * Math.PI));
 
         const screenCenterX = window.innerWidth / 2;
-        // Shift target Y downward by 70px so the globe positions elegantly beneath the navbar
-        const screenCenterY = (window.innerHeight / 2) + 70;
+        // Shift target Y slightly upward to reduce gap beneath the navbar and prevent bottom vh overflow
+        const screenCenterY = (window.innerHeight / 2) + 35;
         const colRect = rightCol.getBoundingClientRect();
         const colCenterX = colRect.left + colRect.width / 2;
         const colCenterY = colRect.top + colRect.height / 2;
@@ -355,7 +355,8 @@ export default function TekSpherePage() {
         const neededTx = screenCenterX - colCenterX;
         const neededTy = screenCenterY - colCenterY;
 
-        globeWrap.style.transform = `translate3d(${neededTx * weight}px, ${neededTy * weight}px, 0) scale(${1 + 0.45 * weight})`;
+        // Apply a gentle 1.15x standalone scale so the base 580px globe displays majestically without exceeding screen vh bounds
+        globeWrap.style.transform = `translate3d(${neededTx * weight}px, ${neededTy * weight}px, 0) scale(${1 + 0.40 * weight})`;
         extraRotationSpeed = weight * 0.015;
 
         if (heroCopyIntro) {
@@ -397,13 +398,38 @@ export default function TekSpherePage() {
         const emailInput = document.getElementById("ctaEmail") as HTMLInputElement | null;
         const email = emailInput?.value ?? "";
         if (!email || !email.includes("@")) return;
-        if (emailInput) emailInput.value = "";
-        const ctaOk = document.getElementById("ctaOk");
-        ctaOk?.classList.add("show");
-        setTimeout(() => ctaOk?.classList.remove("show"), 4000);
+
+        const targetEmailInput = document.getElementById("contactEmail") as HTMLInputElement | null;
+        if (targetEmailInput) {
+          targetEmailInput.value = email;
+        }
+
+        const contactSec = document.getElementById("contact");
+        contactSec?.classList.add("expanded");
+
+        setTimeout(() => {
+          document.getElementById("contactName")?.focus();
+        }, 300);
       };
       ctaForm.addEventListener("submit", submitHandler);
       cleanups.push(() => ctaForm.removeEventListener("submit", submitHandler));
+    }
+
+    const ctaExpandedForm = document.getElementById("ctaExpandedForm") as HTMLFormElement | null;
+    if (ctaExpandedForm) {
+      const expandedSubmitHandler = (e: Event) => {
+        e.preventDefault();
+        const contactSec = document.getElementById("contact");
+        contactSec?.classList.add("submitted");
+        setTimeout(() => {
+          contactSec?.classList.remove("submitted", "expanded");
+          ctaExpandedForm.reset();
+          const origEmailInput = document.getElementById("ctaEmail") as HTMLInputElement | null;
+          if (origEmailInput) origEmailInput.value = "";
+        }, 6000);
+      };
+      ctaExpandedForm.addEventListener("submit", expandedSubmitHandler);
+      cleanups.push(() => ctaExpandedForm.removeEventListener("submit", expandedSubmitHandler));
     }
 
     const accordionHeaders = document.querySelectorAll<HTMLElement>(".svc-card-header");
