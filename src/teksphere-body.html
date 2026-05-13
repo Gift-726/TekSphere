@@ -2,10 +2,9 @@
 
   <!-- ================= NAV ================= -->
   <nav class="nav">
-    <div class="brand">
-      <div class="brand-mark"></div>
-      TekSphere
-    </div>
+    <a href="#" class="brand">
+      <img src="/Teksphere_Logo.png" alt="TekSphere Logo" class="brand-logo" />
+    </a>
     <div class="nav-links">
       <a href="#services">Solutions &amp; Services</a>
       <a href="#infra">Infrastructure</a>
@@ -19,73 +18,138 @@
   </nav>
 
   <!-- ================= HERO ================= -->
-  <section class="hero" data-parallax>
-    <div class="hero-bg">
-      <div class="grid-overlay"></div>
-      <div class="mesh-blob mesh-1" data-depth="0.15"></div>
-      <div class="mesh-blob mesh-2" data-depth="0.25"></div>
-      <div class="mesh-blob mesh-3" data-depth="0.1"></div>
-    </div>
-
-    <div class="wrap hero-grid">
-      <div class="hero-copy reveal-children">
-        <span class="eyebrow">INFRASTRUCTURE / CYBERSECURITY / SOFTWARE</span>
-        <h1 class="h-display" style="margin-top: 24px;">Engineering<br/><em>intelligent systems.</em><br/>Building the future.</h1>
-        <p class="lead" style="margin-top: 28px;">TekSphere delivers end-to-end technology solutions in infrastructure, cybersecurity, communications, and custom software, empowering businesses to scale securely and intelligently.</p>
-        <div class="hero-ctas">
-          <a href="#contact" class="btn btn-primary magnetic">
-            Start your project
-            <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </a>
-          <a href="#services" class="btn btn-ghost magnetic">
-            Explore solutions
-          </a>
+  <div class="hero-scroll-track" id="heroScrollTrack">
+    <div class="hero-sticky" id="heroSticky">
+      <section class="hero" data-parallax>
+        <div class="hero-bg">
+          <div class="grid-overlay"></div>
+          <div class="mesh-blob mesh-1" data-depth="0.15"></div>
+          <div class="mesh-blob mesh-2" data-depth="0.25"></div>
+          <div class="mesh-blob mesh-3" data-depth="0.1"></div>
         </div>
-        <div class="hero-meta">
-          <div class="stat"><div class="n">250+</div><div class="l">Projects delivered</div></div>
-          <div class="stat"><div class="n">98%</div><div class="l">Client satisfaction</div></div>
-          <div class="stat"><div class="n">24/7</div><div class="l">Support &amp; monitoring</div></div>
-        </div>
-      </div>
 
-      <!-- Rolling globe from tek-phi.vercel.app -->
-      <div class="teksphere-hero-right">
-        <div class="teksphere-globe-wrap">
-          <canvas id="teksphereGlobe" class="teksphere-globe-canvas showcases-canvas"></canvas>
-          <div class="teksphere-globe-center-text">TEKSPHERE</div>
-          <div class="orbit-ring" aria-hidden="true">
-            <svg class="orbit-svg" viewBox="0 0 300 300">
-              <defs>
-                <path id="teksOrbitPath" d="M 150,150 m -130,0 a 130,130 0 1,0 260,0 a 130,130 0 1,0 -260,0"></path>
-              </defs>
-              <text class="orbit-text">
-                <textPath href="#teksOrbitPath">Powering Business With Intelligent Technology / Powering Business With Intelligent Technology / Powering Business With Intelligent Technology / Powering Business With Intelligent Technology / </textPath>
-              </text>
-            </svg>
+        <div class="wrap hero-grid">
+          <div class="hero-copy" id="heroCopyIntro">
+            <!-- <span class="eyebrow">INFRASTRUCTURE / CYBERSECURITY / SOFTWARE</span> -->
+            <h1 class="h-display" style="margin-top: 24px;">Engineering<br/><em>intelligent systems.</em><br/>Building the future.</h1>
+            <p class="lead" style="margin-top: 28px;">TekSphere delivers end-to-end technology solutions in infrastructure, cybersecurity, communications, and custom software, empowering businesses to scale securely and intelligently.</p>
+            <div class="hero-ctas">
+              <a href="#contact" class="btn btn-primary magnetic">
+                Start your project
+                <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+              </a>
+              <a href="#services" class="btn btn-ghost magnetic">
+                Explore solutions
+              </a>
+            </div>
+            <div class="hero-meta">
+              <div class="stat"><div class="n">250+</div><div class="l">Projects delivered</div></div>
+              <div class="stat"><div class="n">98%</div><div class="l">Client satisfaction</div></div>
+              <div class="stat"><div class="n">24/7</div><div class="l">Support &amp; monitoring</div></div>
+            </div>
           </div>
-          <div class="showcase-default-label" style="position-anchor:--cobe-default-sf;opacity:var(--cobe-visible-default-sf, 0);filter:blur(var(--cobe-visible-default-sf, 10px))">Enterprise Infrastructure</div>
-          <div class="showcase-default-label" style="position-anchor:--cobe-default-tokyo;opacity:var(--cobe-visible-default-tokyo, 0);filter:blur(var(--cobe-visible-default-tokyo, 10px))">Application Development</div>
-          <div class="showcase-default-label" style="position-anchor:--cobe-default-sydney;opacity:var(--cobe-visible-default-sydney, 0);filter:blur(var(--cobe-visible-default-sydney, 10px))">Intelligent Building</div>
-          <div class="showcase-default-label" style="position-anchor:--cobe-default-capetown;opacity:var(--cobe-visible-default-capetown, 0);filter:blur(var(--cobe-visible-default-capetown, 10px))">Telephony Solutions</div>
-          <div class="showcase-default-label" style="position-anchor:--cobe-default-dubai;opacity:var(--cobe-visible-default-dubai, 0);filter:blur(var(--cobe-visible-default-dubai, 10px))">IT Support</div>
-          <div class="showcase-default-label" style="position-anchor:--cobe-default-paris;opacity:var(--cobe-visible-default-paris, 0);filter:blur(var(--cobe-visible-default-paris, 10px))">Enterprise Security</div>
+
+          <!-- Rolling globe from tek-phi.vercel.app -->
+          <!-- Layered UI stage -->
+          <div class="teksphere-hero-right">
+            <div class="teksphere-globe-wrap">
+              <canvas id="teksphereGlobe" class="teksphere-globe-canvas showcases-canvas"></canvas>
+              <div class="teksphere-globe-center-text">TEKSPHERE</div>
+              <div class="orbit-ring" aria-hidden="true">
+                <svg class="orbit-svg" viewBox="0 0 300 300">
+                  <defs>
+                    <path id="teksOrbitPath" d="M 150,150 m -130,0 a 130,130 0 1,0 260,0 a 130,130 0 1,0 -260,0"></path>
+                  </defs>
+                  <text class="orbit-text">
+                    <textPath href="#teksOrbitPath">Powering Business With Intelligent Technology / Powering Business With Intelligent Technology / Powering Business With Intelligent Technology / Powering Business With Intelligent Technology / </textPath>
+                  </text>
+                </svg>
+              </div>
+              <div class="showcase-default-label" style="position-anchor:--cobe-default-sf;opacity:var(--cobe-visible-default-sf, 0);filter:blur(var(--cobe-visible-default-sf, 10px))">Enterprise Infrastructure</div>
+              <div class="showcase-default-label" style="position-anchor:--cobe-default-tokyo;opacity:var(--cobe-visible-default-tokyo, 0);filter:blur(var(--cobe-visible-default-tokyo, 10px))">Application Development</div>
+              <div class="showcase-default-label" style="position-anchor:--cobe-default-sydney;opacity:var(--cobe-visible-default-sydney, 0);filter:blur(var(--cobe-visible-default-sydney, 10px))">Intelligent Building</div>
+              <div class="showcase-default-label" style="position-anchor:--cobe-default-capetown;opacity:var(--cobe-visible-default-capetown, 0);filter:blur(var(--cobe-visible-default-capetown, 10px))">Telephony Solutions</div>
+              <div class="showcase-default-label" style="position-anchor:--cobe-default-dubai;opacity:var(--cobe-visible-default-dubai, 0);filter:blur(var(--cobe-visible-default-dubai, 10px))">IT Support</div>
+              <div class="showcase-default-label" style="position-anchor:--cobe-default-paris;opacity:var(--cobe-visible-default-paris, 0);filter:blur(var(--cobe-visible-default-paris, 10px))">Enterprise Security</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ================= PARTNERS ================= -->
+  <section class="logos">
+    <div class="wrap">
+      <div class="logos-bar reveal">
+        <div class="logos-label">Our<br/>Partners</div>
+        <div class="logos-strip-container">
+          <div class="logos-strip">
+            <div class="logos-track">
+              <div class="logo-mark"><img src="/partner/Sophos.png" alt="Sophos" /></div>
+              <div class="logo-mark"><img src="/partner/bitdefender.png" alt="Bitdefender" /></div>
+              <div class="logo-mark"><img src="/partner/checkpoint.png" alt="Checkpoint" /></div>
+              <div class="logo-mark"><img src="/partner/cisco.png" alt="Cisco" /></div>
+              <div class="logo-mark"><img src="/partner/citirix.png" alt="Citrix" /></div>
+              <div class="logo-mark"><img src="/partner/dell.png" alt="Dell" /></div>
+              <div class="logo-mark"><img src="/partner/fortinet.png" alt="Fortinet" /></div>
+              <div class="logo-mark"><img src="/partner/globalscape.png" alt="Globalscape" /></div>
+              <div class="logo-mark"><img src="/partner/hp.png" alt="HP" /></div>
+              <div class="logo-mark"><img src="/partner/ibm.png" alt="IBM" /></div>
+              <div class="logo-mark"><img src="/partner/juniper.png" alt="Juniper" /></div>
+              <div class="logo-mark"><img src="/partner/microsoft.png" alt="Microsoft" /></div>
+              <div class="logo-mark"><img src="/partner/opengear-logo-e1594378054104.jpg" alt="Opengear" /></div>
+              <div class="logo-mark"><img src="/partner/oracle.png" alt="Oracle" /></div>
+              <div class="logo-mark"><img src="/partner/redhat.png" alt="RedHat" /></div>
+              <div class="logo-mark"><img src="/partner/rsa.png" alt="RSA" /></div>
+              <div class="logo-mark"><img src="/partner/symantec.png" alt="Symantec" /></div>
+              <div class="logo-mark"><img src="/partner/veritas.png" alt="Veritas" /></div>
+              <div class="logo-mark"><img src="/partner/vmware.png" alt="VMware" /></div>
+            </div>
+            <!-- Duplicated track for absolute mathematically bulletproof continuous marquee scrolling -->
+            <div class="logos-track" aria-hidden="true">
+              <div class="logo-mark"><img src="/partner/Sophos.png" alt="Sophos" /></div>
+              <div class="logo-mark"><img src="/partner/bitdefender.png" alt="Bitdefender" /></div>
+              <div class="logo-mark"><img src="/partner/checkpoint.png" alt="Checkpoint" /></div>
+              <div class="logo-mark"><img src="/partner/cisco.png" alt="Cisco" /></div>
+              <div class="logo-mark"><img src="/partner/citirix.png" alt="Citrix" /></div>
+              <div class="logo-mark"><img src="/partner/dell.png" alt="Dell" /></div>
+              <div class="logo-mark"><img src="/partner/fortinet.png" alt="Fortinet" /></div>
+              <div class="logo-mark"><img src="/partner/globalscape.png" alt="Globalscape" /></div>
+              <div class="logo-mark"><img src="/partner/hp.png" alt="HP" /></div>
+              <div class="logo-mark"><img src="/partner/ibm.png" alt="IBM" /></div>
+              <div class="logo-mark"><img src="/partner/juniper.png" alt="Juniper" /></div>
+              <div class="logo-mark"><img src="/partner/microsoft.png" alt="Microsoft" /></div>
+              <div class="logo-mark"><img src="/partner/opengear-logo-e1594378054104.jpg" alt="Opengear" /></div>
+              <div class="logo-mark"><img src="/partner/oracle.png" alt="Oracle" /></div>
+              <div class="logo-mark"><img src="/partner/redhat.png" alt="RedHat" /></div>
+              <div class="logo-mark"><img src="/partner/rsa.png" alt="RSA" /></div>
+              <div class="logo-mark"><img src="/partner/symantec.png" alt="Symantec" /></div>
+              <div class="logo-mark"><img src="/partner/veritas.png" alt="Veritas" /></div>
+              <div class="logo-mark"><img src="/partner/vmware.png" alt="VMware" /></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= LOGOS ================= -->
-  <section class="logos">
+  <!-- ================= CLIENTS ================= -->
+  <section class="clients-section reveal">
     <div class="wrap">
-      <div class="logos-bar reveal">
-        <div class="logos-label">Trusted by<br/>businesses across industries</div>
-        <div class="logos-strip">
-          <div class="logo-mark"><span class="m" style="border-radius:50%;"></span>Central Bank</div>
-          <div class="logo-mark"><span class="m"></span>Eni</div>
-          <div class="logo-mark"><span class="m" style="transform:rotate(45deg);"></span>First Bank</div>
-          <div class="logo-mark"><span class="m" style="border-radius:50%;"></span>FRCN</div>
-          <div class="logo-mark"><span class="m"></span>MTN</div>
-          <div class="logo-mark"><span class="m" style="border-radius:50%;"></span>UBA</div>
+      <div class="clients-bar">
+        <div class="clients-label">Trusted by<br/>these clients:</div>
+        <div class="clients-grid-container">
+          <div class="clients-grid">
+            <div class="client-card"><img src="/cbn-removebg-preview.png" alt="Central Bank of Nigeria" /></div>
+            <div class="client-card"><img src="/eni.png" alt="Eni" /></div>
+            <div class="client-card"><img src="/firstbank-removebg-preview.png" alt="First Bank" /></div>
+            <div class="client-card"><img src="/frcn-removebg-preview.png" alt="FRCN" /></div>
+            <div class="client-card"><img src="/mtn.png" alt="MTN" /></div>
+            <div class="client-card"><img src="/opay-removebg-preview.png" alt="OPay" /></div>
+            <div class="client-card"><img src="/opera-news-logo_-removebg-preview.png" alt="Opera News" /></div>
+            <div class="client-card"><img src="/uba.png" alt="UBA" /></div>
+          </div>
         </div>
       </div>
     </div>
@@ -103,48 +167,184 @@
         <p class="lead" style="color:#8A94A6; max-width: 380px;">From infrastructure to intelligent systems and custom software, we deliver end-to-end technology solutions that drive efficiency, security, and growth.</p>
       </div>
 
-      <div class="services-grid reveal-children" id="svcGrid">
-        <!-- Card 1 -->
-        <div class="svc tilt">
-          <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div>
-          <h3>IT Support Services</h3>
-          <p>Our IT Support services apply technology to drive business goals for greater efficiency and value. We handle outsourcing and consultancy services to help businesses concentrate on their core functions.</p>
-          <div class="tag">01 / SUPPORT</div>
+      <div class="services-grid reveal-children" id="svcAccordion">
+        <!-- Column 1 -->
+        <div class="svc-col">
+          <!-- Card 1 -->
+          <div class="svc-card tilt">
+            <div class="svc-card-header">
+              <div class="svc-card-top">
+                <div class="svc-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div>
+                <div class="svc-toggle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg></div>
+              </div>
+              <h3>IT Support Services</h3>
+            </div>
+            <div class="svc-card-excerpt">
+              <div class="svc-card-excerpt-inner">
+                <p>Our IT Support services apply technology to drive business goals for greater efficiency and value. We handle outsourcing and consultancy services to help businesses concentrate on their core functions.</p>
+              </div>
+            </div>
+            <div class="svc-card-body">
+              <div class="svc-card-inner">
+                <div class="svc-card-content">
+                  <p>It is tailored to meet the ‘how’, ‘when’ and ‘where’ needs of any organization to ensure optimized Return-On-Investment (ROI) and exceptional value to customers.</p>
+                  <p style="margin-top: 12px; color: var(--ink);"><strong>Core Focus Areas:</strong></p>
+                  <ul style="margin-top: 6px;">
+                    <li>Support and maintenance</li>
+                    <li>Outsourcing and Consultancy Services</li>
+                  </ul>
+                  <div class="tag">01 / SUPPORT</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Card 4 -->
+          <div class="svc-card tilt">
+            <div class="svc-card-header">
+              <div class="svc-card-top">
+                <div class="svc-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h14v6H5zM5 14h14v6H5z"/><path d="M8 7h.01M8 17h.01"/></svg></div>
+                <div class="svc-toggle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg></div>
+                
+              </div>
+              <h3>Network Solutions</h3>
+            </div>
+            <div class="svc-card-excerpt">
+              <div class="svc-card-excerpt-inner">
+                <p>Design, implementation, and support for Local and Wide Area Networks, Network Management, and IT Infrastructure Audit to ensure robust connectivity.</p>
+              </div>
+            </div>
+            <div class="svc-card-body">
+              <div class="svc-card-inner">
+                <div class="svc-card-content">
+                  <p>We build highly available and secure communication foundations tailored to support generic and specialized enterprise technology demands.</p>
+                  <p style="margin-top: 12px; color: var(--ink);"><strong>Specialized Coverage:</strong></p>
+                  <ul style="margin-top: 6px;">
+                    <li>Data Center &amp; Storage Solutions</li>
+                    <li>Unified Communications &amp; Audio-Visual</li>
+                    <li>Technical Outsourcing Services</li>
+                  </ul>
+                  <div class="tag">04 / NETWORK</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <!-- Card 2 -->
-        <div class="svc tilt">
-          <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
-          <h3>Enterprise Security Services</h3>
-          <p>We integrate information security systems with existing infrastructure, providing optimal protection from perimeter security to disaster recovery and centralized multi-factor authentication.</p>
-          <div class="tag">02 / SECURITY</div>
+
+        <!-- Column 2 -->
+        <div class="svc-col">
+          <!-- Card 2 -->
+          <div class="svc-card tilt">
+            <div class="svc-card-header">
+              <div class="svc-card-top">
+                <div class="svc-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
+                <div class="svc-toggle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg></div>
+              </div>
+              <h3>Enterprise Security Services</h3>
+            </div>
+            <div class="svc-card-excerpt">
+              <div class="svc-card-excerpt-inner">
+                <p>We integrate information security systems with existing infrastructure, providing optimal protection from perimeter security to disaster recovery and centralized multi-factor authentication.</p>
+              </div>
+            </div>
+            <div class="svc-card-body">
+              <div class="svc-card-inner">
+                <div class="svc-card-content">
+                  <p>From antivirus and content security software, data &amp; email encryption, to public key infrastructure technology; we offer comprehensive solutions businesses need for absolute protection.</p>
+                  <p style="margin-top: 12px;">Our suites of security solutions help customers leverage enterprise-class products to translate complex business and compliance requirements into functional reality.</p>
+                  <div class="tag">02 / SECURITY</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Card 5 -->
+          <div class="svc-card tilt">
+            <div class="svc-card-header">
+              <div class="svc-card-top">
+                <div class="svc-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/></svg></div>
+                <div class="svc-toggle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg></div>
+              </div>
+              <h3>Application Development Services</h3>
+            </div>
+            <div class="svc-card-excerpt">
+              <div class="svc-card-excerpt-inner">
+                <p>Design, development, and deployment of custom and generic software applications, focused on business process automation and systems integration.</p>
+              </div>
+            </div>
+            <div class="svc-card-body">
+              <div class="svc-card-inner">
+                <div class="svc-card-content">
+                  <p>Our engineering team builds scalable software architectures that streamline complex workflows, enable seamless collaboration, and unify enterprise data.</p>
+                  <p style="margin-top: 12px; color: var(--ink);"><strong>Key Capabilities:</strong></p>
+                  <ul style="margin-top: 6px;">
+                    <li>Line of Business Applications</li>
+                    <li>Workflow, Collaboration &amp; Portals</li>
+                  </ul>
+                  <div class="tag">05 / SOFTWARE</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <!-- Card 3 -->
-        <div class="svc tilt">
-          <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10l8-6 8 6v10"/><path d="M9 20v-6h6v6"/><circle cx="12" cy="11" r="0.8" fill="currentColor"/></svg></div>
-          <h3>Intelligent Building Solutions</h3>
-          <p>We design and implement fit-for-purpose electronic security solutions including Access Control, Video Surveillance (CCTV), and Building Management Systems.</p>
-          <div class="tag">03 / BUILDINGS</div>
-        </div>
-        <!-- Card 4 -->
-        <div class="svc tilt">
-          <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h14v6H5zM5 14h14v6H5z"/><path d="M8 7h.01M8 17h.01"/></svg></div>
-          <h3>Network Solutions</h3>
-          <p>Design, implementation, and support for Local and Wide Area Networks, Network Management, and IT Infrastructure Audit to ensure robust connectivity.</p>
-          <div class="tag">04 / NETWORK</div>
-        </div>
-        <!-- Card 5 -->
-        <div class="svc tilt">
-          <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/></svg></div>
-          <h3>Application Development Services</h3>
-          <p>Design, development, and deployment of custom and generic software applications, focused on business process automation and systems integration.</p>
-          <div class="tag">05 / SOFTWARE</div>
-        </div>
-        <!-- Card 6 -->
-        <div class="svc tilt">
-          <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 4l-4 8 4 8M16 4l4 8-4 8M14 2l-4 20"/></svg></div>
-          <h3>Telephony Solutions</h3>
-          <p>Integrated voice and communication systems including Video Conferencing, Multi-media Business Solutions, and Contact Centre Solutions.</p>
-          <div class="tag">06 / COMMS</div>
+
+        <!-- Column 3 -->
+        <div class="svc-col">
+          <!-- Card 3 -->
+          <div class="svc-card tilt">
+            <div class="svc-card-header">
+              <div class="svc-card-top">
+                <div class="svc-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10l8-6 8 6v10"/><path d="M9 20v-6h6v6"/><circle cx="12" cy="11" r="0.8" fill="currentColor"/></svg></div>
+                <div class="svc-toggle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg></div>
+              </div>
+              <h3>Intelligent Building Solutions</h3>
+            </div>
+            <div class="svc-card-excerpt">
+              <div class="svc-card-excerpt-inner">
+                <p>We design and implement fit-for-purpose electronic security solutions including Access Control, Video Surveillance (CCTV), and Building Management Systems.</p>
+              </div>
+            </div>
+            <div class="svc-card-body">
+              <div class="svc-card-inner">
+                <div class="svc-card-content">
+                  <p>As every facility has unique operational requirements, we deploy wide ranges of leading OEM products to deliver tailored, robust physical security architectures.</p>
+                  <p style="margin-top: 12px; color: var(--ink);"><strong>Our competencies include:</strong></p>
+                  <ul style="margin-top: 6px;">
+                    <li>Mustering and Evacuation Monitoring</li>
+                    <li>Intrusion Detection &amp; Visitor Management</li>
+                    <li>Time &amp; Attendance Solutions</li>
+                  </ul>
+                  <div class="tag">03 / BUILDINGS</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Card 6 -->
+          <div class="svc-card tilt">
+            <div class="svc-card-header">
+              <div class="svc-card-top">
+                <div class="svc-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 4l-4 8 4 8M16 4l4 8-4 8M14 2l-4 20"/></svg></div>
+                <div class="svc-toggle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg></div>
+              </div>
+              <h3>Telephony Solutions</h3>
+            </div>
+            <div class="svc-card-excerpt">
+              <div class="svc-card-excerpt-inner">
+                <p>Integrated voice and communication systems including Video Conferencing, Multi-media Business Solutions, and Contact Centre Solutions.</p>
+              </div>
+            </div>
+            <div class="svc-card-body">
+              <div class="svc-card-inner">
+                <div class="svc-card-content">
+                  <p>We deliver state-of-the-art multimedia interaction platforms designed to elevate customer engagement and streamline internal enterprise communication.</p>
+                  <p style="margin-top: 12px; color: var(--ink);"><strong>Solution Suites:</strong></p>
+                  <ul style="margin-top: 6px;">
+                    <li>Enterprise Video Collaboration</li>
+                    <li>Scalable Call Centre Infrastructure</li>
+                  </ul>
+                  <div class="tag">06 / COMMS</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -294,9 +494,22 @@
             </circle>
           </svg>
 
-          <div class="iso-node n-core">
-            <div class="ii"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg></div>
-            <div><div class="tt">TekSphere Delivery Hub</div><div class="ss">Integrated / active</div></div>
+          <div class="teksphere-globe-wrap" style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); z-index: 3; width: min(460px, 100%);">
+            <canvas id="teksphereGlobeInfra" class="teksphere-globe-canvas showcases-canvas"></canvas>
+            <div class="infra-globe-center-text">
+              <div class="hub-title">TekSphere Delivery Hub</div>
+              <div class="hub-status"><span class="status-dot"></span>Integrated / active</div>
+            </div>
+            <div class="orbit-ring" aria-hidden="true">
+              <svg class="orbit-svg" viewBox="0 0 300 300">
+                <defs>
+                  <path id="teksOrbitPath" d="M 150,150 m -130,0 a 130,130 0 1,0 260,0 a 130,130 0 1,0 -260,0"></path>
+                </defs>
+                <text class="orbit-text">
+                  <textPath href="#teksOrbitPath">Powering Business With Intelligent Technology / Powering Business With Intelligent Technology / Powering Business With Intelligent Technology / Powering Business With Intelligent Technology / </textPath>
+                </text>
+              </svg>
+            </div>
           </div>
 
           <div class="iso-node n-cctv pulse">
@@ -467,10 +680,9 @@
     <div class="wrap">
       <div class="footer-grid">
         <div class="footer-col">
-          <div class="brand" style="font-size: 18px;">
-            <div class="brand-mark"></div>
-            TekSphere
-          </div>
+          <a href="#" class="brand">
+            <img src="/Teksphere_Logo.png" alt="TekSphere Logo" class="brand-logo" />
+          </a>
           <p class="footer-brand-desc">We deliver intelligent technology solutions that empower businesses to operate smarter, secure data, and achieve sustainable growth.</p>
         </div>
         <div class="footer-col">

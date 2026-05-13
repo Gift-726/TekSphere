@@ -8,6 +8,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+  @font-face {
+    font-family: 'Departure Mono';
+    src: url('/DepartureMono-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
   :root {
     --bg: #F6F8FB;
     --bg-elev: #FFFFFF;
@@ -126,6 +134,12 @@
     background: linear-gradient(135deg, #0EA5E9, #22D3EE);
     border-radius: 2px;
     z-index: 1;
+  }
+  .brand-logo {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+    display: block;
   }
   .nav-links { display: flex; gap: 4px; margin-left: auto; }
   .nav-links a { font-size: 14px; color: var(--ink-2); padding: 8px 14px; border-radius: 100px; transition: background .2s, color .2s; }
@@ -333,26 +347,46 @@
   .orbit .node { fill: var(--accent); filter: drop-shadow(0 0 6px var(--accent)); }
 
   /* ---------- LOGOS ---------- */
-  .logos { padding: 60px 32px 40px; }
+  .logos { padding: 40px 32px; }
   .logos-bar {
     display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap;
-    padding: 28px 40px; border-radius: 24px;
-    background: var(--bg-elev);
-    border: 1px solid var(--line);
+    background: transparent;
+    border: none;
   }
-  [data-theme="dark"] .logos-bar { background: var(--bg-dark-elev); }
-  .logos-label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
-  .logos-strip { display: flex; gap: 48px; align-items: center; flex-wrap: wrap; flex: 1; justify-content: center; }
+  [data-theme="dark"] .logos-bar { background: transparent; }
+  .logos-label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); flex-shrink: 0; }
+  .logos-strip-container {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+  .logos-strip {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+    width: max-content;
+    animation: logos-scroll 40s linear infinite;
+  }
   .logo-mark {
-    display: flex; align-items: center; gap: 8px;
-    font-family: var(--serif); font-size: 18px; font-weight: 600; letter-spacing: -0.02em;
-    color: var(--muted); opacity: 0.7; transition: all .3s;
+    display: flex; align-items: center;
+    transition: all .3s;
+    flex-shrink: 0;
   }
-  .logo-mark:hover { opacity: 1; color: var(--ink); }
-  .logo-mark .m {
-    width: 20px; height: 20px; border-radius: 5px;
-    background: currentColor;
-    opacity: 0.7;
+  .logo-mark img {
+    height: 38px;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(1);
+    opacity: 0.65;
+    transition: filter 0.3s, opacity 0.3s, transform 0.3s;
+  }
+  .logo-mark:hover img { filter: grayscale(0) !important; opacity: 1 !important; transform: scale(1.08); }
+
+  @keyframes logos-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 
   /* ---------- SERVICES (dark section) ---------- */
@@ -673,10 +707,9 @@
 
   <!-- ================= NAV ================= -->
   <nav class="nav">
-    <div class="brand">
-      <div class="brand-mark"></div>
-      TekSphere
-    </div>
+    <a href="#" class="brand">
+      <img src="/Teksphere_Logo.png" alt="TekSphere Logo" class="brand-logo" />
+    </a>
     <div class="nav-links">
       <a href="#services">Services</a>
       <a href="#infra">Infrastructure</a>
@@ -830,18 +863,78 @@
     </div>
   </section>
 
-  <!-- ================= LOGOS ================= -->
+  <!-- ================= PARTNERS ================= -->
   <section class="logos">
     <div class="wrap">
       <div class="logos-bar reveal">
-        <div class="logos-label">Trusted by<br/>enterprise teams</div>
-        <div class="logos-strip">
-          <div class="logo-mark"><span class="m" style="border-radius:50%;"></span>Northbank</div>
-          <div class="logo-mark"><span class="m"></span>Meridian</div>
-          <div class="logo-mark"><span class="m" style="transform:rotate(45deg);"></span>Axonyx</div>
-          <div class="logo-mark"><span class="m" style="border-radius:50%;"></span>Helix Energy</div>
-          <div class="logo-mark"><span class="m"></span>Orbit Health</div>
-          <div class="logo-mark"><span class="m" style="border-radius:50%;"></span>Vanta Group</div>
+        <div class="logos-label">Our<br/>Partners</div>
+        <div class="logos-strip-container">
+          <div class="logos-strip">
+            <div class="logos-track">
+              <div class="logo-mark"><img src="/partner/Sophos.png" alt="Sophos" /></div>
+              <div class="logo-mark"><img src="/partner/bitdefender.png" alt="Bitdefender" /></div>
+              <div class="logo-mark"><img src="/partner/checkpoint.png" alt="Checkpoint" /></div>
+              <div class="logo-mark"><img src="/partner/cisco.png" alt="Cisco" /></div>
+              <div class="logo-mark"><img src="/partner/citirix.png" alt="Citrix" /></div>
+              <div class="logo-mark"><img src="/partner/dell.png" alt="Dell" /></div>
+              <div class="logo-mark"><img src="/partner/fortinet.png" alt="Fortinet" /></div>
+              <div class="logo-mark"><img src="/partner/globalscape.png" alt="Globalscape" /></div>
+              <div class="logo-mark"><img src="/partner/hp.png" alt="HP" /></div>
+              <div class="logo-mark"><img src="/partner/ibm.png" alt="IBM" /></div>
+              <div class="logo-mark"><img src="/partner/juniper.png" alt="Juniper" /></div>
+              <div class="logo-mark"><img src="/partner/microsoft.png" alt="Microsoft" /></div>
+              <div class="logo-mark"><img src="/partner/opengear-logo-e1594378054104.jpg" alt="Opengear" /></div>
+              <div class="logo-mark"><img src="/partner/oracle.png" alt="Oracle" /></div>
+              <div class="logo-mark"><img src="/partner/redhat.png" alt="RedHat" /></div>
+              <div class="logo-mark"><img src="/partner/rsa.png" alt="RSA" /></div>
+              <div class="logo-mark"><img src="/partner/symantec.png" alt="Symantec" /></div>
+              <div class="logo-mark"><img src="/partner/veritas.png" alt="Veritas" /></div>
+              <div class="logo-mark"><img src="/partner/vmware.png" alt="VMware" /></div>
+            </div>
+            <!-- Duplicated track for absolute mathematically bulletproof continuous marquee scrolling -->
+            <div class="logos-track" aria-hidden="true">
+              <div class="logo-mark"><img src="/partner/Sophos.png" alt="Sophos" /></div>
+              <div class="logo-mark"><img src="/partner/bitdefender.png" alt="Bitdefender" /></div>
+              <div class="logo-mark"><img src="/partner/checkpoint.png" alt="Checkpoint" /></div>
+              <div class="logo-mark"><img src="/partner/cisco.png" alt="Cisco" /></div>
+              <div class="logo-mark"><img src="/partner/citirix.png" alt="Citrix" /></div>
+              <div class="logo-mark"><img src="/partner/dell.png" alt="Dell" /></div>
+              <div class="logo-mark"><img src="/partner/fortinet.png" alt="Fortinet" /></div>
+              <div class="logo-mark"><img src="/partner/globalscape.png" alt="Globalscape" /></div>
+              <div class="logo-mark"><img src="/partner/hp.png" alt="HP" /></div>
+              <div class="logo-mark"><img src="/partner/ibm.png" alt="IBM" /></div>
+              <div class="logo-mark"><img src="/partner/juniper.png" alt="Juniper" /></div>
+              <div class="logo-mark"><img src="/partner/microsoft.png" alt="Microsoft" /></div>
+              <div class="logo-mark"><img src="/partner/opengear-logo-e1594378054104.jpg" alt="Opengear" /></div>
+              <div class="logo-mark"><img src="/partner/oracle.png" alt="Oracle" /></div>
+              <div class="logo-mark"><img src="/partner/redhat.png" alt="RedHat" /></div>
+              <div class="logo-mark"><img src="/partner/rsa.png" alt="RSA" /></div>
+              <div class="logo-mark"><img src="/partner/symantec.png" alt="Symantec" /></div>
+              <div class="logo-mark"><img src="/partner/veritas.png" alt="Veritas" /></div>
+              <div class="logo-mark"><img src="/partner/vmware.png" alt="VMware" /></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CLIENTS ================= -->
+  <section class="clients-section reveal">
+    <div class="wrap">
+      <div class="clients-bar">
+        <div class="clients-label">Trusted by<br/>these clients:</div>
+        <div class="clients-grid-container">
+          <div class="clients-grid">
+            <div class="client-card"><img src="/cbn-removebg-preview.png" alt="Central Bank of Nigeria" /></div>
+            <div class="client-card"><img src="/eni.png" alt="Eni" /></div>
+            <div class="client-card"><img src="/firstbank-removebg-preview.png" alt="First Bank" /></div>
+            <div class="client-card"><img src="/frcn-removebg-preview.png" alt="FRCN" /></div>
+            <div class="client-card"><img src="/mtn.png" alt="MTN" /></div>
+            <div class="client-card"><img src="/opay-removebg-preview.png" alt="OPay" /></div>
+            <div class="client-card"><img src="/opera-news-logo_-removebg-preview.png" alt="Opera News" /></div>
+            <div class="client-card"><img src="/uba.png" alt="UBA" /></div>
+          </div>
         </div>
       </div>
     </div>
@@ -1223,10 +1316,9 @@
     <div class="wrap">
       <div class="footer-grid">
         <div class="footer-col">
-          <div class="brand" style="font-size: 18px;">
-            <div class="brand-mark"></div>
-            TekSphere
-          </div>
+          <a href="#" class="brand">
+            <img src="/Teksphere_Logo.png" alt="TekSphere Logo" class="brand-logo" />
+          </a>
           <p class="footer-brand-desc">Engineering smart infrastructure, enterprise systems, and custom software for organizations that can't afford to stand still.</p>
         </div>
         <div class="footer-col">

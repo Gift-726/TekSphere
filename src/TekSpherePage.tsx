@@ -50,12 +50,13 @@ export default function TekSpherePage() {
   useEffect(() => {
     const root = document.documentElement;
     let currentTweaks = { ...TWEAK_DEFAULTS };
-    let applyGlobeTheme: (() => void) | null = null;
+    const globeThemeUpdaters: Array<() => void> = [];
+    const applyGlobeTheme = () => globeThemeUpdaters.forEach((fn) => fn());
 
     const applyTweaks = (t: Tweaks) => {
       root.setAttribute("data-theme", t.theme || "light");
       root.style.setProperty("--blur", `${t.blur ?? 18}px`);
-      applyGlobeTheme?.();
+      applyGlobeTheme();
 
       document.querySelectorAll<HTMLElement>("[data-theme-set]").forEach((button) => {
         button.classList.toggle("on", button.dataset.themeSet === (t.theme || "light"));
@@ -87,9 +88,12 @@ export default function TekSpherePage() {
     window.parent.postMessage({ type: "__edit_mode_available" }, "*");
 
     const cleanups: Array<() => void> = [];
+    let extraRotationSpeed = 0;
 
-    const globeCanvas = document.getElementById("teksphereGlobe") as HTMLCanvasElement | null;
-    if (globeCanvas) {
+    ["teksphereGlobe", "teksphereGlobeInfra"].forEach((canvasId) => {
+      const globeCanvas = document.getElementById(canvasId) as HTMLCanvasElement | null;
+      if (!globeCanvas) return;
+
       let currentPhi = 0;
       let currentTheta = 0.2;
       let targetPhi = 0;
@@ -141,10 +145,11 @@ export default function TekSpherePage() {
         })),
         ...getGlobeThemeOptions(),
       });
-      applyGlobeTheme = () => globe.update(getGlobeThemeOptions());
+      const updater = () => globe.update(getGlobeThemeOptions());
+      globeThemeUpdaters.push(updater);
 
       const animateGlobe = () => {
-        if (!isDragging) targetPhi += 0.003;
+        if (!isDragging) targetPhi += 0.003 + extraRotationSpeed;
 
         currentPhi += (targetPhi - currentPhi) * 0.08;
         currentTheta += (targetTheta - currentTheta) * 0.08;
@@ -184,12 +189,13 @@ export default function TekSpherePage() {
       cleanups.push(() => {
         cancelAnimationFrame(globeAnimationId);
         globe.destroy();
-        applyGlobeTheme = null;
+        const index = globeThemeUpdaters.indexOf(updater);
+        if (index > -1) globeThemeUpdaters.splice(index, 1);
         globeCanvas.removeEventListener("mousedown", handleMouseDown);
         document.removeEventListener("mousemove", handleMouseMove);
         document.removeEventListener("mouseup", handleMouseUp);
       });
-    }
+    });
 
     document.querySelectorAll<HTMLElement>("[data-theme-set]").forEach((button) => {
       const clickHandler = () => setTweak("theme", (button.dataset.themeSet as Tweaks["theme"]) || "light");
@@ -324,6 +330,41 @@ export default function TekSpherePage() {
           step.classList.toggle("active", tp > (i + 0.5) / 4);
         });
       }
+
+      const introTrack = document.getElementById("heroScrollTrack");
+      const rightCol = document.querySelector<HTMLElement>(".teksphere-hero-right");
+      const globeWrap = document.querySelector<HTMLElement>(".teksphere-globe-wrap");
+      const heroCopyIntro = document.getElementById("heroCopyIntro");
+
+      if (introTrack && rightCol && globeWrap) {
+        const tr = introTrack.getBoundingClientRect();
+        const maxScroll = tr.height - window.innerHeight;
+        const progress = maxScroll > 0 ? Math.max(0, Math.min(1, -tr.top / maxScroll)) : 1;
+        const dockedProgress = Math.min(1, progress * 1.15);
+
+        // Smooth cosine interpolation for buttery, ultra-graceful cinematic docking
+        const weight = 0.5 * (1 + Math.cos(dockedProgress * Math.PI));
+
+        const screenCenterX = window.innerWidth / 2;
+        // Shift target Y downward by 70px so the globe positions elegantly beneath the navbar
+        const screenCenterY = (window.innerHeight / 2) + 70;
+        const colRect = rightCol.getBoundingClientRect();
+        const colCenterX = colRect.left + colRect.width / 2;
+        const colCenterY = colRect.top + colRect.height / 2;
+
+        const neededTx = screenCenterX - colCenterX;
+        const neededTy = screenCenterY - colCenterY;
+
+        globeWrap.style.transform = `translate3d(${neededTx * weight}px, ${neededTy * weight}px, 0) scale(${1 + 0.45 * weight})`;
+        extraRotationSpeed = weight * 0.015;
+
+        if (heroCopyIntro) {
+          const easeIn = 1 - weight;
+          heroCopyIntro.style.opacity = String(easeIn);
+          heroCopyIntro.style.transform = `translate3d(0, ${weight * 40}px, 0)`;
+          heroCopyIntro.style.pointerEvents = easeIn > 0.5 ? "auto" : "none";
+        }
+      }
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
@@ -364,6 +405,34 @@ export default function TekSpherePage() {
       ctaForm.addEventListener("submit", submitHandler);
       cleanups.push(() => ctaForm.removeEventListener("submit", submitHandler));
     }
+
+    const accordionHeaders = document.querySelectorAll<HTMLElement>(".svc-card-header");
+    accordionHeaders.forEach((header) => {
+      const clickHandler = () => {
+        const card = header.closest(".svc-card");
+        if (!card) return;
+
+        const isActive = card.classList.contains("active");
+        const colWrapper = card.closest(".svc-col");
+
+        document.querySelectorAll(".svc-card").forEach((c) => {
+          c.classList.remove("active", "shrink");
+        });
+
+        if (!isActive) {
+          card.classList.add("active");
+          if (colWrapper) {
+            colWrapper.querySelectorAll(".svc-card").forEach((partner) => {
+              if (partner !== card) {
+                partner.classList.add("shrink");
+              }
+            });
+          }
+        }
+      };
+      header.addEventListener("click", clickHandler);
+      cleanups.push(() => header.removeEventListener("click", clickHandler));
+    });
 
     return () => {
       cancelAnimationFrame(rafId);

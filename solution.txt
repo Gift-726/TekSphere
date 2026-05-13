@@ -1,0 +1,67 @@
+Our Solutions and Services
+1. IT Support Services
+We handle outsourcing and consultancy services to help business concentrate on their core functions. Our IT Support services apply technology to drive an organization’s business goals for greater efficiency, Return-On-Investment (ROI) and value to customers. It is tailored to meet the ‘how’, ‘when’ and ‘where’ needs of any organization.
+
+It covers both:
+Support and maintenance
+Outsourcing and Consultancy Services
+
+2. Enterprise Security Services
+At TekSphere, we help our customers understand and integrate information security systems with existing infrastructure. We combine security solutions with consultancy services and processes to provide optimal protection for our clients valued asset - information. From antivirus and content security software, perimeter security, disaster recovery solutions, authentication systems for centralized multi factor authentication mechanism for enterprise networks and servers, data & email encryption and public key infrastructure technology; we offer solutions businesses need for protection.
+
+Our security solutions are diverse and aimed at addressing the needs of our customers. At TekSphere, we clearly understand the mandate to provide a secure infrastructure. Our suites of security solutions help our customers leverage enterprise class security products to translate business and compliance requirements into reality.
+
+3. Intelligent Building Solutions
+As each and every situation has its own unique requirements, we design and implement electronic security solutions from wide range of leading OEM products to offer “fit for purpose” solutions to our clients.
+
+Our expertise covers:
+
+Access Control System
+Video Surveillance System (CCTV)
+Building Management System
+Mustering and Evacuation Monitoring System
+Intrusion Detection System
+Time & Attendance Solution
+Visitors Management System
+
+4. Network Solutions
+This focuses on the design, implementation and support of following solutions and other specialized technology areas as may be required by the customer
+
+Local Area Networks
+Wide Area Networks
+Network and Information Security
+Network Management Solutions
+Audio-Visual (Video Collaboration Solutions)
+Unified Communications
+Servers and Storage Solutions
+Data Center Solutions
+Technical Outsourcing Services
+IT Infracstructure Audit
+5. Enterprise Infrastructure Solutions
+Our Enterprise Infrastructure Solutions service line focuses on procuring and implementing enterprise infrastructure solutions for Business Operations and Business Continuity & Security.
+
+It currently consists of the following business units/competencies:
+
+Enterprise Security Solution - Our focus here is on implementing software-based enterprise security solutions such as security architecture/policy design and implementation, Public Key Infrastructure, Directory Services etc.
+
+Enterprise Management Solutions – Our focus here is on implementing enterprise management solutions such as; Service Desk, VMware, Data Backup and Disaster Recovery Solutions.
+
+Software Infrastructure Solutions – Our focus here is on implementing software-based infrastructure solutions such as operating system (for the enterprise) and solutions for; Messaging, Document Management etc.
+
+6. Application Development Services
+Our application development service line focuses on the design, development and deployment of custom and generic software applications for organizations. It currently consists of the following business units/competencies:
+
+It currently consists of the following business units/competencies:
+
+Line of Business Applications – Our focus here is on developing custom and generic software applications to meet specific client needs and the Nigerian market in general.
+
+Business Process Automation and Systems Integration – The focus here is on developing business process improvement solutions based on workflow & collaboration and portal solutions.
+
+7. Telephony Solutions
+We design, implement and support the following Telephony Solutions
+
+Video and Conferencing Solution
+Multi-media Business Solution
+Contact Centre / Call Centre Solution
+
+now use the teksphere logo in the public folder, to replace the logo we have 
