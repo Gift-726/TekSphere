@@ -302,6 +302,11 @@ export default function TekSpherePage() {
     const parallaxContainers = document.querySelectorAll<HTMLElement>("[data-parallax], [data-stage]");
     let cachedTx = 0;
     let cachedTy = 0;
+    window.addEventListener("resize", () => {
+      cachedTx = 0;
+      cachedTy = 0;
+    }, { passive: true });
+
     const onScroll = () => {
       const nav = document.querySelector<HTMLElement>(".nav");
       if (nav) {
@@ -364,8 +369,9 @@ export default function TekSpherePage() {
         const weight = isScrolled ? 0 : 1;
 
         const colRect = rightCol.getBoundingClientRect();
-        // Capture non-zero valid DOM metrics to safeguard against hydration zero-measurements shifts in production builds
-        if (colRect.width > 50) {
+        // Compute precise centering offsets exactly once when layout has stabilized. 
+        // This locks coordinates immutably so live scaling transitions never corrupt base offset variables during scrolling.
+        if (cachedTx === 0 && colRect.width > 50 && colRect.left > 50) {
           const screenCenterX = window.innerWidth / 2;
           const screenCenterY = (window.innerHeight / 2) + 35;
           const colCenterX = colRect.left + colRect.width / 2;
