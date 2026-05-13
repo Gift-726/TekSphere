@@ -300,6 +300,8 @@ export default function TekSpherePage() {
     revealEls.forEach((el) => io.observe(el));
 
     const parallaxContainers = document.querySelectorAll<HTMLElement>("[data-parallax], [data-stage]");
+    let cachedTx = 0;
+    let cachedTy = 0;
     const onScroll = () => {
       const nav = document.querySelector<HTMLElement>(".nav");
       if (nav) {
@@ -342,7 +344,8 @@ export default function TekSpherePage() {
 
       const introTrack = document.getElementById("heroScrollTrack");
       const rightCol = document.querySelector<HTMLElement>(".teksphere-hero-right");
-      const globeWrap = document.querySelector<HTMLElement>(".teksphere-globe-wrap");
+      // Scope query exactly inside rightCol to guarantee resolving the Hero wrapper uniquely during production optimization builds
+      const globeWrap = rightCol?.querySelector<HTMLElement>(".teksphere-globe-wrap");
       const heroCopyIntro = document.getElementById("heroCopyIntro");
 
       if (introTrack && rightCol && globeWrap) {
@@ -357,21 +360,22 @@ export default function TekSpherePage() {
           return;
         }
 
-        const isScrolled = window.scrollY > 30;
+        const isScrolled = window.scrollY > 10;
         const weight = isScrolled ? 0 : 1;
 
-        const screenCenterX = window.innerWidth / 2;
-        // Shift target Y slightly upward to reduce gap beneath the navbar and prevent bottom vh overflow
-        const screenCenterY = (window.innerHeight / 2) + 35;
         const colRect = rightCol.getBoundingClientRect();
-        const colCenterX = colRect.left + colRect.width / 2;
-        const colCenterY = colRect.top + colRect.height / 2;
-
-        const neededTx = screenCenterX - colCenterX;
-        const neededTy = screenCenterY - colCenterY;
+        // Capture non-zero valid DOM metrics to safeguard against hydration zero-measurements shifts in production builds
+        if (colRect.width > 50) {
+          const screenCenterX = window.innerWidth / 2;
+          const screenCenterY = (window.innerHeight / 2) + 35;
+          const colCenterX = colRect.left + colRect.width / 2;
+          const colCenterY = colRect.top + colRect.height / 2;
+          cachedTx = screenCenterX - colCenterX;
+          cachedTy = screenCenterY - colCenterY;
+        }
 
         // Apply a gentle 1.15x standalone scale so the base 580px globe displays majestically without exceeding screen vh bounds
-        globeWrap.style.transform = `translate3d(${neededTx * weight}px, ${neededTy * weight}px, 0) scale(${1 + 0.40 * weight})`;
+        globeWrap.style.transform = `translate3d(${cachedTx * weight}px, ${cachedTy * weight}px, 0) scale(${1 + 0.40 * weight})`;
         extraRotationSpeed = weight * 0.015;
 
         if (heroCopyIntro) {
