@@ -1403,14 +1403,24 @@
 
   /* --- Global Tablet / Mobile Structure Adjustments --- */
   @media (max-width: 960px) {
-    .hero { padding: 140px 24px 30px; }
+    .hero-sticky {
+      align-items: flex-start !important;
+      overflow-y: auto !important;
+    }
+    .hero {
+      align-items: flex-start !important;
+      padding-top: 150px !important;
+      padding-bottom: 60px !important;
+      height: auto !important;
+      min-height: 100vh !important;
+    }
   }
   @media (max-width: 768px) {
     section { padding: 80px 20px; }
     .h-display { font-size: clamp(30px, 7vw, 44px); line-height: 1.05; }
     .h-section { font-size: clamp(26px, 6vw, 36px); line-height: 1.1; }
     .lead { font-size: 15.5px; }
-    .hero { padding: 130px 20px 30px; }
+    .hero { padding-top: 140px !important; }
     .hero-meta { gap: 20px; flex-wrap: wrap; }
     .hero-ctas { flex-direction: column; width: 100%; gap: 12px; }
     .hero-ctas .btn { width: 100%; justify-content: center; }
