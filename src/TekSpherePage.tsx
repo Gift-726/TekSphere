@@ -300,6 +300,7 @@ export default function TekSpherePage() {
     revealEls.forEach((el) => io.observe(el));
 
     const parallaxContainers = document.querySelectorAll<HTMLElement>("[data-parallax], [data-stage]");
+    let hasDockedGlobally = false;
     const onScroll = () => {
       const nav = document.querySelector<HTMLElement>(".nav");
       if (nav) {
@@ -346,9 +347,10 @@ export default function TekSpherePage() {
       const heroCopyIntro = document.getElementById("heroCopyIntro");
 
       if (introTrack && rightCol && globeWrap) {
-        // Immediate sharp threshold trigger: scrolling past 30px instantly transitions the globe to docked state
-        const isScrolled = window.scrollY > 30;
-        const weight = isScrolled ? 0 : 1;
+        if (window.scrollY > 30) {
+          hasDockedGlobally = true;
+        }
+        const weight = hasDockedGlobally ? 0 : 1;
 
         const screenCenterX = window.innerWidth / 2;
         // Shift target Y slightly upward to reduce gap beneath the navbar and prevent bottom vh overflow
