@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import createGlobe from "cobe";
 import bodyHtml from "./teksphere-body.html?raw";
 import "./teksphere.css";
@@ -47,7 +47,7 @@ const showcaseDefaultMarkers = [
 ];
 
 export default function TekSpherePage() {
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = document.documentElement;
     let currentTweaks = { ...TWEAK_DEFAULTS };
     const globeThemeUpdaters: Array<() => void> = [];
@@ -348,6 +348,15 @@ export default function TekSpherePage() {
       const heroCopyIntro = document.getElementById("heroCopyIntro");
 
       if (introTrack && rightCol && globeWrap) {
+        if (!globeWrap.dataset.initialized) {
+          globeWrap.style.transition = "none";
+          if (heroCopyIntro) heroCopyIntro.style.transition = "none";
+          globeWrap.dataset.initialized = "true";
+          setTimeout(() => {
+            globeWrap.style.transition = "";
+            if (heroCopyIntro) heroCopyIntro.style.transition = "";
+          }, 50);
+        }
         // Enforce pure static rendering with no transitioning on mobile and tablet viewports
         if (window.innerWidth <= 960) {
           globeWrap.style.transform = "none";
@@ -355,6 +364,10 @@ export default function TekSpherePage() {
             heroCopyIntro.style.opacity = "1";
             heroCopyIntro.style.transform = "none";
             heroCopyIntro.style.pointerEvents = "auto";
+          }
+          if (!rightCol.style.opacity || rightCol.style.opacity === "0") {
+            rightCol.style.opacity = "1";
+            rightCol.style.transition = "opacity 0.6s ease-out";
           }
           return;
         }
@@ -380,6 +393,11 @@ export default function TekSpherePage() {
           heroCopyIntro.style.opacity = String(easeIn);
           heroCopyIntro.style.transform = `translate3d(0, ${weight * 40}px, 0)`;
           heroCopyIntro.style.pointerEvents = easeIn > 0.5 ? "auto" : "none";
+        }
+        
+        if (!rightCol.style.opacity || rightCol.style.opacity === "0") {
+          rightCol.style.opacity = "1";
+          rightCol.style.transition = "opacity 0.6s ease-out";
         }
       }
     };

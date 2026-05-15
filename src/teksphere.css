@@ -264,6 +264,7 @@
     justify-content: center;
     position: relative;
     min-height: 480px;
+    opacity: 0;
   }
   .teksphere-globe-wrap {
     position: relative;
@@ -696,7 +697,11 @@
     height: 270px !important;
     flex: 0 0 270px !important;
   }
-  .svc-card.active, .svc-card.shrink {
+  .svc-card.active {
+    height: auto !important;
+    flex: 1 1 auto !important;
+  }
+  .svc-card.shrink {
     height: auto !important;
     flex: 0 0 auto !important;
   }
@@ -829,7 +834,7 @@
     border-color: rgba(34,211,238,0.3);
   }
   .svc-card.active .svc-toggle {
-    transform: rotate(180deg);
+    transform: rotate(-90deg);
     background: linear-gradient(135deg, #0EA5E9, #22D3EE);
     color: white;
     border-color: transparent;
@@ -1217,7 +1222,7 @@
   select:-webkit-autofill:hover,
   select:-webkit-autofill:focus {
     -webkit-text-fill-color: white !important;
-    -webkit-box-shadow: 0 0 0px 1000px #060A14 inset !important;
+    -webkit-box-shadow: 0 0 0px 1000px #0A1128 inset !important;
     transition: background-color 5000s ease-in-out 0s;
     border-radius: inherit !important;
   }
@@ -1497,7 +1502,7 @@
       display: flex !important;
       flex-direction: column !important;
       align-items: stretch !important;
-      gap: 20px !important;
+      gap: 10px !important;
     }
     .hero-copy {
       display: contents !important;
@@ -1507,7 +1512,7 @@
     .teksphere-hero-right {
       order: 3;
       min-height: 0 !important;
-      margin: 16px 0 !important;
+      margin: 1px 0 !important;
       width: 100%;
     }
     .teksphere-hero-right .teksphere-globe-wrap {
@@ -1523,7 +1528,7 @@
     .h-display { font-size: clamp(30px, 7vw, 44px); line-height: 1.05; }
     .h-section { font-size: clamp(26px, 6vw, 36px); line-height: 1.1; }
     .lead { font-size: 15.5px; }
-    .hero { padding-top: 140px !important; }
+    .hero { padding-top: 100px !important; }
     .hero-meta { gap: 20px; flex-wrap: wrap; }
     .hero-ctas { flex-direction: column; width: 100%; gap: 12px; }
     .hero-ctas .btn { width: 100%; justify-content: center; }
