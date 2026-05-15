@@ -245,6 +245,14 @@
     position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.55;
     animation: float 18s ease-in-out infinite;
   }
+  @media (max-width: 960px) {
+    body:not([data-theme="dark"]) .mesh-blob {
+      display: none;
+    }
+    body:not([data-theme="dark"]) .hero-bg {
+      background: linear-gradient(135deg, rgba(14,165,233,0.08) 0%, rgba(99,102,241,0.04) 100%);
+    }
+  }
   .mesh-1 { width: 620px; height: 620px; background: radial-gradient(circle, #22D3EE, transparent 70%); top: -120px; left: -120px; }
   .mesh-2 { width: 540px; height: 540px; background: radial-gradient(circle, #6366F1, transparent 70%); top: 40px; right: -120px; animation-delay: -6s; }
   .mesh-3 { width: 520px; height: 520px; background: radial-gradient(circle, #0EA5E9, transparent 70%); bottom: -160px; left: 30%; animation-delay: -12s; }
