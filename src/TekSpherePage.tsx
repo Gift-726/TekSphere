@@ -94,10 +94,11 @@ export default function TekSpherePage() {
     const cleanups: Array<() => void> = [];
     let extraRotationSpeed = 0;
 
-    ["teksphereGlobe", "teksphereGlobeInfra"].forEach((canvasId) => {
+    const initGlobeInstance = (canvasId: string, isLazy = false) => {
       const globeCanvas = document.getElementById(canvasId) as HTMLCanvasElement | null;
       if (!globeCanvas) return;
 
+      let globe: ReturnType<typeof createGlobe> | null = null;
       let currentPhi = 0;
       let currentTheta = 0.2;
       let targetPhi = 0;
@@ -106,6 +107,7 @@ export default function TekSpherePage() {
       let isDragging = false;
       let lastX = 0;
       let lastY = 0;
+      let isVisible = false;
 
       const clampTheta = (value: number) => Math.max(-0.65, Math.min(0.85, value));
       const getGlobeThemeOptions = () => {
@@ -132,33 +134,59 @@ export default function TekSpherePage() {
             };
       };
 
-      const size = globeCanvas.offsetWidth || 560;
-      const dpr = Math.min(window.devicePixelRatio || 1, window.innerWidth < 640 ? 1.8 : 2);
-      const globe = createGlobe(globeCanvas, {
-        devicePixelRatio: dpr,
-        width: size,
-        height: size,
-        phi: 0,
-        theta: 0.2,
-        mapSamples: 16000,
-        markerElevation: 0.01,
-        markers: showcaseDefaultMarkers.map((marker) => ({
-          location: marker.location,
-          size: 0.03,
-          id: marker.id,
-        })),
-        ...getGlobeThemeOptions(),
-      });
-      const updater = () => globe.update(getGlobeThemeOptions());
-      globeThemeUpdaters.push(updater);
-
       const animateGlobe = () => {
+        if (!isVisible || !globe) return;
         if (!isDragging) targetPhi += 0.003 + extraRotationSpeed;
 
         currentPhi += (targetPhi - currentPhi) * 0.08;
         currentTheta += (targetTheta - currentTheta) * 0.08;
         globe.update({ phi: currentPhi, theta: currentTheta });
         globeAnimationId = requestAnimationFrame(animateGlobe);
+      };
+
+      const startAnimation = () => {
+        if (!globeAnimationId && isVisible && globe) {
+          globeAnimationId = requestAnimationFrame(animateGlobe);
+        }
+      };
+
+      const stopAnimation = () => {
+        if (globeAnimationId) {
+          cancelAnimationFrame(globeAnimationId);
+          globeAnimationId = 0;
+        }
+      };
+
+      const create = () => {
+        if (globe) return;
+        const size = globeCanvas.offsetWidth || 560;
+        const dpr = Math.min(window.devicePixelRatio || 1, window.innerWidth < 640 ? 1.5 : 2);
+        globe = createGlobe(globeCanvas, {
+          devicePixelRatio: dpr,
+          width: size,
+          height: size,
+          phi: 0,
+          theta: 0.2,
+          mapSamples: 8500,
+          markerElevation: 0.01,
+          markers: showcaseDefaultMarkers.map((marker) => ({
+            location: marker.location,
+            size: 0.03,
+            id: marker.id,
+          })),
+          ...getGlobeThemeOptions(),
+        });
+
+        const updater = () => globe?.update(getGlobeThemeOptions());
+        globeThemeUpdaters.push(updater);
+
+        globeCanvas.style.opacity = "1";
+        startAnimation();
+
+        cleanups.push(() => {
+          const index = globeThemeUpdaters.indexOf(updater);
+          if (index > -1) globeThemeUpdaters.splice(index, 1);
+        });
       };
 
       const handleMouseDown = (event: MouseEvent) => {
@@ -184,22 +212,38 @@ export default function TekSpherePage() {
       globeCanvas.addEventListener("mousedown", handleMouseDown);
       document.addEventListener("mousemove", handleMouseMove);
       document.addEventListener("mouseup", handleMouseUp);
-      animateGlobe();
 
-      window.setTimeout(() => {
-        globeCanvas.style.opacity = "1";
-      });
+      const visibilityObserver = new IntersectionObserver(
+        (entries) => {
+          const entry = entries[0];
+          isVisible = entry.isIntersecting;
+          if (isVisible) {
+            if (!globe) create();
+            startAnimation();
+          } else {
+            stopAnimation();
+          }
+        },
+        { rootMargin: isLazy ? "200px" : "100px" }
+      );
+      visibilityObserver.observe(globeCanvas);
+
+      if (!isLazy) {
+        create();
+      }
 
       cleanups.push(() => {
-        cancelAnimationFrame(globeAnimationId);
-        globe.destroy();
-        const index = globeThemeUpdaters.indexOf(updater);
-        if (index > -1) globeThemeUpdaters.splice(index, 1);
+        visibilityObserver.disconnect();
+        stopAnimation();
+        globe?.destroy();
         globeCanvas.removeEventListener("mousedown", handleMouseDown);
         document.removeEventListener("mousemove", handleMouseMove);
         document.removeEventListener("mouseup", handleMouseUp);
       });
-    });
+    };
+
+    initGlobeInstance("teksphereGlobe", false);
+    initGlobeInstance("teksphereGlobeInfra", true);
 
     document.querySelectorAll<HTMLElement>("[data-theme-set]").forEach((button) => {
       const clickHandler = () => setTweak("theme", (button.dataset.themeSet as Tweaks["theme"]) || "light");
@@ -227,23 +271,33 @@ export default function TekSpherePage() {
     let cgTX = cgX;
     let cgTY = cgY;
     let rafId = 0;
-
-    const mouseTracker = (e: MouseEvent) => {
-      cgTX = e.clientX;
-      cgTY = e.clientY;
-    };
-    window.addEventListener("mousemove", mouseTracker);
+    let isTicking = false;
 
     const tickCg = () => {
-      cgX += (cgTX - cgX) * 0.12;
-      cgY += (cgTY - cgY) * 0.12;
+      const dx = cgTX - cgX;
+      const dy = cgTY - cgY;
+      cgX += dx * 0.12;
+      cgY += dy * 0.12;
       if (cursorGlow) {
         cursorGlow.style.left = `${cgX}px`;
         cursorGlow.style.top = `${cgY}px`;
       }
-      rafId = requestAnimationFrame(tickCg);
+      if (Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) {
+        rafId = requestAnimationFrame(tickCg);
+      } else {
+        isTicking = false;
+      }
     };
-    tickCg();
+
+    const mouseTracker = (e: MouseEvent) => {
+      cgTX = e.clientX;
+      cgTY = e.clientY;
+      if (!isTicking) {
+        isTicking = true;
+        rafId = requestAnimationFrame(tickCg);
+      }
+    };
+    window.addEventListener("mousemove", mouseTracker, { passive: true });
 
     document.querySelectorAll<HTMLElement>(".magnetic").forEach((el) => {
       const onMove = (e: MouseEvent) => {
