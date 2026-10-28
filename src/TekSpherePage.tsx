@@ -9,7 +9,7 @@ type Tweaks = {
 };
 
 const TWEAK_DEFAULTS: Tweaks = {
-  theme: "dark",
+  theme: "light",
   blur: 18,
 };
 
