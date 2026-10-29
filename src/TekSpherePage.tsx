@@ -3,671 +3,540 @@ import createGlobe from "cobe";
 import bodyHtml from "./teksphere-body.html?raw";
 import "./teksphere.css";
 
-type Tweaks = {
-  theme: "light" | "dark";
-  blur: number;
+type Theme = "light" | "dark";
+type RGB = [number, number, number];
+
+
+// Each service label in the hero is wired to a point on the globe.
+const SERVICE_POINTS: Record<string, [number, number]> = {
+  support: [52, -14],
+  network: [26, -32],
+  software: [-22, -16],
+  security: [54, 38],
+  infra: [30, 50],
+  building: [-6, 48],
+  telephony: [-30, 30],
+};
+const MARKER_ELEVATION = 0.02;
+
+const toRad = (deg: number) => (deg * Math.PI) / 180;
+const CENTER_LON = 14;
+// cobe's convention for bringing a longitude to the front of the globe
+const PHI_CENTER = Math.PI - (toRad(CENTER_LON) - Math.PI / 2);
+const THETA_CENTER = 0.26;
+
+// Mirrors cobe's own marker projection so connector lines land exactly on the dots.
+const project = (lat: number, lon: number, phi: number, theta: number) => {
+  const r = toRad(lat);
+  const a = toRad(lon) - Math.PI;
+  const o = Math.cos(r);
+  const k = 0.8 + MARKER_ELEVATION;
+  const x = -o * Math.cos(a) * k;
+  const y = Math.sin(r) * k;
+  const z = o * Math.sin(a) * k;
+  const cosT = Math.cos(theta);
+  const sinT = Math.sin(theta);
+  const cosP = Math.cos(phi);
+  const sinP = Math.sin(phi);
+  const c = cosP * x + sinP * z;
+  const s = sinP * sinT * x + cosT * y - cosP * sinT * z;
+  const depth = -sinP * cosT * x + sinT * y + cosP * cosT * z;
+  return { x: (c + 1) / 2, y: (-s + 1) / 2, front: depth };
 };
 
-const TWEAK_DEFAULTS: Tweaks = {
-  theme: "light",
-  blur: 18,
-};
-
-const showcaseDefaultMarkers = [
-  {
-    id: "default-sf",
-    location: [37.7595, -122.4367] as [number, number],
-    label: "Enterprise Infrastructure",
-  },
-  {
-    id: "default-tokyo",
-    location: [35.6762, 139.6503] as [number, number],
-    label: "Application Development",
-  },
-  {
-    id: "default-sydney",
-    location: [-33.8688, 151.2093] as [number, number],
-    label: "Intelligent Building",
-  },
-  {
-    id: "default-capetown",
-    location: [-33.9249, 18.4241] as [number, number],
-    label: "Telephony Solutions",
-  },
-  {
-    id: "default-dubai",
-    location: [25.2048, 55.2708] as [number, number],
-    label: "IT Support",
-  },
-  {
-    id: "default-paris",
-    location: [48.8566, 2.3522] as [number, number],
-    label: "Enterprise Security",
-  },
-];
+const prefersReducedMotion = () =>
+  window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
 
 export default function TekSpherePage() {
   useLayoutEffect(() => {
     const root = document.documentElement;
-    let currentTweaks = { ...TWEAK_DEFAULTS };
-    const globeThemeUpdaters: Array<() => void> = [];
-    const applyGlobeTheme = () => globeThemeUpdaters.forEach((fn) => fn());
-
-    const applyTweaks = (t: Tweaks) => {
-      root.setAttribute("data-theme", t.theme || "light");
-      root.style.setProperty("--blur", `${t.blur ?? 18}px`);
-      applyGlobeTheme();
-
-      document.querySelectorAll<HTMLElement>("[data-theme-set]").forEach((button) => {
-        button.classList.toggle("on", button.dataset.themeSet === (t.theme || "light"));
-      });
-
-      document.querySelectorAll<HTMLImageElement>(".brand-logo").forEach((img) => {
-        img.src = t.theme === "dark" ? "/dark-logo.png" : "/Teksphere_Logo.png";
-      });
-
-      const blurRange = document.getElementById("blurRange") as HTMLInputElement | null;
-      const blurVal = document.getElementById("blurVal");
-      if (blurRange) blurRange.value = String(t.blur ?? 18);
-      if (blurVal) blurVal.textContent = `${t.blur ?? 18}px`;
-    };
-
-    const setTweak = (key: keyof Tweaks, value: Tweaks[keyof Tweaks]) => {
-      currentTweaks = { ...currentTweaks, [key]: value } as Tweaks;
-      applyTweaks(currentTweaks);
-      window.parent.postMessage({ type: "__edit_mode_set_keys", edits: { [key]: value } }, "*");
-    };
-
-    applyTweaks(currentTweaks);
-
-    const messageHandler = (e: MessageEvent) => {
-      if (!e.data || typeof e.data !== "object") return;
-      if (e.data.type === "__activate_edit_mode") {
-        document.getElementById("tweaksPanel")?.classList.add("on");
-      } else if (e.data.type === "__deactivate_edit_mode") {
-        document.getElementById("tweaksPanel")?.classList.remove("on");
-      }
-    };
-    window.addEventListener("message", messageHandler);
-    window.parent.postMessage({ type: "__edit_mode_available" }, "*");
-
     const cleanups: Array<() => void> = [];
-    let extraRotationSpeed = 0;
+    const on = <K extends keyof WindowEventMap>(
+      target: Window | Document | HTMLElement,
+      type: K | string,
+      handler: EventListenerOrEventListenerObject,
+      options?: AddEventListenerOptions,
+    ) => {
+      target.addEventListener(type, handler, options);
+      cleanups.push(() => target.removeEventListener(type, handler, options));
+    };
 
-    const initGlobeInstance = (canvasId: string, isLazy = false) => {
-      const globeCanvas = document.getElementById(canvasId) as HTMLCanvasElement | null;
-      if (!globeCanvas) return;
+    /* ---------------- Theme ---------------- */
+    const globeThemeUpdaters: Array<() => void> = [];
+    let theme: Theme = "light";
+
+    const applyTheme = (next: Theme) => {
+      theme = next;
+      root.setAttribute("data-theme", next);
+      document.querySelectorAll<HTMLImageElement>(".brand-logo").forEach((img) => {
+        img.src = next === "dark" ? "/dark-logo.png" : "/Teksphere_Logo.png";
+      });
+      globeThemeUpdaters.forEach((fn) => fn());
+    };
+    applyTheme(theme);
+
+    const themeBtn = document.getElementById("themeBtn");
+    if (themeBtn) {
+      on(themeBtn, "click", () => {
+        const next: Theme = theme === "light" ? "dark" : "light";
+        applyTheme(next);
+      });
+    }
+
+    /* ---------------- Globes ---------------- */
+    const globeColors = (): {
+      dark: number;
+      diffuse: number;
+      mapBrightness: number;
+      baseColor: RGB;
+      markerColor: RGB;
+      glowColor: RGB;
+    } =>
+      root.getAttribute("data-theme") === "dark"
+        ? {
+            dark: 1,
+            diffuse: 1.4,
+            mapBrightness: 5.5,
+            baseColor: [0.2, 0.28, 0.48],
+            markerColor: [0.48, 0.66, 1],
+            glowColor: [0.1, 0.16, 0.32],
+          }
+        : {
+            dark: 0,
+            diffuse: 1.25,
+            mapBrightness: 5,
+            baseColor: [0.96, 0.97, 1],
+            markerColor: [0.12, 0.36, 0.85],
+            glowColor: [0.9, 0.93, 1],
+          };
+
+    type GlobeConfig = {
+      canvasId: string;
+      interactive: boolean;
+      speed: number; // steady spin, radians per second
+      markers: boolean;
+      onFrame?: (phi: number, theta: number, dt: number) => void;
+      register?: (api: { focus: (lon: number | null) => void }) => void;
+    };
+
+    const initGlobe = ({ canvasId, interactive, speed, markers, onFrame, register }: GlobeConfig) => {
+      const canvas = document.getElementById(canvasId) as HTMLCanvasElement | null;
+      if (!canvas) return;
 
       let globe: ReturnType<typeof createGlobe> | null = null;
-      let currentPhi = 0;
-      let currentTheta = 0.2;
-      let targetPhi = 0;
-      let targetTheta = 0.2;
-      let globeAnimationId = 0;
-      let isDragging = false;
+      let frame = 0;
+      let visible = false;
+      let last = 0;
+      let phi = PHI_CENTER;
+      let theta = THETA_CENTER;
+      let thetaTarget = THETA_CENTER;
+      let velocity = 0; // radians per second
+      let dragging = false;
       let lastX = 0;
       let lastY = 0;
-      let isVisible = false;
+      let lastMoveTime = 0;
+      let focusPhi: number | null = null;
+      const autoSpeed = prefersReducedMotion() ? 0 : speed;
+      velocity = autoSpeed;
 
-      const clampTheta = (value: number) => Math.max(-0.65, Math.min(0.85, value));
-      const getGlobeThemeOptions = () => {
-        const isDark = root.getAttribute("data-theme") === "dark";
-
-        return isDark
-          ? {
-              dark: 1,
-              diffuse: 1.25,
-              mapBrightness: 6,
-              baseColor: [0.08, 0.13, 0.24] as [number, number, number],
-              markerColor: [0.45, 0.72, 1] as [number, number, number],
-              glowColor: [0.05, 0.12, 0.26] as [number, number, number],
-              opacity: 0.9,
-            }
-          : {
-              dark: 0,
-              diffuse: 1.5,
-              mapBrightness: 10,
-              baseColor: [1, 1, 1] as [number, number, number],
-              markerColor: [0.3, 0.45, 0.85] as [number, number, number],
-              glowColor: [0.94, 0.93, 0.91] as [number, number, number],
-              opacity: 0.7,
-            };
+      const size = () => {
+        const width = canvas.offsetWidth || 480;
+        const dpr = Math.min(window.devicePixelRatio || 1, window.innerWidth < 640 ? 1.5 : 2);
+        return { width, height: width, dpr };
       };
 
-      const animateGlobe = () => {
-        if (!isVisible || !globe) return;
-        if (!isDragging) targetPhi += 0.003 + extraRotationSpeed;
+      const tick = (now: number) => {
+        frame = 0;
+        if (!globe || !visible) return;
+        const dt = Math.min(last ? now - last : 16, 64) / 1000;
+        last = now;
 
-        currentPhi += (targetPhi - currentPhi) * 0.08;
-        currentTheta += (targetTheta - currentTheta) * 0.08;
-        globe.update({ phi: currentPhi, theta: currentTheta });
-        globeAnimationId = requestAnimationFrame(animateGlobe);
+        if (!dragging) {
+          if (focusPhi !== null) {
+            // turn the shortest way round to face the hovered service
+            const diff = Math.atan2(Math.sin(focusPhi - phi), Math.cos(focusPhi - phi));
+            const step = diff * (1 - Math.pow(0.02, dt));
+            phi += step;
+            velocity = step / Math.max(dt, 0.001);
+          } else {
+            // fling momentum settles back to the steady spin
+            velocity += (autoSpeed - velocity) * (1 - Math.pow(0.25, dt));
+            phi += velocity * dt;
+          }
+          thetaTarget += (THETA_CENTER - thetaTarget) * (1 - Math.pow(0.3, dt));
+        }
+        theta += (thetaTarget - theta) * (1 - Math.pow(0.0005, dt));
+        globe.update({ phi, theta });
+        onFrame?.(phi, theta, dt * 1000);
+        frame = requestAnimationFrame(tick);
       };
 
-      const startAnimation = () => {
-        if (!globeAnimationId && isVisible && globe) {
-          globeAnimationId = requestAnimationFrame(animateGlobe);
+      register?.({
+        focus: (lon: number | null) => {
+          focusPhi = lon === null ? null : Math.PI - (toRad(lon) - Math.PI / 2);
+        },
+      });
+
+      const start = () => {
+        if (!frame && globe && visible) {
+          last = 0;
+          frame = requestAnimationFrame(tick);
         }
       };
-
-      const stopAnimation = () => {
-        if (globeAnimationId) {
-          cancelAnimationFrame(globeAnimationId);
-          globeAnimationId = 0;
-        }
+      const stop = () => {
+        if (frame) cancelAnimationFrame(frame);
+        frame = 0;
       };
 
       const create = () => {
         if (globe) return;
-        const size = globeCanvas.offsetWidth || 560;
-        const dpr = Math.min(window.devicePixelRatio || 1, window.innerWidth < 640 ? 1.5 : 2);
-        globe = createGlobe(globeCanvas, {
+        const { width, height, dpr } = size();
+        globe = createGlobe(canvas, {
           devicePixelRatio: dpr,
-          width: size,
-          height: size,
-          phi: 0,
-          theta: 0.2,
-          mapSamples: 8500,
-          markerElevation: 0.01,
-          markers: showcaseDefaultMarkers.map((marker) => ({
-            location: marker.location,
-            size: 0.03,
-            id: marker.id,
-          })),
-          ...getGlobeThemeOptions(),
+          width,
+          height,
+          phi,
+          theta,
+          mapSamples: 16000,
+          markerElevation: MARKER_ELEVATION,
+          markers: markers ? Object.values(SERVICE_POINTS).map((location) => ({ location, size: 0.035 })) : [],
+          ...globeColors(),
         });
-
-        const updater = () => globe?.update(getGlobeThemeOptions());
-        globeThemeUpdaters.push(updater);
-
-        globeCanvas.style.opacity = "1";
-        startAnimation();
-
-        cleanups.push(() => {
-          const index = globeThemeUpdaters.indexOf(updater);
-          if (index > -1) globeThemeUpdaters.splice(index, 1);
-        });
+        globeThemeUpdaters.push(() => globe?.update(globeColors()));
+        canvas.style.opacity = "1";
+        start();
       };
 
-      const handleMouseDown = (event: MouseEvent) => {
-        isDragging = true;
-        lastX = event.clientX;
-        lastY = event.clientY;
-      };
-
-      const handleMouseMove = (event: MouseEvent) => {
-        if (!isDragging) return;
-        const deltaX = event.clientX - lastX;
-        const deltaY = event.clientY - lastY;
-        targetPhi += deltaX * 0.01;
-        targetTheta = clampTheta(targetTheta + deltaY * 0.01);
-        lastX = event.clientX;
-        lastY = event.clientY;
-      };
-
-      const handleMouseUp = () => {
-        isDragging = false;
-      };
-
-      globeCanvas.addEventListener("mousedown", handleMouseDown);
-      document.addEventListener("mousemove", handleMouseMove);
-      document.addEventListener("mouseup", handleMouseUp);
-
-      const visibilityObserver = new IntersectionObserver(
-        (entries) => {
-          const entry = entries[0];
-          isVisible = entry.isIntersecting;
-          if (isVisible) {
-            if (!globe) create();
-            startAnimation();
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          visible = entry.isIntersecting;
+          if (visible) {
+            create();
+            start();
           } else {
-            stopAnimation();
+            stop();
           }
         },
-        { rootMargin: isLazy ? "200px" : "100px" }
+        { rootMargin: "150px" },
       );
-      visibilityObserver.observe(globeCanvas);
+      observer.observe(canvas);
 
-      if (!isLazy) {
-        create();
+      const resizeObserver = new ResizeObserver(() => {
+        if (!globe) return;
+        const { width, height } = size();
+        globe.update({ width, height });
+      });
+      resizeObserver.observe(canvas);
+
+      if (interactive) {
+        on(canvas, "pointerdown", (event) => {
+          const e = event as PointerEvent;
+          dragging = true;
+          focusPhi = null;
+          lastX = e.clientX;
+          lastY = e.clientY;
+          lastMoveTime = performance.now();
+          velocity = 0;
+          canvas.classList.add("grabbing");
+        });
+        on(window, "pointermove", (event) => {
+          if (!dragging) return;
+          const e = event as PointerEvent;
+          const now = performance.now();
+          const dx = (e.clientX - lastX) * 0.007;
+          phi += dx;
+          thetaTarget = Math.max(-0.6, Math.min(0.9, thetaTarget + (e.clientY - lastY) * 0.005));
+          const dt = Math.max(now - lastMoveTime, 1) / 1000;
+          velocity = velocity * 0.6 + (dx / dt) * 0.4;
+          lastX = e.clientX;
+          lastY = e.clientY;
+          lastMoveTime = now;
+        }, { passive: true });
+        const end = () => {
+          if (!dragging) return;
+          dragging = false;
+          canvas.classList.remove("grabbing");
+          if (performance.now() - lastMoveTime > 80) velocity = 0; // held still: no fling
+          velocity = Math.max(-8, Math.min(8, velocity));
+        };
+        on(window, "pointerup", end);
+        on(window, "pointercancel", end);
       }
 
       cleanups.push(() => {
-        visibilityObserver.disconnect();
-        stopAnimation();
+        observer.disconnect();
+        resizeObserver.disconnect();
+        stop();
         globe?.destroy();
-        globeCanvas.removeEventListener("mousedown", handleMouseDown);
-        document.removeEventListener("mousemove", handleMouseMove);
-        document.removeEventListener("mouseup", handleMouseUp);
+        globe = null;
       });
     };
 
-    initGlobeInstance("teksphereGlobe", false);
-    initGlobeInstance("teksphereGlobeInfra", true);
-
-    document.querySelectorAll<HTMLElement>("[data-theme-set]").forEach((button) => {
-      const clickHandler = () => setTweak("theme", (button.dataset.themeSet as Tweaks["theme"]) || "light");
-      button.addEventListener("click", clickHandler);
-      cleanups.push(() => button.removeEventListener("click", clickHandler));
-    });
-
-    const themeBtn = document.getElementById("themeBtn");
-    if (themeBtn) {
-      const clickHandler = () => setTweak("theme", currentTweaks.theme === "light" ? "dark" : "light");
-      themeBtn.addEventListener("click", clickHandler);
-      cleanups.push(() => themeBtn.removeEventListener("click", clickHandler));
-    }
-
-    const blurRange = document.getElementById("blurRange") as HTMLInputElement | null;
-    if (blurRange) {
-      const inputHandler = (e: Event) => setTweak("blur", Number((e.target as HTMLInputElement).value));
-      blurRange.addEventListener("input", inputHandler);
-      cleanups.push(() => blurRange.removeEventListener("input", inputHandler));
-    }
-
-    const cursorGlow = document.getElementById("cg") as HTMLDivElement | null;
-    let cgX = window.innerWidth / 2;
-    let cgY = window.innerHeight / 2;
-    let cgTX = cgX;
-    let cgTY = cgY;
-    let rafId = 0;
-    let isTicking = false;
-
-    const tickCg = () => {
-      const dx = cgTX - cgX;
-      const dy = cgTY - cgY;
-      cgX += dx * 0.12;
-      cgY += dy * 0.12;
-      if (cursorGlow) {
-        cursorGlow.style.left = `${cgX}px`;
-        cursorGlow.style.top = `${cgY}px`;
-      }
-      if (Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) {
-        rafId = requestAnimationFrame(tickCg);
-      } else {
-        isTicking = false;
-      }
+    /* ---------------- Hero connectors: service labels -> points on the globe ---------------- */
+    const stage = document.getElementById("heroStage");
+    const connectorSvg = document.getElementById("heroConnectors");
+    const heroCanvas = document.getElementById("teksphereGlobe");
+    const labels = Array.from(document.querySelectorAll<HTMLElement>(".hero-label"));
+    const svgNS = "http://www.w3.org/2000/svg";
+    type Connector = {
+      id: string;
+      label: HTMLElement;
+      group: SVGGElement;
+      path: SVGPathElement;
+      dot: SVGCircleElement;
+      side: "left" | "right";
+      ax: number;
+      ay: number;
+      alpha: number;
     };
+    const connectors: Connector[] = [];
+    let globeBox = { x: 0, y: 0, size: 0 };
+    let connectorsOn = false;
 
-    const mouseTracker = (e: MouseEvent) => {
-      cgTX = e.clientX;
-      cgTY = e.clientY;
-      if (!isTicking) {
-        isTicking = true;
-        rafId = requestAnimationFrame(tickCg);
-      }
-    };
-    window.addEventListener("mousemove", mouseTracker, { passive: true });
-
-    document.querySelectorAll<HTMLElement>(".magnetic").forEach((el) => {
-      const onMove = (e: MouseEvent) => {
-        const r = el.getBoundingClientRect();
-        const x = e.clientX - r.left - r.width / 2;
-        const y = e.clientY - r.top - r.height / 2;
-        el.style.transform = `translate(${x * 0.25}px, ${y * 0.35}px)`;
-      };
-      const onLeave = () => {
-        el.style.transform = "";
-      };
-      el.addEventListener("mousemove", onMove);
-      el.addEventListener("mouseleave", onLeave);
-      cleanups.push(() => {
-        el.removeEventListener("mousemove", onMove);
-        el.removeEventListener("mouseleave", onLeave);
-      });
-    });
-
-    document.querySelectorAll<HTMLElement>(".tilt").forEach((el) => {
-      const onMove = (e: MouseEvent) => {
-        const r = el.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width;
-        const py = (e.clientY - r.top) / r.height;
-        const rx = (py - 0.5) * -8;
-        const ry = (px - 0.5) * 8;
-        el.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
-        el.style.setProperty("--mx", `${px * 100}%`);
-        el.style.setProperty("--my", `${py * 100}%`);
-      };
-      const onLeave = () => {
-        el.style.transform = "";
-      };
-      el.addEventListener("mousemove", onMove);
-      el.addEventListener("mouseleave", onLeave);
-      cleanups.push(() => {
-        el.removeEventListener("mousemove", onMove);
-        el.removeEventListener("mouseleave", onLeave);
-      });
-    });
-
-    const revealEls = document.querySelectorAll<HTMLElement>(".reveal, .reveal-children");
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in");
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12 },
-    );
-    revealEls.forEach((el) => io.observe(el));
-
-    const parallaxContainers = document.querySelectorAll<HTMLElement>("[data-parallax], [data-stage]");
-    const onScroll = () => {
-      const nav = document.querySelector<HTMLElement>(".nav");
-      if (nav) {
-        if (window.scrollY > 20) {
-          nav.classList.add("scrolled");
-          // Force backdrop-filter via inline style — cannot be stripped by build tools
-          nav.style.setProperty("backdrop-filter", "blur(18px) saturate(140%)", "important");
-          nav.style.setProperty("-webkit-backdrop-filter", "blur(18px) saturate(140%)", "important");
-        } else {
-          nav.classList.remove("scrolled");
-          if (!nav.classList.contains("mobile-open")) {
-            nav.style.removeProperty("backdrop-filter");
-            nav.style.removeProperty("-webkit-backdrop-filter");
-          }
-        }
-      }
-      parallaxContainers.forEach((container) => {
-        const rect = container.getBoundingClientRect();
-        const vh = window.innerHeight;
-        if (rect.bottom < 0 || rect.top > vh) return;
-        const progress = (vh - rect.top) / (vh + rect.height);
-        container.querySelectorAll<HTMLElement>("[data-depth]").forEach((el) => {
-          const depth = Number(el.dataset.depth) || 0.3;
-          const offset = (progress - 0.5) * 100 * depth;
-          if (el.classList.contains("card-float") || el.classList.contains("device")) {
-            el.style.transform = `translate3d(0, ${offset}px, 0)`;
-          } else {
-            el.style.transform = `translate3d(0, ${offset * 0.6}px, 0)`;
-          }
-        });
+    if (stage && connectorSvg && heroCanvas) {
+      labels.forEach((label) => {
+        const id = label.dataset.svc || "";
+        const group = document.createElementNS(svgNS, "g");
+        const path = document.createElementNS(svgNS, "path");
+        const dot = document.createElementNS(svgNS, "circle");
+        dot.setAttribute("r", "4");
+        group.append(path, dot);
+        connectorSvg.append(group);
+        const side = label.classList.contains("left") ? "left" : "right";
+        connectors.push({ id, label, group, path, dot, side, ax: 0, ay: 0, alpha: 0 });
+        on(label, "mouseenter", () => group.classList.add("hot"));
+        on(label, "mouseleave", () => group.classList.remove("hot"));
       });
 
-      const track = document.querySelector<HTMLElement>(".process-track");
-      if (track) {
-        const tr = track.getBoundingClientRect();
-        const tp = Math.max(0, Math.min(1, (window.innerHeight * 0.7 - tr.top) / tr.height));
-        document.getElementById("procLine")?.style.setProperty("--fill", `${tp * 100}%`);
-        document.querySelectorAll<HTMLElement>(".step").forEach((step, i) => {
-          step.classList.toggle("active", tp > (i + 0.5) / 4);
-        });
-      }
-
-      const introTrack = document.getElementById("heroScrollTrack");
-      const rightCol = document.querySelector<HTMLElement>(".teksphere-hero-right");
-      const globeWrap = document.querySelector<HTMLElement>(".teksphere-globe-wrap");
-      const heroCopyIntro = document.getElementById("heroCopyIntro");
-
-      if (introTrack && rightCol && globeWrap) {
-        if (!globeWrap.dataset.initialized) {
-          globeWrap.style.transition = "none";
-          if (heroCopyIntro) heroCopyIntro.style.transition = "none";
-          globeWrap.dataset.initialized = "true";
-          setTimeout(() => {
-            globeWrap.style.transition = "";
-            if (heroCopyIntro) heroCopyIntro.style.transition = "";
-          }, 50);
-        }
-        // Enforce pure static rendering with no transitioning on mobile and tablet viewports
-        if (window.innerWidth <= 960) {
-          globeWrap.style.transform = "none";
-          if (heroCopyIntro) {
-            heroCopyIntro.style.opacity = "1";
-            heroCopyIntro.style.transform = "none";
-            heroCopyIntro.style.pointerEvents = "auto";
-          }
-          if (!rightCol.style.opacity || rightCol.style.opacity === "0") {
-            rightCol.style.opacity = "1";
-            rightCol.style.transition = "opacity 0.6s ease-out";
-          }
+      // Place labels just outside the sphere's silhouette at their height, then cache anchor points.
+      const layout = () => {
+        connectorsOn = window.innerWidth > 960;
+        if (!connectorsOn) {
+          labels.forEach((l) => {
+            l.style.left = "";
+            l.style.right = "";
+          });
           return;
         }
+        const s = stage.getBoundingClientRect();
+        const c = heroCanvas.getBoundingClientRect();
+        globeBox = { x: c.left - s.left, y: c.top - s.top, size: c.width };
+        const r = c.width / 2;
+        const cx = globeBox.x + r;
+        const cy = globeBox.y + r;
+        connectors.forEach((con, i) => {
+          const top = (parseFloat(con.label.style.top) / 100) * s.height;
+          const dy = Math.min(Math.abs(top - cy), r * 0.98);
+          const half = Math.sqrt(r * r - dy * dy);
+          const gap = 40 + (i % 2) * 22;
+          if (con.side === "left") {
+            con.label.style.right = `${s.width - (cx - half - gap)}px`;
+            con.label.style.left = "auto";
+          } else {
+            con.label.style.left = `${cx + half + gap}px`;
+            con.label.style.right = "auto";
+          }
+        });
+        // anchors after positioning
+        connectors.forEach((con) => {
+          const b = con.label.getBoundingClientRect();
+          con.ax = (con.side === "left" ? b.right : b.left) - s.left;
+          con.ay = b.top + b.height / 2 - s.top;
+        });
+        connectorSvg.setAttribute("viewBox", `0 0 ${s.width} ${s.height}`);
+      };
+      layout();
+      const ro = new ResizeObserver(layout);
+      ro.observe(stage);
+      cleanups.push(() => ro.disconnect());
 
-        const weight = window.scrollY > 30 ? 0 : 1;
+      const drawConnectors = (phi: number, theta: number, dt: number) => {
+        if (!connectorsOn) return;
+        const ease = 1 - Math.pow(0.002, dt / 1000);
+        connectors.forEach((con) => {
+          const point = SERVICE_POINTS[con.id];
+          if (!point) return;
+          const p = project(point[0], point[1], phi, theta);
+          const mx = globeBox.x + p.x * globeBox.size;
+          const my = globeBox.y + p.y * globeBox.size;
+          // show a line only while its dot faces us and sits on the label's side of the globe
+          const nearSide = con.side === "left" ? p.x < 0.58 : p.x > 0.42;
+          const target = p.front > 0.08 && nearSide ? 1 : 0;
+          con.alpha += (target - con.alpha) * ease;
+          const dir = con.side === "left" ? 1 : -1;
+          const bend = Math.min(60, Math.abs(mx - con.ax) * 0.5);
+          con.path.setAttribute(
+            "d",
+            `M${con.ax.toFixed(1)},${con.ay.toFixed(1)} C${(con.ax + dir * bend).toFixed(1)},${con.ay.toFixed(1)} ${(mx - dir * 18).toFixed(1)},${my.toFixed(1)} ${mx.toFixed(1)},${my.toFixed(1)}`,
+          );
+          con.dot.setAttribute("cx", mx.toFixed(1));
+          con.dot.setAttribute("cy", my.toFixed(1));
+          con.group.style.opacity = con.alpha.toFixed(3);
+          con.label.style.setProperty("--reach", con.alpha.toFixed(3));
+        });
+      };
 
-        const screenCenterX = window.innerWidth / 2;
-        // Shift target Y slightly upward to reduce gap beneath the navbar and prevent bottom vh overflow
-        const screenCenterY = (window.innerHeight / 2) + 35;
-        const colRect = rightCol.getBoundingClientRect();
-        const colCenterX = colRect.left + colRect.width / 2;
-        const colCenterY = colRect.top + colRect.height / 2;
+      let heroGlobe: { focus: (lon: number | null) => void } | null = null;
+      initGlobe({
+        canvasId: "teksphereGlobe",
+        interactive: true,
+        speed: 0.22,
+        markers: true,
+        onFrame: drawConnectors,
+        register: (api) => (heroGlobe = api),
+      });
+      // Hovering a service turns the globe to face it.
+      connectors.forEach((con) => {
+        const point = SERVICE_POINTS[con.id];
+        if (!point) return;
+        on(con.label, "mouseenter", () => heroGlobe?.focus(point[1]));
+        on(con.label, "mouseleave", () => heroGlobe?.focus(null));
+        on(con.label, "focus", () => heroGlobe?.focus(point[1]));
+        on(con.label, "blur", () => heroGlobe?.focus(null));
+      });
+    }
+    initGlobe({ canvasId: "teksphereGlobeInfra", interactive: true, speed: 0.15, markers: false });
 
-        const neededTx = screenCenterX - colCenterX;
-        const neededTy = screenCenterY - colCenterY;
+    /* ---------------- Scroll-linked UI (one rAF-throttled handler) ---------------- */
+    const nav = document.querySelector<HTMLElement>(".nav");
+    const procLine = document.getElementById("procLine");
+    const processTrack = document.querySelector<HTMLElement>(".process-track");
+    const steps = Array.from(document.querySelectorAll<HTMLElement>(".step"));
+    let scrollTicking = false;
+    let lastFill = -1;
 
-        // Apply a gentle 1.15x standalone scale so the base 580px globe displays majestically without exceeding screen vh bounds
-        globeWrap.style.transform = `translate3d(${neededTx * weight}px, ${neededTy * weight}px, 0) scale(${1 + 0.40 * weight})`;
-        extraRotationSpeed = weight * 0.015;
+    const updateOnScroll = () => {
+      scrollTicking = false;
+      nav?.classList.toggle("scrolled", window.scrollY > 20);
 
-        if (heroCopyIntro) {
-          const easeIn = 1 - weight;
-          heroCopyIntro.style.opacity = String(easeIn);
-          heroCopyIntro.style.transform = `translate3d(0, ${weight * 40}px, 0)`;
-          heroCopyIntro.style.pointerEvents = easeIn > 0.5 ? "auto" : "none";
-        }
-        
-        if (!rightCol.style.opacity || rightCol.style.opacity === "0") {
-          rightCol.style.opacity = "1";
-          rightCol.style.transition = "opacity 0.6s ease-out";
+      if (processTrack && procLine) {
+        const rect = processTrack.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          const fill = Math.max(0, Math.min(1, (window.innerHeight * 0.75 - rect.top) / (rect.height * 0.9)));
+          const rounded = Math.round(fill * 100) / 100;
+          if (rounded !== lastFill) {
+            lastFill = rounded;
+            procLine.style.setProperty("--fill", String(rounded));
+            steps.forEach((step, i) => step.classList.toggle("active", rounded >= i / steps.length + 0.05));
+          }
         }
       }
     };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    const onScroll = () => {
+      if (!scrollTicking) {
+        scrollTicking = true;
+        requestAnimationFrame(updateOnScroll);
+      }
+    };
+    on(window, "scroll", onScroll, { passive: true });
+    updateOnScroll();
 
-    const stage = document.querySelector<HTMLElement>("[data-stage]");
-    if (stage) {
-      const inner = stage.querySelector<HTMLElement>(".stage-inner");
-      const onMove = (e: MouseEvent) => {
-        if (!inner) return;
-        const r = stage.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width - 0.5;
-        const py = (e.clientY - r.top) / r.height - 0.5;
-        inner.style.transform = `rotateY(${px * 6}deg) rotateX(${py * -6}deg)`;
-      };
-      const onLeave = () => {
-        if (inner) inner.style.transform = "";
-      };
-      stage.addEventListener("mousemove", onMove);
-      stage.addEventListener("mouseleave", onLeave);
-      cleanups.push(() => {
-        stage.removeEventListener("mousemove", onMove);
-        stage.removeEventListener("mouseleave", onLeave);
-      });
+    /* ---------------- Reveal on scroll ---------------- */
+    const revealEls = document.querySelectorAll<HTMLElement>(".reveal");
+    if (prefersReducedMotion()) {
+      revealEls.forEach((el) => el.classList.add("in"));
+    } else {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in");
+              io.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
+      );
+      revealEls.forEach((el) => io.observe(el));
+      cleanups.push(() => io.disconnect());
     }
 
+    /* ---------------- Mobile nav ---------------- */
     const hamburgerBtn = document.getElementById("hamburgerBtn");
-    const navEl = document.querySelector<HTMLElement>(".nav");
-    if (hamburgerBtn && navEl) {
-      const toggleMenu = () => {
-        const isOpen = navEl.classList.toggle("mobile-open");
-        if (isOpen) {
-          navEl.style.setProperty("backdrop-filter", "blur(20px) saturate(140%)", "important");
-          navEl.style.setProperty("-webkit-backdrop-filter", "blur(20px) saturate(140%)", "important");
-          navEl.style.setProperty("background", "var(--glass-bg)", "important");
-        } else {
-          if (window.scrollY <= 20) {
-            navEl.style.removeProperty("backdrop-filter");
-            navEl.style.removeProperty("-webkit-backdrop-filter");
-            navEl.style.removeProperty("background");
-          } else {
-            navEl.style.setProperty("backdrop-filter", "blur(18px) saturate(140%)", "important");
-            navEl.style.setProperty("-webkit-backdrop-filter", "blur(18px) saturate(140%)", "important");
-            navEl.style.removeProperty("background");
-          }
-        }
-      };
-      hamburgerBtn.addEventListener("click", toggleMenu);
-      const closeMenu = () => {
-        navEl.classList.remove("mobile-open");
-        if (window.scrollY <= 20) {
-          navEl.style.removeProperty("backdrop-filter");
-          navEl.style.removeProperty("-webkit-backdrop-filter");
-          navEl.style.removeProperty("background");
-        } else {
-          navEl.style.setProperty("backdrop-filter", "blur(18px) saturate(140%)", "important");
-          navEl.style.setProperty("-webkit-backdrop-filter", "blur(18px) saturate(140%)", "important");
-          navEl.style.removeProperty("background");
-        }
-      };
-      navEl.querySelectorAll(".nav-links a").forEach((link) => {
-        link.addEventListener("click", closeMenu);
+    if (hamburgerBtn && nav) {
+      on(hamburgerBtn, "click", () => {
+        const open = nav.classList.toggle("mobile-open");
+        hamburgerBtn.setAttribute("aria-expanded", String(open));
       });
-      cleanups.push(() => {
-        hamburgerBtn.removeEventListener("click", toggleMenu);
-        navEl.querySelectorAll(".nav-links a").forEach((link) => {
-          link.removeEventListener("click", closeMenu);
-        });
-      });
+      nav.querySelectorAll<HTMLElement>(".nav-links a").forEach((link) =>
+        on(link, "click", () => {
+          nav.classList.remove("mobile-open");
+          hamburgerBtn.setAttribute("aria-expanded", "false");
+        }),
+      );
     }
 
+    /* ---------------- Services: tabs on desktop, accordion on mobile ---------------- */
+    const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>(".svc-tab"));
+    const setActive = (tab: HTMLButtonElement | null) => {
+      tabs.forEach((t) => {
+        const isActive = t === tab;
+        t.classList.toggle("active", isActive);
+        t.setAttribute("aria-expanded", String(isActive));
+        const panel = document.getElementById(t.getAttribute("aria-controls") || "");
+        panel?.classList.toggle("active", isActive);
+      });
+    };
+    tabs.forEach((tab) =>
+      on(tab, "click", () => {
+        const isMobile = window.innerWidth <= 960;
+        if (isMobile && tab.classList.contains("active")) {
+          setActive(null);
+          return;
+        }
+        setActive(tab);
+        if (isMobile) {
+          requestAnimationFrame(() => {
+            const top = tab.getBoundingClientRect().top;
+            if (top < 80) window.scrollBy({ top: top - 90, behavior: "smooth" });
+          });
+        }
+      }),
+    );
+    labels.forEach((label) =>
+      on(label, "click", () => {
+        const tab = tabs.find((t) => t.dataset.svc === label.dataset.svc);
+        if (tab) setActive(tab);
+      }),
+    );
+    // Desktop always shows one panel; restore it if the viewport grows back.
+    on(window, "resize", () => {
+      if (window.innerWidth > 960 && !tabs.some((t) => t.classList.contains("active"))) {
+        setActive(tabs[0] ?? null);
+      }
+    }, { passive: true });
+
+    /* ---------------- Contact forms ---------------- */
+    const contactSection = document.getElementById("contact");
     const ctaForm = document.getElementById("ctaForm") as HTMLFormElement | null;
     if (ctaForm) {
-      const submitHandler = (e: Event) => {
+      on(ctaForm, "submit", (e) => {
         e.preventDefault();
-        const emailInput = document.getElementById("ctaEmail") as HTMLInputElement | null;
-        const email = emailInput?.value ?? "";
+        const email = (document.getElementById("ctaEmail") as HTMLInputElement | null)?.value ?? "";
         if (!email || !email.includes("@")) return;
-
-        const targetEmailInput = document.getElementById("contactEmail") as HTMLInputElement | null;
-        if (targetEmailInput) {
-          targetEmailInput.value = email;
-        }
-
-        const contactSec = document.getElementById("contact");
-        contactSec?.classList.add("expanded");
-
-        setTimeout(() => {
-          document.getElementById("contactName")?.focus();
-        }, 300);
-      };
-      ctaForm.addEventListener("submit", submitHandler);
-      cleanups.push(() => ctaForm.removeEventListener("submit", submitHandler));
+        const target = document.getElementById("contactEmail") as HTMLInputElement | null;
+        if (target) target.value = email;
+        contactSection?.classList.add("expanded");
+        window.setTimeout(() => document.getElementById("contactName")?.focus(), 150);
+      });
     }
 
     const ctaExpandedForm = document.getElementById("ctaExpandedForm") as HTMLFormElement | null;
     if (ctaExpandedForm) {
-      const expandedSubmitHandler = (e: Event) => {
+      on(ctaExpandedForm, "submit", (e) => {
         e.preventDefault();
-        const contactSec = document.getElementById("contact");
-        contactSec?.classList.add("submitted");
-        setTimeout(() => {
-          contactSec?.classList.remove("submitted", "expanded");
+        contactSection?.classList.add("submitted");
+        const timer = window.setTimeout(() => {
+          contactSection?.classList.remove("submitted", "expanded");
           ctaExpandedForm.reset();
-          const origEmailInput = document.getElementById("ctaEmail") as HTMLInputElement | null;
-          if (origEmailInput) origEmailInput.value = "";
+          const email = document.getElementById("ctaEmail") as HTMLInputElement | null;
+          if (email) email.value = "";
         }, 6000);
-      };
-      ctaExpandedForm.addEventListener("submit", expandedSubmitHandler);
-      cleanups.push(() => ctaExpandedForm.removeEventListener("submit", expandedSubmitHandler));
+        cleanups.push(() => window.clearTimeout(timer));
+      });
     }
 
-    const servicesGrid = document.getElementById("svcAccordion");
-    if (servicesGrid) {
-      const unmanagedCards = Array.from(servicesGrid.querySelectorAll(".svc-card"));
-      const getCardByText = (text: string) =>
-        unmanagedCards.find((c) => c.querySelector("h3")?.textContent?.includes(text));
-
-      // Retrieve immutable, deterministic module references regardless of current HMR DOM state
-      const cSupport = getCardByText("IT Support");
-      const cSecurity = getCardByText("Enterprise Security");
-      const cBuilding = getCardByText("Intelligent Building");
-      const cNetwork = getCardByText("Network");
-      const cAppDev = getCardByText("Application Development");
-      const cTelephony = getCardByText("Telephony");
-
-      const origCols = Array.from(servicesGrid.querySelectorAll<HTMLElement>(".svc-col"));
-
-      const applyResponsiveServiceColumns = () => {
-        if (window.innerWidth <= 960) {
-          // Route modules into dual active flex streams to guarantee complete vertical isolation
-          if (origCols[0] && origCols[1]) {
-            // Left column track stream rigidly enforced: Support -> Building -> AppDev
-            if (cSupport) origCols[0].appendChild(cSupport);
-            if (cBuilding) origCols[0].appendChild(cBuilding);
-            if (cAppDev) origCols[0].appendChild(cAppDev);
-
-            // Right column track stream rigidly enforced: Security -> Network -> Telephony
-            if (cSecurity) origCols[1].appendChild(cSecurity);
-            if (cNetwork) origCols[1].appendChild(cNetwork);
-            if (cTelephony) origCols[1].appendChild(cTelephony);
-          }
-          if (origCols[2]) origCols[2].style.display = "none";
-        } else {
-          // Standard Desktop triple stream restoration
-          if (origCols[0]) {
-            if (cSupport) origCols[0].appendChild(cSupport);
-            if (cNetwork) origCols[0].appendChild(cNetwork);
-          }
-          if (origCols[1]) {
-            if (cSecurity) origCols[1].appendChild(cSecurity);
-            if (cAppDev) origCols[1].appendChild(cAppDev);
-          }
-          if (origCols[2]) {
-            origCols[2].style.display = "";
-            if (cBuilding) origCols[2].appendChild(cBuilding);
-            if (cTelephony) origCols[2].appendChild(cTelephony);
-          }
-        }
-      };
-
-      applyResponsiveServiceColumns();
-      window.addEventListener("resize", applyResponsiveServiceColumns);
-      cleanups.push(() => window.removeEventListener("resize", applyResponsiveServiceColumns));
-    }
-
-    const accordionHeaders = document.querySelectorAll<HTMLElement>(".svc-card-header");
-    accordionHeaders.forEach((header) => {
-      const clickHandler = () => {
-        const card = header.closest(".svc-card");
-        if (!card) return;
-
-        const isActive = card.classList.contains("active");
-        const colWrapper = card.closest(".svc-col");
-
-        document.querySelectorAll(".svc-card").forEach((c) => {
-          c.classList.remove("active", "shrink");
-        });
-
-        if (!isActive) {
-          card.classList.add("active");
-          if (colWrapper) {
-            const streamCards = Array.from(colWrapper.querySelectorAll(".svc-card"));
-            const idx = streamCards.indexOf(card);
-
-            if (window.innerWidth <= 960 && window.innerWidth > 640) {
-              // Strictly isolated vertical stream directional squeezing logic
-              if (idx === 0 && streamCards[1]) {
-                streamCards[1].classList.add("shrink"); // Top module squeezes Middle module
-              } else if (idx === 1 && streamCards[2]) {
-                streamCards[2].classList.add("shrink"); // Middle module squeezes Bottom module
-              } else if (idx === 2 && streamCards[1]) {
-                streamCards[1].classList.add("shrink"); // Bottom module squeezes Middle module upward
-              }
-            } else if (window.innerWidth > 960) {
-              // Standard Desktop Stream Logic
-              streamCards.forEach((partner) => {
-                if (partner !== card) partner.classList.add("shrink");
-              });
-            }
-          }
-        }
-      };
-      header.addEventListener("click", clickHandler);
-      cleanups.push(() => header.removeEventListener("click", clickHandler));
-    });
-
-    return () => {
-      cancelAnimationFrame(rafId);
-      window.removeEventListener("mousemove", mouseTracker);
-      window.removeEventListener("message", messageHandler);
-      window.removeEventListener("scroll", onScroll);
-      io.disconnect();
-      cleanups.forEach((cleanup) => cleanup());
-    };
+    return () => cleanups.forEach((cleanup) => cleanup());
   }, []);
 
   return <div dangerouslySetInnerHTML={{ __html: bodyHtml }} />;

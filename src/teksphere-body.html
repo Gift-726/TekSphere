@@ -1,5 +1,3 @@
-<div class="cursor-glow" id="cg"></div>
-
   <!-- ================= NAV ================= -->
   <nav class="nav">
     <a href="#" class="brand" aria-label="TekSphere Home">
@@ -12,7 +10,8 @@
       <a href="#process">Process</a>
     </div>
     <button class="theme-toggle" id="themeBtn" aria-label="Toggle theme">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
     </button>
     <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -21,71 +20,52 @@
   </nav>
 
   <!-- ================= HERO ================= -->
-  <div class="hero-scroll-track" id="heroScrollTrack">
-    <div class="hero-sticky" id="heroSticky">
-      <section class="hero" data-parallax>
-        <div class="hero-bg">
-          <div class="grid-overlay"></div>
-          <div class="mesh-blob mesh-1" data-depth="0.15"></div>
-          <div class="mesh-blob mesh-2" data-depth="0.25"></div>
-          <div class="mesh-blob mesh-3" data-depth="0.1"></div>
-        </div>
-
-        <div class="wrap hero-grid">
-          <div class="hero-copy" id="heroCopyIntro">
-            <!-- <span class="eyebrow">INFRASTRUCTURE / CYBERSECURITY / SOFTWARE</span> -->
-            <h1 class="h-display" style="margin-top: 24px;">Engineering<br/><em>Intelligent Systems.</em><br/></h1>
-            <!-- <p class="lead" style="margin-top: 28px;">TekSphere delivers end-to-end technology solutions in infrastructure, cybersecurity, communications, and custom software, empowering businesses to scale securely and intelligently.</p> -->
-            <div class="hero-ctas">
-              <a href="#contact" class="btn btn-primary magnetic">
-                Start your project
-                <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-              </a>
-              <a href="#services" class="btn btn-ghost magnetic">
-                Explore solutions
-              </a>
-            </div>
-            <div class="hero-meta">
-              <div class="stat"><div class="n">250+</div><div class="l">Projects delivered</div></div>
-              <div class="stat"><div class="n">98%</div><div class="l">Client satisfaction</div></div>
-              <div class="stat"><div class="n">24/7</div><div class="l">Support &amp; monitoring</div></div>
-            </div>
-          </div>
-
-          <!-- Rolling globe from tek-phi.vercel.app -->
-          <!-- Layered UI stage -->
-          <div class="teksphere-hero-right">
-            <div class="teksphere-globe-wrap">
-              <canvas id="teksphereGlobe" class="teksphere-globe-canvas showcases-canvas"></canvas>
-              <div class="teksphere-globe-center-text">TEKSPHERE</div>
-              <div class="orbit-ring" aria-hidden="true">
-                <svg class="orbit-svg" viewBox="0 0 300 300">
-                  <defs>
-                    <path id="teksOrbitPath" d="M 150,150 m -130,0 a 130,130 0 1,0 260,0 a 130,130 0 1,0 -260,0"></path>
-                  </defs>
-                  <text class="orbit-text">
-                    <textPath href="#teksOrbitPath">Powering Business With Intelligent Technology / Powering Business With Intelligent Technology / Powering Business With Intelligent Technology / Powering Business With Intelligent Technology / </textPath>
-                  </text>
-                </svg>
-              </div>
-              <div class="showcase-default-label" style="position-anchor:--cobe-default-sf;opacity:var(--cobe-visible-default-sf, 0);filter:blur(var(--cobe-visible-default-sf, 10px))">Enterprise Infrastructure</div>
-              <div class="showcase-default-label" style="position-anchor:--cobe-default-tokyo;opacity:var(--cobe-visible-default-tokyo, 0);filter:blur(var(--cobe-visible-default-tokyo, 10px))">Application Development</div>
-              <div class="showcase-default-label" style="position-anchor:--cobe-default-sydney;opacity:var(--cobe-visible-default-sydney, 0);filter:blur(var(--cobe-visible-default-sydney, 10px))">Intelligent Building</div>
-              <div class="showcase-default-label" style="position-anchor:--cobe-default-capetown;opacity:var(--cobe-visible-default-capetown, 0);filter:blur(var(--cobe-visible-default-capetown, 10px))">Telephony Solutions</div>
-              <div class="showcase-default-label" style="position-anchor:--cobe-default-dubai;opacity:var(--cobe-visible-default-dubai, 0);filter:blur(var(--cobe-visible-default-dubai, 10px))">IT Support</div>
-              <div class="showcase-default-label" style="position-anchor:--cobe-default-paris;opacity:var(--cobe-visible-default-paris, 0);filter:blur(var(--cobe-visible-default-paris, 10px))">Enterprise Security</div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  </div>
-
-  <!-- ================= PARTNERS ================= -->
-  <section class="logos" id="partners">
+  <section class="hero">
     <div class="wrap">
-      <div class="logos-bar reveal">
-        <div class="logos-label">Our<br/>Partners</div>
+      <div class="hero-stage" id="heroStage">
+        <svg class="hero-connectors" id="heroConnectors" aria-hidden="true"></svg>
+        <div class="sphere">
+          <div class="sphere-halo" aria-hidden="true"></div>
+          <svg class="sphere-orbit" viewBox="0 0 400 400" aria-hidden="true">
+            <ellipse class="orbit-back" cx="200" cy="200" rx="196" ry="58" transform="rotate(-16 200 200)"/>
+            <ellipse class="orbit-back" cx="200" cy="200" rx="176" ry="150" transform="rotate(58 200 200)"/>
+          </svg>
+          <canvas id="teksphereGlobe" class="sphere-canvas" aria-hidden="true"></canvas>
+          <h1 class="sphere-title"><span aria-hidden="true">TEKSPHERE</span><span class="sr-only">TekSphere: infrastructure, security and software</span></h1>
+          <div class="sphere-shadow" aria-hidden="true"></div>
+        </div>
+        <nav class="hero-labels" aria-label="Our services"><a class="hero-label left" href="#services" data-svc="support" style="top:16%"><span class="dot"></span>IT Support</a><a class="hero-label left" href="#services" data-svc="network" style="top:47%"><span class="dot"></span>Networks</a><a class="hero-label left" href="#services" data-svc="software" style="top:78%"><span class="dot"></span>Application Development</a><a class="hero-label right" href="#services" data-svc="security" style="top:12%"><span class="dot"></span>Enterprise Security</a><a class="hero-label right" href="#services" data-svc="infra" style="top:37%"><span class="dot"></span>Enterprise Infrastructure</a><a class="hero-label right" href="#services" data-svc="building" style="top:62%"><span class="dot"></span>Intelligent Buildings</a><a class="hero-label right" href="#services" data-svc="telephony" style="top:86%"><span class="dot"></span>Telephony</a></nav>
+      </div>
+
+      <div class="hero-intro">
+        <p class="hero-sub">Infrastructure, security and software, engineered to work as one.</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn btn-primary">Talk to an engineer</a>
+          <a href="#services" class="text-link">See what we do <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+
+      <div class="hero-clients">
+        <p>Trusted by</p>
+        <div class="hero-logos">
+          <img src="/cbn-removebg-preview.png" alt="Central Bank of Nigeria" class="lg-cbn" width="120" height="40" />
+          <img src="/firstbank-removebg-preview.png" alt="First Bank" class="lg-fb" width="120" height="40" />
+          <img src="/mtn.png" alt="MTN" class="lg-mtn" width="120" height="40" />
+          <img src="/uba.png" alt="UBA" class="lg-uba" width="120" height="40" />
+          <img src="/eni.png" alt="Eni" class="lg-eni" width="120" height="40" />
+          <img src="/opay-removebg-preview.png" alt="OPay" class="lg-opay" width="120" height="40" />
+          <img src="/frcn-removebg-preview.png" alt="FRCN" class="lg-frcn" width="120" height="40" />
+          <img src="/opera-news-logo_-removebg-preview.png" alt="Opera News" class="lg-opera" width="120" height="40" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CLIENTS + PARTNERS ================= -->
+  <section class="trust" id="clients">
+    <div class="wrap">
+      <div class="logos-bar reveal" id="partners">
+        <p class="logos-label">Technology partners</p>
         <div class="logos-strip-container">
           <div class="logos-strip">
             <div class="logos-track">
@@ -109,7 +89,6 @@
               <div class="logo-mark"><img src="/partner/veritas.png" alt="Veritas" loading="lazy" decoding="async" width="120" height="36" /></div>
               <div class="logo-mark"><img src="/partner/vmware.png" alt="VMware" loading="lazy" decoding="async" width="120" height="36" /></div>
             </div>
-            <!-- Duplicated track for absolute mathematically bulletproof continuous marquee scrolling -->
             <div class="logos-track" aria-hidden="true">
               <div class="logo-mark"><img src="/partner/Sophos.png" alt="" loading="lazy" decoding="async" width="120" height="36" /></div>
               <div class="logo-mark"><img src="/partner/bitdefender.png" alt="" loading="lazy" decoding="async" width="120" height="36" /></div>
@@ -137,500 +116,228 @@
     </div>
   </section>
 
-  <!-- ================= CLIENTS ================= -->
-  <section class="clients-section reveal">
-    <div class="wrap">
-      <div class="clients-bar">
-        <div class="clients-label">Our<br/>clients:</div>
-        <div class="clients-grid-container">
-          <div class="clients-grid">
-            <div class="client-card"><img src="/cbn-removebg-preview.png" alt="Central Bank of Nigeria" loading="lazy" decoding="async" width="120" height="40" /></div>
-            <div class="client-card"><img src="/eni.png" alt="Eni" loading="lazy" decoding="async" width="120" height="40" /></div>
-            <div class="client-card"><img src="/firstbank-removebg-preview.png" alt="First Bank" loading="lazy" decoding="async" width="120" height="40" /></div>
-            <div class="client-card"><img src="/frcn-removebg-preview.png" alt="FRCN" loading="lazy" decoding="async" width="120" height="40" /></div>
-            <div class="client-card"><img src="/mtn.png" alt="MTN" loading="lazy" decoding="async" width="120" height="40" /></div>
-            <div class="client-card"><img src="/opay-removebg-preview.png" alt="OPay" loading="lazy" decoding="async" width="120" height="40" /></div>
-            <div class="client-card"><img src="/opera-news-logo_-removebg-preview.png" alt="Opera News" loading="lazy" decoding="async" width="120" height="40" /></div>
-            <div class="client-card"><img src="/uba.png" alt="UBA" loading="lazy" decoding="async" width="120" height="40" /></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ================= ABOUT US ================= -->
-  <section id="about" style="padding: 100px 32px;">
-    <div class="wrap">
-      <div class="showcase-grid reveal" style="align-items: stretch;">
-        <div class="about-left" style="display: flex; flex-direction: column; justify-content: center;">
-          <span class="eyebrow">About Us</span>
-          <h2 class="h-section" style="margin-top: 20px;">Driven by innovation and excellence.</h2>
-          <p class="lead" style="margin-top: 20px;">Our strength lies in our pool of highly skilled personnel, strategic business affiliations, and excellent understanding of the peculiarities of the business environment.</p>
-
-          <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 20px;">
-            <div style="padding-left: 20px; border-left: 2px solid #38BDF8; opacity: 0.95;">
-              <p style="font-size: 14.5px; color: var(--muted); line-height: 1.6; margin: 0;">We are constantly delivering the best technologies through our emphasis on research and development and our continuous efforts at anticipating customer needs while improving quality and reducing cost.</p>
-            </div>
-            <div style="padding-left: 20px; border-left: 2px solid #38BDF8; opacity: 0.95;">
-              <p style="font-size: 14.5px; color: var(--muted); line-height: 1.6; margin: 0;">We are a team of young, vibrant and experienced professionals who offer consultancy and professional services relating to information communication technology (ICT). In addition, we have the ability to swiftly update with latest trends and requirements of our esteemed clients.</p>
-            </div>
-            <div style="padding-left: 20px; border-left: 2px solid #38BDF8; opacity: 0.95;">
-              <p style="font-size: 14.5px; color: var(--muted); line-height: 1.6; margin: 0;">We have witnessed rapid rate of success and customers’ satisfaction feedbacks, which has been driven by innovations and excellence. We aim to help organizations in achieving their goals by providing optimum technological solutions while reducing total cost of ownerships.</p>
-            </div>
-          </div>
+  <section id="about" class="about">
+    <div class="wrap about-grid">
+      <div class="about-copy reveal">
+        <h2 class="h-section">Skilled people. Strong partners.</h2>
+        <p class="lead">A young, experienced team offering ICT consultancy and professional services, backed by leading technology vendors.</p>
+        <div class="about-points">
+          <div class="about-point"><h3>Research-led</h3><p>We anticipate what you need, raise quality and reduce cost.</p></div>
+          <div class="about-point"><h3>Quick to adapt</h3><p>We keep pace with new technology and with our clients.</p></div>
+          <div class="about-point"><h3>Lower cost of ownership</h3><p>The right technology for your goals, without waste.</p></div>
         </div>
+      </div>
 
-        <div class="about-visual-container">
-          <div class="about-image-wrapper">
-            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80" alt="TekSphere Engineering Team &amp; Operations" loading="lazy" decoding="async" />
-            <div class="about-image-overlay"></div>
-          </div>
-        </div>
+      <div class="about-media reveal">
+        <figure class="photo photo-main">
+          <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&amp;fit=crop&amp;w=1200&amp;h=1400&amp;q=75" alt="Two colleagues reviewing work together at a computer" loading="lazy" decoding="async" width="600" height="700" />
+        </figure>
+        <figure class="photo photo-inset">
+          <img src="https://images.unsplash.com/photo-1785682117394-4c8d27afc12a?auto=format&amp;fit=crop&amp;w=640&amp;h=520&amp;q=75" alt="Technician testing equipment in a server rack" loading="lazy" decoding="async" width="320" height="260" />
+        </figure>
       </div>
     </div>
   </section>
 
-  <!-- ================= SERVICES (dark) ================= -->
+  <!-- ================= SERVICES ================= -->
   <section class="dark-section" id="services">
-    <div class="grid-overlay" style="opacity:0.35;"></div>
     <div class="wrap">
       <div class="services-header reveal">
-        <div>
-          <span class="eyebrow">What We Do</span>
-          <h2 class="h-section" style="margin-top: 20px; max-width: 620px;">Solutions that power modern enterprises.</h2>
-        </div>
-        <p class="lead" style="color:#8A94A6; max-width: 380px;">From infrastructure to intelligent systems and custom software, we deliver end-to-end technology solutions that drive efficiency, security, and growth.</p>
+        <h2 class="h-section">What we do.</h2>
+        <p class="lead">Seven services, one team that designs, delivers and supports them.</p>
       </div>
 
-      <div class="services-grid reveal-children" id="svcAccordion">
-        <!-- Column 1 -->
-        <div class="svc-col">
-          <!-- Card 1 -->
-          <div class="svc-card tilt">
-            <div class="svc-card-header">
-              <div class="svc-card-top">
-                <div class="svc-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div>
-                <div class="svc-toggle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
-              </div>
-              <h3>IT Support Services</h3>
-            </div>
-            <div class="svc-card-excerpt">
-              <div class="svc-card-excerpt-inner">
-                <p>Our IT Support services apply technology to drive business goals for greater efficiency and value. We handle outsourcing and consultancy services to help businesses concentrate on their core functions.</p>
-              </div>
-            </div>
-            <div class="svc-card-body">
-              <div class="svc-card-inner">
-                <div class="svc-card-content">
-                  <p>It is tailored to meet the ‘how’, ‘when’ and ‘where’ needs of any organization to ensure optimized Return-On-Investment (ROI) and exceptional value to customers.</p>
-                  <p style="margin-top: 12px; color: var(--ink);"><strong>Core Focus Areas:</strong></p>
-                  <ul style="margin-top: 6px;">
-                    <li>Support and maintenance</li>
-                    <li>Outsourcing and Consultancy Services</li>
-                  </ul>
-                  <div class="tag">01 / SUPPORT</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Card 4 -->
-          <div class="svc-card tilt">
-            <div class="svc-card-header">
-              <div class="svc-card-top">
-                <div class="svc-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h14v6H5zM5 14h14v6H5z"/><path d="M8 7h.01M8 17h.01"/></svg></div>
-                <div class="svc-toggle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
-                
-              </div>
-              <h3>Network Solutions</h3>
-            </div>
-            <div class="svc-card-excerpt">
-              <div class="svc-card-excerpt-inner">
-                <p>Design, implementation, and support for Local and Wide Area Networks, Network Management, and IT Infrastructure Audit to ensure robust connectivity.</p>
-              </div>
-            </div>
-            <div class="svc-card-body">
-              <div class="svc-card-inner">
-                <div class="svc-card-content">
-                  <p>We build highly available and secure communication foundations tailored to support generic and specialized enterprise technology demands.</p>
-                  <p style="margin-top: 12px; color: var(--ink);"><strong>Specialized Coverage:</strong></p>
-                  <ul style="margin-top: 6px;">
-                    <li>Data Center &amp; Storage Solutions</li>
-                    <li>Unified Communications &amp; Audio-Visual</li>
-                    <li>Technical Outsourcing Services</li>
-                  </ul>
-                  <div class="tag">04 / NETWORK</div>
-                </div>
-              </div>
-            </div>
+      <div class="svc-tabs reveal" id="svcTabs">
+        <button class="svc-tab active" type="button" aria-expanded="true" aria-controls="svc-panel-1" id="svc-tab-1" data-svc="support">
+          <span class="svc-tab-title">IT Support Services</span>
+          <span class="svc-tab-sub">Support, maintenance &amp; outsourcing</span>
+          <svg class="svc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+        <div class="svc-panel active" id="svc-panel-1" role="region" aria-labelledby="svc-tab-1">
+          <div class="svc-art"><svg viewBox="0 0 400 300" class="scene" aria-hidden="true"><rect width="400" height="300" fill="#DCE7FB"/><path d="M24,262 H376" stroke="#141414" stroke-width="1.6" stroke-linecap="round"/><path d="M200,52 h150 a12 12 0 0 1 12 12 v44 a12 12 0 0 1 -12 12 h-110 l-18 16 v-16 h-22 a12 12 0 0 1 -12 -12 v-44 a12 12 0 0 1 12 -12 z" fill="#FFFFFF" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><rect x="214" y="68" width="70" height="7" rx="3.5" fill="#C9CDD3" stroke="none" stroke-width="1.6"/><rect x="214" y="84" width="110" height="7" rx="3.5" fill="#C9CDD3" stroke="none" stroke-width="1.6"/><rect x="214" y="100" width="52" height="7" rx="3.5" fill="#A8C3F4" stroke="none" stroke-width="1.6"/><path d="M240,150 h112 a12 12 0 0 1 12 12 v34 a12 12 0 0 1 -12 12 h-8 v16 l-18 -16 h-86 a12 12 0 0 1 -12 -12 v-34 a12 12 0 0 1 12 -12 z" fill="#1F5BD8" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><circle cx="262" cy="179" r="11" fill="#FFFFFF" stroke="#141414" stroke-width="1.6"/><path d="M257.05,179 L260.9,183.18 L267.5,175.15" fill="none" stroke="#1F5BD8" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" /><rect x="282" y="170" width="58" height="6" rx="3" fill="#FFFFFF" stroke="none" stroke-width="1.6"/><rect x="282" y="183" width="40" height="6" rx="3" fill="#A8C3F4" stroke="none" stroke-width="1.6"/><g transform="translate(120,262) scale(1,1)"><path d="M-15,-153 L-8,-124 L30,-131" fill="none" stroke="#141414" stroke-width="12.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-15,-153 L-8,-124 L30,-131" fill="none" stroke="#F2B33D" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="30" cy="-131" r="4.2" fill="#57575C" stroke="#141414" stroke-width="1.6"/><path d="M-7,-98 L-8,-50 L-10,-9" fill="none" stroke="#141414" stroke-width="18.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-7,-98 L-8,-50 L-10,-9" fill="none" stroke="#1A1A1A" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M7,-98 L9,-50 L11,-9" fill="none" stroke="#141414" stroke-width="18.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7,-98 L9,-50 L11,-9" fill="none" stroke="#1A1A1A" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M-16,-11 L-1,-11 Q5,-8 5,0 L-17,0 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M5,-11 L20,-11 Q26,-8 26,0 L4,0 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-17,-162 Q0,-166 17,-162 Q23,-160 23,-152 L20,-102 Q0,-97 -20,-102 L-23,-152 Q-23,-160 -17,-162 Z" fill="#F2B33D" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><circle cx="-9" cy="-205" r="7.5" fill="#141414" stroke="#141414" stroke-width="1.6"/><rect x="-4.5" y="-172" width="9" height="16" rx="0" fill="#57575C" stroke="#141414" stroke-width="1.6"/><ellipse cx="1" cy="-185" rx="12.5" ry="15.5" fill="#57575C" stroke="#141414" stroke-width="1.6"/><path d="M13,-188 L17.5,-181 L12.5,-179.5" fill="#57575C" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-11.5,-182 Q-13,-200 1,-201.5 Q12,-201 13.5,-192 Q4,-196 -3,-191 Q-7,-186 -7,-178 Z" fill="#141414" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-12,-186 Q-10,-207 6,-205 Q15,-203 14,-195" fill="none" stroke="#141414" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" /><ellipse cx="-11" cy="-184" rx="4" ry="6.5" fill="#1A1A1A" stroke="#141414" stroke-width="1.6"/><path d="M-9,-178 Q-6,-170 8,-172" fill="none" stroke="#141414" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" /><circle cx="9" cy="-172" r="2.2" fill="#141414" stroke="#141414" stroke-width="1"/><path d="M24,-128 L62,-128 L70,-162 L32,-162 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><circle cx="48" cy="-145" r="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/><path d="M20,-128 L64,-128 L62,-123 L22,-123 Z" fill="#C9CDD3" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M17,-153 L20,-124 L44,-126" fill="none" stroke="#141414" stroke-width="12.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17,-153 L20,-124 L44,-126" fill="none" stroke="#F2B33D" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="-126" r="4.2" fill="#57575C" stroke="#141414" stroke-width="1.6"/></g><path d="M40,262 L44,232 L64,232 L68,262 Z" fill="#FFFFFF" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M54,232 Q40,206 46,190 Q58,206 54,232 Q62,200 76,196 Q74,218 54,232" fill="#2E6B4F" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /></svg></div>
+          <div class="svc-body">
+            <h3>IT Support Services</h3>
+            <p>We take care of your IT so you can focus on your core business, with support shaped around how, when and where you work.</p>
+            <ul><li>Support and maintenance</li><li>Outsourcing and consultancy</li></ul>
+            <a href="#contact" class="text-link">Talk to us about IT support <span aria-hidden="true">&rarr;</span></a>
           </div>
         </div>
-
-        <!-- Column 2 -->
-        <div class="svc-col">
-          <!-- Card 2 -->
-          <div class="svc-card tilt">
-            <div class="svc-card-header">
-              <div class="svc-card-top">
-                <div class="svc-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
-                <div class="svc-toggle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
-              </div>
-              <h3>Enterprise Security Services</h3>
-            </div>
-            <div class="svc-card-excerpt">
-              <div class="svc-card-excerpt-inner">
-                <p>We integrate information security systems with existing infrastructure, providing optimal protection from perimeter security to disaster recovery and centralized multi-factor authentication.</p>
-              </div>
-            </div>
-            <div class="svc-card-body">
-              <div class="svc-card-inner">
-                <div class="svc-card-content">
-                  <p>From antivirus and content security software, data &amp; email encryption, to public key infrastructure technology; we offer comprehensive solutions businesses need for absolute protection.</p>
-                  <p style="margin-top: 12px;">Our suites of security solutions help customers leverage enterprise-class products to translate complex business and compliance requirements into functional reality.</p>
-                  <div class="tag">02 / SECURITY</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Card 5 -->
-          <div class="svc-card tilt">
-            <div class="svc-card-header">
-              <div class="svc-card-top">
-                <div class="svc-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/></svg></div>
-                <div class="svc-toggle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
-              </div>
-              <h3>Application Development Services</h3>
-            </div>
-            <div class="svc-card-excerpt">
-              <div class="svc-card-excerpt-inner">
-                <p>Design, development, and deployment of custom and generic software applications, focused on business process automation and systems integration.</p>
-              </div>
-            </div>
-            <div class="svc-card-body">
-              <div class="svc-card-inner">
-                <div class="svc-card-content">
-                  <p>Our engineering team builds scalable software architectures that streamline complex workflows, enable seamless collaboration, and unify enterprise data.</p>
-                  <p style="margin-top: 12px; color: var(--ink);"><strong>Key Capabilities:</strong></p>
-                  <ul style="margin-top: 6px;">
-                    <li>Line of Business Applications</li>
-                    <li>Workflow, Collaboration &amp; Portals</li>
-                  </ul>
-                  <div class="tag">05 / SOFTWARE</div>
-                </div>
-              </div>
-            </div>
+        <button class="svc-tab" type="button" aria-expanded="false" aria-controls="svc-panel-2" id="svc-tab-2" data-svc="security">
+          <span class="svc-tab-title">Enterprise Security Services</span>
+          <span class="svc-tab-sub">Protecting your information</span>
+          <svg class="svc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+        <div class="svc-panel" id="svc-panel-2" role="region" aria-labelledby="svc-tab-2">
+          <div class="svc-art"><svg viewBox="0 0 400 300" class="scene" aria-hidden="true"><rect width="400" height="300" fill="#DCE7FB"/><path d="M24,262 H376" stroke="#141414" stroke-width="1.6" stroke-linecap="round"/><path d="M150,42 L226,70 V128 C226,184 192,216 150,234 C108,216 74,184 74,128 V70 Z" fill="#A8C3F4" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M150,60 L210,82 V128 C210,172 184,198 150,214 C116,198 90,172 90,128 V82 Z" fill="#FFFFFF" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M134,128 v-12 a16 16 0 0 1 32 0 v12" fill="none" stroke="#141414" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" /><rect x="124" y="126" width="52" height="42" rx="7" fill="#1F5BD8" stroke="#141414" stroke-width="1.6"/><circle cx="150" cy="142" r="5" fill="#FFFFFF" stroke="none" stroke-width="0"/><path d="M150,145 v11" fill="none" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" /><circle cx="52" cy="82" r="16" fill="#FFFFFF" stroke="#141414" stroke-width="1.6"/><circle cx="52" cy="77" r="5" fill="#F2B33D" stroke="#141414" stroke-width="1.6"/><path d="M43,92 Q52,82 61,92" fill="none" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><circle cx="56" cy="188" r="16" fill="#FFFFFF" stroke="#141414" stroke-width="1.6"/><circle cx="56" cy="188" r="8" fill="#1F5BD8" stroke="#141414" stroke-width="1.6"/><path d="M52.4,188 L55.2,191.04 L60.0,185.2" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" /><path d="M68,90 Q78,100 86,104 M70,180 Q80,170 88,166" fill="none" stroke="#141414" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="3 4"/><g transform="translate(300,262) scale(-1,1)"><path d="M-15,-153 L-8,-124 L28,-118" fill="none" stroke="#141414" stroke-width="12.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-15,-153 L-8,-124 L28,-118" fill="none" stroke="#1A1A1A" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="28" cy="-118" r="4.2" fill="#636369" stroke="#141414" stroke-width="1.6"/><path d="M-7,-98 L-8,-50 L-10,-9" fill="none" stroke="#141414" stroke-width="18.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-7,-98 L-8,-50 L-10,-9" fill="none" stroke="#1A1A1A" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M7,-98 L9,-50 L11,-9" fill="none" stroke="#141414" stroke-width="18.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7,-98 L9,-50 L11,-9" fill="none" stroke="#1A1A1A" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M-16,-11 L-1,-11 Q5,-8 5,0 L-17,0 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M5,-11 L20,-11 Q26,-8 26,0 L4,0 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-17,-162 Q0,-166 17,-162 Q23,-160 23,-152 L20,-102 Q0,-97 -20,-102 L-23,-152 Q-23,-160 -17,-162 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-7,-162 L0,-136 L7,-162 Z" fill="#FFFFFF" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-1.8,-158 L1.8,-158 L3,-136 L0,-131 L-3,-136 Z" fill="#1F5BD8" stroke="#141414" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round" /><path d="M-7,-162 L-2,-128 M7,-162 L2,-128" fill="none" stroke="#141414" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round" /><rect x="-4.5" y="-172" width="9" height="16" rx="0" fill="#636369" stroke="#141414" stroke-width="1.6"/><ellipse cx="1" cy="-185" rx="12.5" ry="15.5" fill="#636369" stroke="#141414" stroke-width="1.6"/><path d="M13,-188 L17.5,-181 L12.5,-179.5" fill="#636369" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-11.5,-184 Q-12,-201 2,-202 Q13,-202 14,-191 Q7,-195 1,-192 Q-5,-189 -6,-181 Z" fill="#141414" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M3,-187 h11" fill="#141414" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><rect x="4.5" y="-189.5" width="7" height="4.5" rx="1.5" fill="#3A3A40" stroke="#141414" stroke-width="1.3"/><rect x="26" y="-150" width="30" height="40" rx="4" fill="#FFFFFF" stroke="#141414" stroke-width="1.6"/><circle cx="41" cy="-130" r="7" fill="#1F5BD8" stroke="#141414" stroke-width="1.6"/><path d="M37.85,-130 L40.3,-127.34 L44.5,-132.45" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" /><path d="M17,-153 L19,-124 L40,-114" fill="none" stroke="#141414" stroke-width="12.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17,-153 L19,-124 L40,-114" fill="none" stroke="#1A1A1A" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="40" cy="-114" r="4.2" fill="#636369" stroke="#141414" stroke-width="1.6"/></g></svg></div>
+          <div class="svc-body">
+            <h3>Enterprise Security Services</h3>
+            <p>We integrate information security with your existing infrastructure to protect your most valuable asset: information.</p>
+            <ul><li>Antivirus and content security</li><li>Perimeter security</li><li>Disaster recovery</li><li>Multi-factor authentication</li><li>Data and email encryption</li><li>Public key infrastructure</li></ul>
+            <a href="#contact" class="text-link">Talk to us about security <span aria-hidden="true">&rarr;</span></a>
           </div>
         </div>
-
-        <!-- Column 3 -->
-        <div class="svc-col">
-          <!-- Card 3 -->
-          <div class="svc-card tilt">
-            <div class="svc-card-header">
-              <div class="svc-card-top">
-                <div class="svc-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10l8-6 8 6v10"/><path d="M9 20v-6h6v6"/><circle cx="12" cy="11" r="0.8" fill="currentColor"/></svg></div>
-                <div class="svc-toggle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
-              </div>
-              <h3>Intelligent Building Solutions</h3>
-            </div>
-            <div class="svc-card-excerpt">
-              <div class="svc-card-excerpt-inner">
-                <p>We design and implement fit-for-purpose electronic security solutions including Access Control, Video Surveillance (CCTV), and Building Management Systems.</p>
-              </div>
-            </div>
-            <div class="svc-card-body">
-              <div class="svc-card-inner">
-                <div class="svc-card-content">
-                  <p>As every facility has unique operational requirements, we deploy wide ranges of leading OEM products to deliver tailored, robust physical security architectures.</p>
-                  <p style="margin-top: 12px; color: var(--ink);"><strong>Our competencies include:</strong></p>
-                  <ul style="margin-top: 6px;">
-                    <li>Mustering and Evacuation Monitoring</li>
-                    <li>Intrusion Detection &amp; Visitor Management</li>
-                    <li>Time &amp; Attendance Solutions</li>
-                  </ul>
-                  <div class="tag">03 / BUILDINGS</div>
-                </div>
-              </div>
-            </div>
+        <button class="svc-tab" type="button" aria-expanded="false" aria-controls="svc-panel-3" id="svc-tab-3" data-svc="building">
+          <span class="svc-tab-title">Intelligent Building Solutions</span>
+          <span class="svc-tab-sub">Access, CCTV &amp; building management</span>
+          <svg class="svc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+        <div class="svc-panel" id="svc-panel-3" role="region" aria-labelledby="svc-tab-3">
+          <div class="svc-art"><svg viewBox="0 0 400 300" class="scene" aria-hidden="true"><rect width="400" height="300" fill="#D6EEF7"/><path d="M24,262 H376" stroke="#141414" stroke-width="1.6" stroke-linecap="round"/><rect x="30" y="40" width="190" height="222" rx="0" fill="#FFFFFF" stroke="#141414" stroke-width="1.6"/><rect x="78" y="96" width="92" height="166" rx="0" fill="#CFE0FA" stroke="#141414" stroke-width="1.6"/><path d="M124,96 V262" fill="none" stroke="#141414" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" /><path d="M116,170 v24 M132,170 v24" fill="none" stroke="#141414" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M88,120 L108,104 M88,136 L120,108 M136,228 L160,208" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><rect x="184" y="150" width="16" height="26" rx="3" fill="#1A1A1A" stroke="#141414" stroke-width="1.6"/><circle cx="192" cy="158" r="3" fill="#1F5BD8" stroke="none" stroke-width="0"/><rect x="188" y="166" width="8" height="5" rx="1" fill="#5FD07A" stroke="none" stroke-width="1.6"/><path d="M30,70 h22 v10" fill="none" stroke="#141414" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" /><path d="M40,78 L84,70 L88,86 L46,94 Z" fill="#FFFFFF" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><circle cx="86" cy="79" r="4" fill="#1A1A1A" stroke="#141414" stroke-width="1.6"/><path d="M88,86 L120,150 M80,90 L90,158" fill="none" stroke="#1F5BD8" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="3 5"/><rect x="96" y="62" width="56" height="18" rx="3" fill="#1F5BD8" stroke="#141414" stroke-width="1.6"/><rect x="104" y="69" width="40" height="4" rx="2" fill="#FFFFFF" stroke="none" stroke-width="1.6"/><g transform="translate(268,262) scale(-1,1)"><path d="M-15,-153 L-20,-126 L-18,-100" fill="none" stroke="#141414" stroke-width="12.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-15,-153 L-20,-126 L-18,-100" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="-18" cy="-100" r="4.2" fill="#57575C" stroke="#141414" stroke-width="1.6"/><path d="M-8,-50 L-10,-9" fill="none" stroke="#141414" stroke-width="10.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-8,-50 L-10,-9" fill="none" stroke="#57575C" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M9,-50 L11,-9" fill="none" stroke="#141414" stroke-width="10.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9,-50 L11,-9" fill="none" stroke="#57575C" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M-16,-11 L-1,-11 Q5,-8 5,0 L-17,0 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M5,-11 L20,-11 Q26,-8 26,0 L4,0 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-21,-106 L21,-106 L30,-38 Q0,-33 -30,-38 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-17,-162 Q0,-166 17,-162 Q23,-160 23,-152 L20,-102 Q0,-97 -20,-102 L-23,-152 Q-23,-160 -17,-162 Z" fill="#FFFFFF" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><circle cx="-1" cy="-191" r="17.5" fill="#141414" stroke="#141414" stroke-width="1.6"/><rect x="-4.5" y="-172" width="9" height="16" rx="0" fill="#57575C" stroke="#141414" stroke-width="1.6"/><ellipse cx="1" cy="-185" rx="12.5" ry="15.5" fill="#57575C" stroke="#141414" stroke-width="1.6"/><path d="M13,-188 L17.5,-181 L12.5,-179.5" fill="#57575C" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><rect x="56" y="-131" width="14" height="20" rx="2" fill="#1F5BD8" stroke="#141414" stroke-width="1.2"/><path d="M17,-153 L36,-130 L62,-122" fill="none" stroke="#141414" stroke-width="12.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17,-153 L36,-130 L62,-122" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="62" cy="-122" r="4.2" fill="#57575C" stroke="#141414" stroke-width="1.6"/></g></svg></div>
+          <div class="svc-body">
+            <h3>Intelligent Building Solutions</h3>
+            <p>Fit-for-purpose electronic security, designed and installed with leading OEM products.</p>
+            <ul><li>Access control</li><li>Video surveillance (CCTV)</li><li>Building management</li><li>Mustering and evacuation</li><li>Intrusion detection</li><li>Time, attendance and visitors</li></ul>
+            <a href="#contact" class="text-link">Talk to us about your building <span aria-hidden="true">&rarr;</span></a>
           </div>
-          <!-- Card 6 -->
-          <div class="svc-card tilt">
-            <div class="svc-card-header">
-              <div class="svc-card-top">
-                <div class="svc-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 4l-4 8 4 8M16 4l4 8-4 8M14 2l-4 20"/></svg></div>
-                <div class="svc-toggle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></div>
-              </div>
-              <h3>Telephony Solutions</h3>
-            </div>
-            <div class="svc-card-excerpt">
-              <div class="svc-card-excerpt-inner">
-                <p>Integrated voice and communication systems including Video Conferencing, Multi-media Business Solutions, and Contact Centre Solutions.</p>
-              </div>
-            </div>
-            <div class="svc-card-body">
-              <div class="svc-card-inner">
-                <div class="svc-card-content">
-                  <p>We deliver state-of-the-art multimedia interaction platforms designed to elevate customer engagement and streamline internal enterprise communication.</p>
-                  <p style="margin-top: 12px; color: var(--ink);"><strong>Solution Suites:</strong></p>
-                  <ul style="margin-top: 6px;">
-                    <li>Enterprise Video Collaboration</li>
-                    <li>Scalable Call Centre Infrastructure</li>
-                  </ul>
-                  <div class="tag">06 / COMMS</div>
-                </div>
-              </div>
-            </div>
+        </div>
+        <button class="svc-tab" type="button" aria-expanded="false" aria-controls="svc-panel-4" id="svc-tab-4" data-svc="network">
+          <span class="svc-tab-title">Network Solutions</span>
+          <span class="svc-tab-sub">LAN, WAN, data centre &amp; audits</span>
+          <svg class="svc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+        <div class="svc-panel" id="svc-panel-4" role="region" aria-labelledby="svc-tab-4">
+          <div class="svc-art"><svg viewBox="0 0 400 300" class="scene" aria-hidden="true"><rect width="400" height="300" fill="#D6EEF7"/><path d="M24,262 H376" stroke="#141414" stroke-width="1.6" stroke-linecap="round"/><rect x="232" y="58" width="92" height="204" rx="6" fill="#1A1A1A" stroke="#141414" stroke-width="1.6"/><rect x="242" y="72" width="72" height="18" rx="2" fill="#2A2A2E" stroke="#141414" stroke-width="1.2"/><rect x="248" y="78" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="256" y="78" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="264" y="78" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="272" y="78" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="280" y="78" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="288" y="78" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><circle cx="302" cy="81" r="2.4" fill="#1F5BD8" stroke="none" stroke-width="0"/><rect x="242" y="98" width="72" height="18" rx="2" fill="#2A2A2E" stroke="#141414" stroke-width="1.2"/><rect x="248" y="104" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="256" y="104" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="264" y="104" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="272" y="104" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="280" y="104" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="288" y="104" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><circle cx="302" cy="107" r="2.4" fill="#5FD07A" stroke="none" stroke-width="0"/><rect x="242" y="124" width="72" height="18" rx="2" fill="#2A2A2E" stroke="#141414" stroke-width="1.2"/><rect x="248" y="130" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="256" y="130" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="264" y="130" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="272" y="130" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="280" y="130" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="288" y="130" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><circle cx="302" cy="133" r="2.4" fill="#F2B33D" stroke="none" stroke-width="0"/><rect x="242" y="150" width="72" height="18" rx="2" fill="#2A2A2E" stroke="#141414" stroke-width="1.2"/><rect x="248" y="156" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="256" y="156" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="264" y="156" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="272" y="156" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="280" y="156" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="288" y="156" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><circle cx="302" cy="159" r="2.4" fill="#1F5BD8" stroke="none" stroke-width="0"/><rect x="242" y="176" width="72" height="18" rx="2" fill="#2A2A2E" stroke="#141414" stroke-width="1.2"/><rect x="248" y="182" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="256" y="182" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="264" y="182" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="272" y="182" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="280" y="182" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="288" y="182" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><circle cx="302" cy="185" r="2.4" fill="#5FD07A" stroke="none" stroke-width="0"/><rect x="242" y="202" width="72" height="18" rx="2" fill="#2A2A2E" stroke="#141414" stroke-width="1.2"/><rect x="248" y="208" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="256" y="208" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="264" y="208" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="272" y="208" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="280" y="208" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="288" y="208" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><circle cx="302" cy="211" r="2.4" fill="#1F5BD8" stroke="none" stroke-width="0"/><rect x="242" y="228" width="72" height="18" rx="2" fill="#2A2A2E" stroke="#141414" stroke-width="1.2"/><rect x="248" y="234" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="256" y="234" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="264" y="234" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="272" y="234" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="280" y="234" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><rect x="288" y="234" width="5" height="5" rx="1" fill="#0F0F10" stroke="#55555C" stroke-width="0.8"/><circle cx="302" cy="237" r="2.4" fill="#1F5BD8" stroke="none" stroke-width="0"/><path d="M252,107 Q236,130 254,133" fill="none" stroke="#1F5BD8" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" /><path d="M268,159 Q226,190 260,211" fill="none" stroke="#F2B33D" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" /><g transform="translate(160,262) scale(1,1)"><path d="M-15,-153 L-19,-126 L-17,-100" fill="none" stroke="#141414" stroke-width="12.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-15,-153 L-19,-126 L-17,-100" fill="none" stroke="#A8C3F4" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="-17" cy="-100" r="4.2" fill="#4A4A4F" stroke="#141414" stroke-width="1.6"/><path d="M-7,-98 L-8,-50 L-10,-9" fill="none" stroke="#141414" stroke-width="18.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-7,-98 L-8,-50 L-10,-9" fill="none" stroke="#1F5BD8" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M7,-98 L9,-50 L11,-9" fill="none" stroke="#141414" stroke-width="18.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7,-98 L9,-50 L11,-9" fill="none" stroke="#1F5BD8" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M-16,-11 L-1,-11 Q5,-8 5,0 L-17,0 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M5,-11 L20,-11 Q26,-8 26,0 L4,0 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-17,-162 Q0,-166 17,-162 Q23,-160 23,-152 L20,-102 Q0,-97 -20,-102 L-23,-152 Q-23,-160 -17,-162 Z" fill="#A8C3F4" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-14,-128 L14,-128 L15,-100 L-15,-100 Z" fill="#1F5BD8" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-12,-128 L-10,-160 M12,-128 L10,-160" fill="none" stroke="#141414" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" /><rect x="-4.5" y="-172" width="9" height="16" rx="0" fill="#4A4A4F" stroke="#141414" stroke-width="1.6"/><ellipse cx="1" cy="-185" rx="12.5" ry="15.5" fill="#4A4A4F" stroke="#141414" stroke-width="1.6"/><path d="M13,-188 L17.5,-181 L12.5,-179.5" fill="#4A4A4F" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-11.5,-185 Q-11,-200 2,-200.5 Q12,-200 13.5,-193 Q6,-196 0,-193.5 Q-5,-191 -6,-183 Z" fill="#141414" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M17,-153 L40,-140 L72,-150" fill="none" stroke="#141414" stroke-width="12.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17,-153 L40,-140 L72,-150" fill="none" stroke="#A8C3F4" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="72" cy="-150" r="4.2" fill="#4A4A4F" stroke="#141414" stroke-width="1.6"/></g><path d="M232,112 Q214,150 196,262" fill="none" stroke="#1F5BD8" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" /><circle cx="232" cy="112" r="3.6" fill="#1F5BD8" stroke="#141414" stroke-width="1.6"/><rect x="84" y="234" width="52" height="28" rx="4" fill="#E04B3F" stroke="#141414" stroke-width="1.6"/><path d="M98,234 v-8 h24 v8" fill="none" stroke="#141414" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" /><path d="M84,246 h52" fill="none" stroke="#141414" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" /><circle cx="72" cy="92" r="22" fill="#FFFFFF" stroke="#141414" stroke-width="1.6"/><path d="M62,92 h20 M72,82 v20" fill="none" stroke="#1F5BD8" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" /><circle cx="72" cy="92" r="4" fill="#1F5BD8" stroke="none" stroke-width="0"/><path d="M94,92 Q150,70 200,96" fill="none" stroke="#141414" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="3 5"/></svg></div>
+          <div class="svc-body">
+            <h3>Network Solutions</h3>
+            <p>Design, implementation and support for the networks your business runs on.</p>
+            <ul><li>Local and wide area networks</li><li>Network management</li><li>Unified communications</li><li>Audio-visual and video collaboration</li><li>Servers, storage and data centres</li><li>IT infrastructure audits</li></ul>
+            <a href="#contact" class="text-link">Talk to us about your network <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </div>
+        <button class="svc-tab" type="button" aria-expanded="false" aria-controls="svc-panel-5" id="svc-tab-5" data-svc="infra">
+          <span class="svc-tab-title">Enterprise Infrastructure Solutions</span>
+          <span class="svc-tab-sub">Operations, continuity &amp; security</span>
+          <svg class="svc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+        <div class="svc-panel" id="svc-panel-5" role="region" aria-labelledby="svc-tab-5">
+          <div class="svc-art"><svg viewBox="0 0 400 300" class="scene" aria-hidden="true"><rect width="400" height="300" fill="#D6EEF7"/><path d="M24,262 H376" stroke="#141414" stroke-width="1.6" stroke-linecap="round"/><rect x="150" y="92" width="140" height="38" rx="6" fill="#FFFFFF" stroke="#141414" stroke-width="1.6"/><rect x="162" y="106" width="7" height="10" rx="1.5" fill="#A8C3F4" stroke="#141414" stroke-width="1.1"/><rect x="174" y="106" width="7" height="10" rx="1.5" fill="#A8C3F4" stroke="#141414" stroke-width="1.1"/><rect x="186" y="106" width="7" height="10" rx="1.5" fill="#A8C3F4" stroke="#141414" stroke-width="1.1"/><rect x="198" y="106" width="7" height="10" rx="1.5" fill="#A8C3F4" stroke="#141414" stroke-width="1.1"/><rect x="210" y="106" width="7" height="10" rx="1.5" fill="#A8C3F4" stroke="#141414" stroke-width="1.1"/><circle cx="268" cy="111" r="4" fill="#1F5BD8" stroke="#141414" stroke-width="1.2"/><circle cx="254" cy="111" r="4" fill="#FFFFFF" stroke="#141414" stroke-width="1.2"/><rect x="150" y="136" width="140" height="38" rx="6" fill="#FFFFFF" stroke="#141414" stroke-width="1.6"/><rect x="162" y="150" width="7" height="10" rx="1.5" fill="#A8C3F4" stroke="#141414" stroke-width="1.1"/><rect x="174" y="150" width="7" height="10" rx="1.5" fill="#A8C3F4" stroke="#141414" stroke-width="1.1"/><rect x="186" y="150" width="7" height="10" rx="1.5" fill="#A8C3F4" stroke="#141414" stroke-width="1.1"/><rect x="198" y="150" width="7" height="10" rx="1.5" fill="#A8C3F4" stroke="#141414" stroke-width="1.1"/><rect x="210" y="150" width="7" height="10" rx="1.5" fill="#A8C3F4" stroke="#141414" stroke-width="1.1"/><circle cx="268" cy="155" r="4" fill="#5FD07A" stroke="#141414" stroke-width="1.2"/><circle cx="254" cy="155" r="4" fill="#FFFFFF" stroke="#141414" stroke-width="1.2"/><rect x="150" y="180" width="140" height="38" rx="6" fill="#FFFFFF" stroke="#141414" stroke-width="1.6"/><rect x="162" y="194" width="7" height="10" rx="1.5" fill="#A8C3F4" stroke="#141414" stroke-width="1.1"/><rect x="174" y="194" width="7" height="10" rx="1.5" fill="#A8C3F4" stroke="#141414" stroke-width="1.1"/><rect x="186" y="194" width="7" height="10" rx="1.5" fill="#A8C3F4" stroke="#141414" stroke-width="1.1"/><rect x="198" y="194" width="7" height="10" rx="1.5" fill="#A8C3F4" stroke="#141414" stroke-width="1.1"/><rect x="210" y="194" width="7" height="10" rx="1.5" fill="#A8C3F4" stroke="#141414" stroke-width="1.1"/><circle cx="268" cy="199" r="4" fill="#1F5BD8" stroke="#141414" stroke-width="1.2"/><circle cx="254" cy="199" r="4" fill="#FFFFFF" stroke="#141414" stroke-width="1.2"/><rect x="150" y="218" width="140" height="44" rx="6" fill="#1A1A1A" stroke="#141414" stroke-width="1.6"/><path d="M164,240 h40" fill="none" stroke="#55555C" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" /><path d="M306,120 v44 a20 7 0 0 0 40 0 v-44" fill="#FFFFFF" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><ellipse cx="326" cy="120" rx="20" ry="7" fill="#A8C3F4" stroke="#141414" stroke-width="1.6"/><path d="M306,142 a20 7 0 0 0 40 0" fill="none" stroke="#141414" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" /><path d="M300,96 Q326,72 352,96" fill="none" stroke="#1F5BD8" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" /><path d="M346,88 l6,8 -10,1" fill="none" stroke="#1F5BD8" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" /><circle cx="206" cy="58" r="20" fill="#F2B33D" stroke="#141414" stroke-width="1.6"/><path d="M197,60 a6 6 0 0 1 6,-8 a7 7 0 0 1 13,3 a5 5 0 0 1 -1,10 h-16 a5 5 0 0 1 -2,-5z" fill="#FFFFFF" stroke="#141414" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" /><g transform="translate(96,262) scale(1,1)"><path d="M-17,-153 L-21,-126 L-20,-100" fill="none" stroke="#141414" stroke-width="12.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-17,-153 L-21,-126 L-20,-100" fill="none" stroke="#1A1A1A" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="-20" cy="-100" r="4.2" fill="#57575C" stroke="#141414" stroke-width="1.6"/><path d="M-7,-98 L-8,-50 L-10,-9" fill="none" stroke="#141414" stroke-width="18.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-7,-98 L-8,-50 L-10,-9" fill="none" stroke="#A8C3F4" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M7,-98 L9,-50 L11,-9" fill="none" stroke="#141414" stroke-width="18.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7,-98 L9,-50 L11,-9" fill="none" stroke="#A8C3F4" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M-16,-11 L-1,-11 Q5,-8 5,0 L-17,0 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M5,-11 L20,-11 Q26,-8 26,0 L4,0 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-17,-162 Q0,-166 17,-162 Q23,-160 23,-152 L20,-102 Q0,-97 -20,-102 L-23,-152 Q-23,-160 -17,-162 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><circle cx="-9" cy="-205" r="7.5" fill="#141414" stroke="#141414" stroke-width="1.6"/><rect x="-4.5" y="-172" width="9" height="16" rx="0" fill="#57575C" stroke="#141414" stroke-width="1.6"/><ellipse cx="1" cy="-185" rx="12.5" ry="15.5" fill="#57575C" stroke="#141414" stroke-width="1.6"/><path d="M13,-188 L17.5,-181 L12.5,-179.5" fill="#57575C" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-11.5,-182 Q-13,-200 1,-201.5 Q12,-201 13.5,-192 Q4,-196 -3,-191 Q-7,-186 -7,-178 Z" fill="#141414" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><rect x="26" y="-156" width="30" height="40" rx="4" fill="#FFFFFF" stroke="#141414" stroke-width="1.6"/><rect x="31" y="-147" width="20" height="4" rx="2" fill="#1F5BD8" stroke="none" stroke-width="1.6"/><rect x="31" y="-138" width="14" height="4" rx="2" fill="#A8C3F4" stroke="none" stroke-width="1.6"/><circle cx="41" cy="-127" r="5" fill="#1F5BD8" stroke="#141414" stroke-width="1.6"/><path d="M38.75,-127 L40.5,-125.1 L43.5,-128.75" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" /><path d="M17,-153 L22,-122 L32,-120" fill="none" stroke="#141414" stroke-width="12.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17,-153 L22,-122 L32,-120" fill="none" stroke="#1A1A1A" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="-120" r="4.2" fill="#57575C" stroke="#141414" stroke-width="1.6"/></g></svg></div>
+          <div class="svc-body">
+            <h3>Enterprise Infrastructure Solutions</h3>
+            <p>We procure and implement the infrastructure behind business operations, continuity and security.</p>
+            <ul><li>Security architecture, PKI and directory services</li><li>Service desk and VMware</li><li>Backup and disaster recovery</li><li>Enterprise OS, messaging and document management</li></ul>
+            <a href="#contact" class="text-link">Talk to us about infrastructure <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </div>
+        <button class="svc-tab" type="button" aria-expanded="false" aria-controls="svc-panel-6" id="svc-tab-6" data-svc="software">
+          <span class="svc-tab-title">Application Development Services</span>
+          <span class="svc-tab-sub">Custom software &amp; integration</span>
+          <svg class="svc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+        <div class="svc-panel" id="svc-panel-6" role="region" aria-labelledby="svc-tab-6">
+          <div class="svc-art"><svg viewBox="0 0 400 300" class="scene" aria-hidden="true"><rect width="400" height="300" fill="#DCE7FB"/><path d="M24,262 H376" stroke="#141414" stroke-width="1.6" stroke-linecap="round"/><rect x="124" y="48" width="180" height="128" rx="8" fill="#FFFFFF" stroke="#141414" stroke-width="1.6"/><path d="M124,66 H304" fill="none" stroke="#141414" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" /><circle cx="136" cy="57" r="2.6" fill="#E04B3F" stroke="none" stroke-width="0"/><circle cx="145" cy="57" r="2.6" fill="#F2B33D" stroke="none" stroke-width="0"/><circle cx="154" cy="57" r="2.6" fill="#5FD07A" stroke="none" stroke-width="0"/><rect x="134" y="76" width="36" height="90" rx="3" fill="#DCE7FB" stroke="none" stroke-width="1.6"/><rect x="140" y="84" width="24" height="5" rx="2.5" fill="#1F5BD8" stroke="none" stroke-width="1.6"/><rect x="140" y="98" width="24" height="5" rx="2.5" fill="#A8C3F4" stroke="none" stroke-width="1.6"/><rect x="140" y="112" width="24" height="5" rx="2.5" fill="#A8C3F4" stroke="none" stroke-width="1.6"/><rect x="140" y="126" width="24" height="5" rx="2.5" fill="#A8C3F4" stroke="none" stroke-width="1.6"/><rect x="180" y="76" width="56" height="40" rx="4" fill="#DCE7FB" stroke="none" stroke-width="1.6"/><rect x="244" y="76" width="50" height="40" rx="4" fill="#DCE7FB" stroke="none" stroke-width="1.6"/><path d="M186,106 L198,94 L210,100 L228,84" fill="none" stroke="#1F5BD8" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" /><rect x="252" y="94" width="6" height="16" rx="1.5" fill="#A8C3F4" stroke="none" stroke-width="1.6"/><rect x="262" y="84" width="6" height="26" rx="1.5" fill="#1F5BD8" stroke="none" stroke-width="1.6"/><rect x="272" y="90" width="6" height="20" rx="1.5" fill="#A8C3F4" stroke="none" stroke-width="1.6"/><rect x="282" y="80" width="6" height="30" rx="1.5" fill="#1F5BD8" stroke="none" stroke-width="1.6"/><rect x="180" y="124" width="114" height="8" rx="4" fill="#C9CDD3" stroke="none" stroke-width="1.6"/><rect x="180" y="140" width="80" height="8" rx="4" fill="#C9CDD3" stroke="none" stroke-width="1.6"/><rect x="180" y="156" width="96" height="8" rx="4" fill="#A8C3F4" stroke="none" stroke-width="1.6"/><path d="M214,176 V262 M190,262 H238" fill="none" stroke="#141414" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" /><g transform="translate(86,262) scale(1,1)"><path d="M-15,-153 L-19,-126 L-17,-100" fill="none" stroke="#141414" stroke-width="12.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-15,-153 L-19,-126 L-17,-100" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="-17" cy="-100" r="4.2" fill="#4A4A4F" stroke="#141414" stroke-width="1.6"/><path d="M-7,-98 L-8,-50 L-10,-9" fill="none" stroke="#141414" stroke-width="18.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-7,-98 L-8,-50 L-10,-9" fill="none" stroke="#1A1A1A" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M7,-98 L9,-50 L11,-9" fill="none" stroke="#141414" stroke-width="18.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7,-98 L9,-50 L11,-9" fill="none" stroke="#1A1A1A" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M-16,-11 L-1,-11 Q5,-8 5,0 L-17,0 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M5,-11 L20,-11 Q26,-8 26,0 L4,0 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-17,-162 Q0,-166 17,-162 Q23,-160 23,-152 L20,-102 Q0,-97 -20,-102 L-23,-152 Q-23,-160 -17,-162 Z" fill="#FFFFFF" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-7,-162 L0,-152 L7,-162" fill="none" stroke="#141414" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" /><rect x="-4.5" y="-172" width="9" height="16" rx="0" fill="#4A4A4F" stroke="#141414" stroke-width="1.6"/><ellipse cx="1" cy="-185" rx="12.5" ry="15.5" fill="#4A4A4F" stroke="#141414" stroke-width="1.6"/><path d="M13,-188 L17.5,-181 L12.5,-179.5" fill="#4A4A4F" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-11.5,-184 Q-12,-201 2,-202 Q13,-202 14,-191 Q7,-195 1,-192 Q-5,-189 -6,-181 Z" fill="#141414" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M17,-153 L42,-160 L66,-182" fill="none" stroke="#141414" stroke-width="12.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17,-153 L42,-160 L66,-182" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="66" cy="-182" r="4.2" fill="#4A4A4F" stroke="#141414" stroke-width="1.6"/></g><g transform="translate(340,262) scale(-1,1)"><path d="M-15,-153 L-8,-124 L30,-131" fill="none" stroke="#141414" stroke-width="12.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-15,-153 L-8,-124 L30,-131" fill="none" stroke="#1A1A1A" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="30" cy="-131" r="4.2" fill="#636369" stroke="#141414" stroke-width="1.6"/><path d="M-7,-98 L-8,-50 L-10,-9" fill="none" stroke="#141414" stroke-width="18.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-7,-98 L-8,-50 L-10,-9" fill="none" stroke="#FFFFFF" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M7,-98 L9,-50 L11,-9" fill="none" stroke="#141414" stroke-width="18.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7,-98 L9,-50 L11,-9" fill="none" stroke="#FFFFFF" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M-16,-11 L-1,-11 Q5,-8 5,0 L-17,0 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M5,-11 L20,-11 Q26,-8 26,0 L4,0 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-17,-162 Q0,-166 17,-162 Q23,-160 23,-152 L20,-102 Q0,-97 -20,-102 L-23,-152 Q-23,-160 -17,-162 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><circle cx="-9" cy="-205" r="7.5" fill="#141414" stroke="#141414" stroke-width="1.6"/><rect x="-4.5" y="-172" width="9" height="16" rx="0" fill="#636369" stroke="#141414" stroke-width="1.6"/><ellipse cx="1" cy="-185" rx="12.5" ry="15.5" fill="#636369" stroke="#141414" stroke-width="1.6"/><path d="M13,-188 L17.5,-181 L12.5,-179.5" fill="#636369" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-11.5,-182 Q-13,-200 1,-201.5 Q12,-201 13.5,-192 Q4,-196 -3,-191 Q-7,-186 -7,-178 Z" fill="#141414" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M24,-128 L62,-128 L70,-162 L32,-162 Z" fill="#1F5BD8" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><circle cx="48" cy="-145" r="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/><path d="M20,-128 L64,-128 L62,-123 L22,-123 Z" fill="#C9CDD3" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M17,-153 L20,-124 L44,-126" fill="none" stroke="#141414" stroke-width="12.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17,-153 L20,-124 L44,-126" fill="none" stroke="#1A1A1A" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="-126" r="4.2" fill="#636369" stroke="#141414" stroke-width="1.6"/></g><circle cx="318" cy="44" r="18" fill="#F2B33D" stroke="#141414" stroke-width="1.6"/><path d="M312,38 l-6,6 6,6 M324,38 l6,6 -6,6" fill="none" stroke="#141414" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" /></svg></div>
+          <div class="svc-body">
+            <h3>Application Development Services</h3>
+            <p>Custom and off-the-shelf software, designed, built and deployed for your organisation.</p>
+            <ul><li>Line-of-business applications</li><li>Business process automation</li><li>Workflow, collaboration and portals</li><li>Systems integration</li></ul>
+            <a href="#contact" class="text-link">Talk to us about software <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </div>
+        <button class="svc-tab" type="button" aria-expanded="false" aria-controls="svc-panel-7" id="svc-tab-7" data-svc="telephony">
+          <span class="svc-tab-title">Telephony Solutions</span>
+          <span class="svc-tab-sub">Voice, video &amp; contact centres</span>
+          <svg class="svc-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+        <div class="svc-panel" id="svc-panel-7" role="region" aria-labelledby="svc-tab-7">
+          <div class="svc-art"><svg viewBox="0 0 400 300" class="scene" aria-hidden="true"><rect width="400" height="300" fill="#D6EEF7"/><path d="M24,262 H376" stroke="#141414" stroke-width="1.6" stroke-linecap="round"/><rect x="34" y="46" width="210" height="142" rx="10" fill="#FFFFFF" stroke="#141414" stroke-width="1.6"/><rect x="46" y="58" width="90" height="96" rx="6" fill="#DCE7FB" stroke="#141414" stroke-width="1.6"/><rect x="142" y="58" width="90" height="96" rx="6" fill="#D6EEF7" stroke="#141414" stroke-width="1.6"/><svg x="46" y="58" width="90" height="96" overflow="hidden"><path d="M11,88 Q11,58 45,56 Q79,58 79,88 Z" fill="#1F5BD8" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><rect x="40" y="44" width="10" height="14" rx="0" fill="#4A4A4F" stroke="#141414" stroke-width="1.6"/><ellipse cx="45" cy="36" rx="12" ry="14" fill="#4A4A4F" stroke="#141414" stroke-width="1.6"/><path d="M33,34 Q33,20 45,20 Q57,20 57,34 Q47,28 33,34 Z" fill="#141414" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /></svg><svg x="142" y="58" width="90" height="96" overflow="hidden"><circle cx="45" cy="30" r="16" fill="#141414" stroke="#141414" stroke-width="1.6"/><path d="M11,88 Q11,58 45,56 Q79,58 79,88 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><rect x="40" y="44" width="10" height="14" rx="0" fill="#57575C" stroke="#141414" stroke-width="1.6"/><ellipse cx="45" cy="36" rx="12" ry="14" fill="#57575C" stroke="#141414" stroke-width="1.6"/></svg><rect x="142" y="58" width="90" height="96" rx="6" fill="none" stroke="#1F5BD8" stroke-width="2.6"/><circle cx="116" cy="170" r="7" fill="#FFFFFF" stroke="#141414" stroke-width="1.6"/><circle cx="139" cy="170" r="7" fill="#E04B3F" stroke="#141414" stroke-width="1.6"/><path d="M135,170 h8" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" /><circle cx="162" cy="170" r="7" fill="#FFFFFF" stroke="#141414" stroke-width="1.6"/><path d="M244,110 Q262,96 270,80 M250,124 Q276,108 286,86" fill="none" stroke="#1F5BD8" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" /><g transform="translate(316,262) scale(-1,1)"><path d="M-15,-153 L-19,-126 L-17,-100" fill="none" stroke="#141414" stroke-width="12.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-15,-153 L-19,-126 L-17,-100" fill="none" stroke="#1F5BD8" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="-17" cy="-100" r="4.2" fill="#636369" stroke="#141414" stroke-width="1.6"/><path d="M-7,-98 L-8,-50 L-10,-9" fill="none" stroke="#141414" stroke-width="18.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-7,-98 L-8,-50 L-10,-9" fill="none" stroke="#1A1A1A" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M7,-98 L9,-50 L11,-9" fill="none" stroke="#141414" stroke-width="18.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7,-98 L9,-50 L11,-9" fill="none" stroke="#1A1A1A" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M-16,-11 L-1,-11 Q5,-8 5,0 L-17,0 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M5,-11 L20,-11 Q26,-8 26,0 L4,0 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-17,-162 Q0,-166 17,-162 Q23,-160 23,-152 L20,-102 Q0,-97 -20,-102 L-23,-152 Q-23,-160 -17,-162 Z" fill="#1F5BD8" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><rect x="-4.5" y="-172" width="9" height="16" rx="0" fill="#636369" stroke="#141414" stroke-width="1.6"/><ellipse cx="1" cy="-185" rx="12.5" ry="15.5" fill="#636369" stroke="#141414" stroke-width="1.6"/><path d="M13,-188 L17.5,-181 L12.5,-179.5" fill="#636369" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-13,-184 Q-18,-204 -4,-212 Q10,-216 17,-204 Q19,-196 14,-191 Q4,-196 -4,-192 Q-9,-189 -9,-182 Z" fill="#F2B33D" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-6,-209 Q2,-204 14,-206" fill="none" stroke="#141414" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round" /><path d="M-12,-186 Q-10,-207 6,-205 Q15,-203 14,-195" fill="none" stroke="#141414" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" /><ellipse cx="-11" cy="-184" rx="4" ry="6.5" fill="#1A1A1A" stroke="#141414" stroke-width="1.6"/><path d="M-9,-178 Q-6,-170 8,-172" fill="none" stroke="#141414" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" /><circle cx="9" cy="-172" r="2.2" fill="#141414" stroke="#141414" stroke-width="1"/><path d="M17,-153 L30,-128 L44,-146" fill="none" stroke="#141414" stroke-width="12.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17,-153 L30,-128 L44,-146" fill="none" stroke="#1F5BD8" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="-146" r="4.2" fill="#636369" stroke="#141414" stroke-width="1.6"/></g></svg></div>
+          <div class="svc-body">
+            <h3>Telephony Solutions</h3>
+            <p>Voice and video systems that connect your teams and your customers.</p>
+            <ul><li>Video conferencing</li><li>Multimedia business solutions</li><li>Contact and call centres</li></ul>
+            <a href="#contact" class="text-link">Talk to us about telephony <span aria-hidden="true">&rarr;</span></a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= SOFTWARE SHOWCASE ================= -->
-  <!-- <section>
-    <div class="wrap">
-      <div class="showcase-grid">
-        <div class="reveal-children">
-          <span class="eyebrow">Our Expertise</span>
-          <h2 class="h-section" style="margin-top: 20px;">Secure, intelligent,<br/>and future-ready systems.</h2>
-          <p class="lead" style="margin-top: 20px;">We combine deep domain expertise with emerging technologies to build secure, intelligent, and future-ready systems.</p>
-          <div class="showcase-features">
-            <div class="showcase-feat">
-              <div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div>
-              <h4>Innovation Driven</h4>
-              <p>We stay ahead with cutting-edge technologies.</p>
-            </div>
-            <div class="showcase-feat">
-              <div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></div>
-              <h4>Secure by Design</h4>
-              <p>Security is embedded in every solution.</p>
-            </div>
-            <div class="showcase-feat">
-              <div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M12 7v5l3 2"/></svg></div>
-              <h4>Scalable Solutions</h4>
-              <p>Built to grow with your business seamlessly.</p>
-            </div>
-            <div class="showcase-feat">
-              <div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>
-              <h4>Expert Team</h4>
-              <p>Certified professionals dedicated to your success.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="device-stack" data-parallax>
-          <!-- Web dashboard -->
-          <!-- <div class="device device-web" data-depth="0.2">
-            <div class="web-topbar"><span></span><span></span><span></span><span class="url">teksphereglobal.com/solutions</span></div>
-            <div class="web-body">
-              <div class="web-nav">
-                <div class="item active"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-              </div>
-              <div class="web-main">
-                <div class="web-row">
-                  <div class="web-tile"><span style="font-size:10px;color:var(--muted);font-family:var(--mono);">PROJECTS</span><span class="n">250+</span></div>
-                  <div class="web-tile"><span style="font-size:10px;color:var(--muted);font-family:var(--mono);">SATISFACTION</span><span class="n">98%</span></div>
-                  <div class="web-tile"><span style="font-size:10px;color:var(--muted);font-family:var(--mono);">SUPPORT</span><span class="n">24/7</span></div>
-                </div>
-                <div class="web-chart">
-                  <svg viewBox="0 0 300 120" preserveAspectRatio="none" style="width:100%;height:100%;">
-                    <defs><linearGradient id="chartg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0EA5E9" stop-opacity="0.3"/><stop offset="1" stop-color="#0EA5E9" stop-opacity="0"/></linearGradient></defs>
-                    <path d="M0,80 C40,60 60,90 100,70 C140,50 160,85 200,55 C240,30 260,60 300,40 L300,120 L0,120 Z" fill="url(#chartg)"/>
-                    <path d="M0,80 C40,60 60,90 100,70 C140,50 160,85 200,55 C240,30 260,60 300,40" fill="none" stroke="#0EA5E9" stroke-width="2"/>
-                    <path d="M0,95 C40,90 60,100 100,90 C140,80 160,95 200,85 C240,75 260,85 300,78" fill="none" stroke="#22D3EE" stroke-width="1.5" stroke-dasharray="3 3"/>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Phone -->
-          <!-- <div class="device device-phone" data-depth="0.5">
-            <div class="screen">
-              <div class="phone-screen-header"><span>9:41</span><span>ONLINE</span></div>
-              <div style="font-family: var(--serif); font-size: 13px; font-weight: 600; margin-bottom: 12px;">TekSphere Ops</div>
-              <div class="phone-card">
-                <div class="t">Managed IT Support</div>
-                <div class="v">Active</div>
-                <div style="display:flex;gap:3px;margin-top:6px;">
-                  <div style="height:3px;flex:1;background:#22C55E;border-radius:2px;"></div>
-                  <div style="height:3px;flex:1;background:#22C55E;border-radius:2px;"></div>
-                  <div style="height:3px;flex:1;background:#22C55E;border-radius:2px;"></div>
-                </div>
-              </div>
-              <div class="phone-card">
-                <div class="t">Enterprise Security</div>
-                <div class="v" style="font-size: 13px; color: #16A34A;">Protected</div>
-              </div>
-              <div class="phone-card">
-                <div class="t">Application Development</div>
-                <div class="v" style="font-size: 13px;">In progress</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section> -->
-
   <!-- ================= INFRASTRUCTURE DIAGRAM ================= -->
-  <section id="infra">
+  <section id="infra" class="infra">
     <div class="wrap">
-      <div style="text-align:center;" class="reveal">
-        <span class="eyebrow">End-to-End Technology Expertise</span>
-        <h2 class="h-section" style="margin-top: 20px; max-width: 760px; margin-left:auto; margin-right:auto;">Integrated solutions for secure, efficient, and intelligent operations.</h2>
-        <p class="lead" style="margin-top: 20px; margin-left:auto; margin-right:auto;">We provide a wide range of integrated solutions that help businesses operate securely, efficiently, and intelligently.</p>
+      <div class="section-head center reveal">
+        <h2 class="h-section">Built to work together.</h2>
+        <p class="lead">Every layer planned as one system, supported by one team.</p>
       </div>
 
       <div class="infra-wrap reveal">
-        <div class="grid-overlay blueprint" style="opacity: 0.6;"></div>
         <div class="infra-diagram">
-          <!-- SVG connections -->
-          <svg id="infraLines" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;" viewBox="0 0 1000 580" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="lg" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stop-color="#0EA5E9" stop-opacity="0.1"/>
-                <stop offset="0.5" stop-color="#22D3EE" stop-opacity="0.6"/>
-                <stop offset="1" stop-color="#0EA5E9" stop-opacity="0.1"/>
-              </linearGradient>
-            </defs>
-            <!-- CCTV top-left to core -->
-            <path d="M180,80 Q350,200 500,232" stroke="rgba(14,165,233,0.25)" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
-            <!-- Access top-right to core -->
-            <path d="M820,80 Q650,200 500,232" stroke="rgba(14,165,233,0.25)" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
-            <!-- Network bot-left to core -->
-            <path d="M180,500 Q350,380 500,300" stroke="rgba(14,165,233,0.25)" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
-            <!-- Server bot-right to core -->
-            <path d="M820,500 Q650,380 500,300" stroke="rgba(14,165,233,0.25)" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
-            <!-- Voip left mid to core -->
-            <path d="M60,290 L460,266" stroke="rgba(14,165,233,0.25)" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
-            <!-- BMS right mid to core -->
-            <path d="M940,290 L540,266" stroke="rgba(14,165,233,0.25)" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
-            <!-- Pulses -->
-            <circle r="4" fill="#22D3EE">
-              <animateMotion dur="3s" repeatCount="indefinite" path="M180,80 Q350,200 500,232"/>
-            </circle>
-            <circle r="4" fill="#22D3EE">
-              <animateMotion dur="3.2s" repeatCount="indefinite" begin="0.5s" path="M820,80 Q650,200 500,232"/>
-            </circle>
-            <circle r="4" fill="#22D3EE">
-              <animateMotion dur="2.8s" repeatCount="indefinite" begin="1s" path="M180,500 Q350,380 500,300"/>
-            </circle>
-            <circle r="4" fill="#22D3EE">
-              <animateMotion dur="3.1s" repeatCount="indefinite" begin="1.5s" path="M820,500 Q650,380 500,300"/>
-            </circle>
-            <circle r="4" fill="#22D3EE">
-              <animateMotion dur="2.6s" repeatCount="indefinite" begin="0.3s" path="M60,290 L460,266"/>
-            </circle>
-            <circle r="4" fill="#22D3EE">
-              <animateMotion dur="2.9s" repeatCount="indefinite" begin="0.8s" path="M940,290 L540,266"/>
-            </circle>
+          <svg id="infraLines" class="infra-lines" viewBox="0 0 1000 580" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M180,80 Q350,200 500,232"/>
+            <path d="M820,80 Q650,200 500,232"/>
+            <path d="M180,500 Q350,380 500,300"/>
+            <path d="M820,500 Q650,380 500,300"/>
+            <path d="M60,290 L460,266"/>
+            <path d="M940,290 L540,266"/>
           </svg>
 
-          <div class="teksphere-globe-wrap infra-globe-container">
-            <canvas id="teksphereGlobeInfra" class="teksphere-globe-canvas showcases-canvas"></canvas>
-            <div class="infra-globe-center-text">
-              <div class="hub-title">TekSphere Delivery Hub</div>
-              <div class="hub-status"><span class="status-dot"></span>Integrated / active</div>
-            </div>
-            <div class="orbit-ring" aria-hidden="true">
-              <svg class="orbit-svg" viewBox="0 0 300 300">
-                <defs>
-                  <path id="teksOrbitPath" d="M 150,150 m -130,0 a 130,130 0 1,0 260,0 a 130,130 0 1,0 -260,0"></path>
-                </defs>
-                <text class="orbit-text">
-                  <textPath href="#teksOrbitPath">Powering Business With Intelligent Technology / Powering Business With Intelligent Technology / Powering Business With Intelligent Technology / Powering Business With Intelligent Technology / </textPath>
-                </text>
-              </svg>
+          <div class="infra-hub">
+            <canvas id="teksphereGlobeInfra" class="sphere-canvas" aria-hidden="true"></canvas>
+            <div class="hub-label">
+              <strong>TekSphere</strong>
+              <span><i class="status-dot"></i>One team, every layer</span>
             </div>
           </div>
 
-          <div class="iso-node n-cctv pulse">
+          <div class="iso-node n-cctv">
             <div class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="14" height="10" rx="2"/><path d="M17 10l4-2v8l-4-2z"/></svg></div>
-            <div><div class="tt">Intelligent Building</div><div class="ss">CCTV / Access / BMS</div></div>
+            <div><div class="tt">Intelligent Building</div><div class="ss">CCTV, access control, BMS</div></div>
           </div>
-          <div class="iso-node n-access pulse">
-            <div class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M12 14v4"/></svg></div>
-            <div><div class="tt">Enterprise Security</div><div class="ss">Protection / continuity</div></div>
+          <div class="iso-node n-access">
+            <div class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/></svg></div>
+            <div><div class="tt">Enterprise Security</div><div class="ss">Protection and continuity</div></div>
           </div>
-          <div class="iso-node n-net pulse">
+          <div class="iso-node n-net">
             <div class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v5M12 12l-6 5M12 12l6 5"/></svg></div>
-            <div><div class="tt">Network Solutions</div><div class="ss">LAN / WAN / audit</div></div>
+            <div><div class="tt">Network Solutions</div><div class="ss">LAN, WAN and audits</div></div>
           </div>
-          <div class="iso-node n-server pulse">
+          <div class="iso-node n-server">
             <div class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="7" rx="1.5"/><rect x="3" y="13" width="18" height="7" rx="1.5"/><circle cx="7" cy="7.5" r="0.6" fill="currentColor"/><circle cx="7" cy="16.5" r="0.6" fill="currentColor"/></svg></div>
-            <div><div class="tt">Infrastructure</div><div class="ss">Performance / scale</div></div>
+            <div><div class="tt">Infrastructure</div><div class="ss">Performance and scale</div></div>
           </div>
-          <div class="iso-node n-voip pulse">
+          <div class="iso-node n-voip">
             <div class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h5l2 5-3 2a11 11 0 005 5l2-3 5 2v5a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></div>
-            <div><div class="tt">Telephony</div><div class="ss">Voice / contact centre</div></div>
+            <div><div class="tt">Telephony</div><div class="ss">Voice and contact centre</div></div>
           </div>
-          <div class="iso-node n-bms pulse">
-            <div class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10l8-6 8 6v10"/><path d="M10 20v-6h4v6"/></svg></div>
-            <div><div class="tt">Software</div><div class="ss">Automation / integration</div></div>
+          <div class="iso-node n-bms">
+            <div class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg></div>
+            <div><div class="tt">Software</div><div class="ss">Automation and integration</div></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= WHY US ================= -->
-  <section>
-    <div class="wrap">
-      <div style="max-width: 640px;" class="reveal">
-        <span class="eyebrow">What Drives Us</span>
-        <h2 class="h-section" style="margin-top: 20px;">Driven by innovation. Powered by expertise.</h2>
+  <!-- ================= HOW WE WORK ================= -->
+  <section class="how" id="how">
+    <div class="wrap how-grid">
+      <div class="how-media reveal">
+        <figure class="photo how-photo">
+          <img src="https://images.unsplash.com/photo-1653566031486-dc4ead13a35d?auto=format&amp;fit=crop&amp;w=1200&amp;h=1000&amp;q=75" alt="Professionals in a meeting around a table with laptops" loading="lazy" decoding="async" width="600" height="500" />
+        </figure>
+        <figure class="photo how-inset">
+          <img src="https://images.unsplash.com/photo-1785682117029-86171f64c826?auto=format&amp;fit=crop&amp;w=560&amp;h=560&amp;q=75" alt="Technician working on network equipment" loading="lazy" decoding="async" width="280" height="280" />
+        </figure>
       </div>
-      <div class="why-grid reveal-children">
-        <div class="why">
-          <div class="why-img-wrap">
-            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80" alt="Innovation First" loading="lazy" decoding="async" />
-            <div class="why-img-overlay"></div>
-            <div class="why-badge">01</div>
-          </div>
-          <div class="why-content">
-            <h4>Innovation First</h4>
-            <p>We continuously explore new technologies to deliver smarter and future-ready solutions.</p>
-          </div>
-        </div>
-
-        <div class="why">
-          <div class="why-img-wrap">
-            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80" alt="Customer-Centric Approach" loading="lazy" decoding="async" />
-            <div class="why-img-overlay"></div>
-            <div class="why-badge">02</div>
-          </div>
-          <div class="why-content">
-            <h4>Customer-Centric Approach</h4>
-            <p>We anticipate client needs and tailor solutions that align with their goals.</p>
-          </div>
-        </div>
-
-        <div class="why">
-          <div class="why-img-wrap">
-            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80" alt="Excellence &amp; Quality" loading="lazy" decoding="async" />
-            <div class="why-img-overlay"></div>
-            <div class="why-badge">03</div>
-          </div>
-          <div class="why-content">
-            <h4>Excellence &amp; Quality</h4>
-            <p>We focus on delivering high-quality solutions while optimizing performance and cost.</p>
-          </div>
-        </div>
-
-        <div class="why">
-          <div class="why-img-wrap">
-            <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80" alt="Agility &amp; Adaptability" loading="lazy" decoding="async" />
-            <div class="why-img-overlay"></div>
-            <div class="why-badge">04</div>
-          </div>
-          <div class="why-content">
-            <h4>Agility &amp; Adaptability</h4>
-            <p>We evolve quickly with changing technologies and business demands.</p>
-          </div>
-        </div>
+      <div class="how-copy reveal">
+        <h2 class="h-section">How we work.</h2>
+        <ul class="values">
+          <li>
+            <span class="v-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0012 3z"/></svg></span>
+            <div><h3>We keep learning</h3><p>New technology, tested before we recommend it.</p></div>
+          </li>
+          <li>
+            <span class="v-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></span>
+            <div><h3>Your goals set the brief</h3><p>Every solution is shaped around your objectives.</p></div>
+          </li>
+          <li>
+            <span class="v-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+            <div><h3>Quality without waste</h3><p>High quality, with an eye on total cost of ownership.</p></div>
+          </li>
+          <li>
+            <span class="v-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></span>
+            <div><h3>We adapt quickly</h3><p>When your business changes, we change with it.</p></div>
+          </li>
+        </ul>
       </div>
     </div>
   </section>
@@ -638,161 +345,182 @@
   <!-- ================= PROCESS ================= -->
   <section class="process" id="process">
     <div class="wrap">
-      <div style="max-width: 640px;" class="reveal">
-        <span class="eyebrow">Our Process</span>
-        <h2 class="h-section" style="margin-top: 20px;">A proven approach to delivering excellence.</h2>
+      <div class="section-head reveal">
+        <h2 class="h-section">Four steps, start to finish.</h2>
       </div>
 
       <div class="process-track">
-        <div class="process-line" id="procLine" style="--fill: 0%"></div>
-        <div class="process-steps">
-          <div class="step" data-step="0">
-            <div class="node"></div>
-            <div class="num">PHASE 01</div>
-            <h4>Consultation</h4>
-            <p>We understand your business needs and challenges.</p>
-          </div>
-          <div class="step" data-step="1">
-            <div class="node"></div>
-            <div class="num">PHASE 02</div>
-            <h4>Design &amp; Planning</h4>
-            <p>We design the right solution tailored to your objectives.</p>
-          </div>
-          <div class="step" data-step="2">
-            <div class="node"></div>
-            <div class="num">PHASE 03</div>
-            <h4>Implementation</h4>
-            <p>Our experts implement with precision and best practices.</p>
-          </div>
-          <div class="step" data-step="3">
-            <div class="node"></div>
-            <div class="num">PHASE 04</div>
-            <h4>Support &amp; Growth</h4>
-            <p>We provide ongoing support and continuous improvement.</p>
-          </div>
-        </div>
+        <div class="process-line" id="procLine"></div>
+        <ol class="process-steps">
+          <li class="step">
+            <svg class="ill step-ill" viewBox="0 0 120 90" aria-hidden="true">
+              <ellipse class="t" cx="60" cy="48" rx="52" ry="38"/>
+              <path class="p" d="M22 18h50a8 8 0 0 1 8 8v20a8 8 0 0 1-8 8H42l-10 9v-9H22a8 8 0 0 1-8-8V26a8 8 0 0 1 8-8z"/>
+              <path class="s" d="M26 30h34M26 40h22"/>
+              <path class="tp" d="M58 40h42a8 8 0 0 1 8 8v16a8 8 0 0 1-8 8h-4v8l-9-8H58a8 8 0 0 1-8-8V48a8 8 0 0 1 8-8z"/>
+              <circle class="af" cx="68" cy="56" r="2.5"/><circle class="af" cx="79" cy="56" r="2.5"/><circle class="af" cx="90" cy="56" r="2.5"/>
+            </svg>
+            <span class="node"></span>
+            <h3><span class="step-n">1</span>Consultation</h3>
+            <p>We learn your business and its needs.</p>
+          </li>
+          <li class="step">
+            <svg class="ill step-ill" viewBox="0 0 120 90" aria-hidden="true">
+              <ellipse class="t" cx="60" cy="48" rx="52" ry="38"/>
+              <rect class="p" x="20" y="14" width="66" height="62" rx="4"/>
+              <path class="s faint" d="M20 35h66M20 56h66M42 14v62M64 14v62"/>
+              <path class="a" d="M30 66V46h24V26h22"/>
+              <path class="p" d="M74 78l28-28 8 8-28 28-11 3z"/>
+              <path class="s" d="M96 56l8 8"/>
+            </svg>
+            <span class="node"></span>
+            <h3><span class="step-n">2</span>Design &amp; planning</h3>
+            <p>We design the right solution and agree the plan.</p>
+          </li>
+          <li class="step">
+            <svg class="ill step-ill" viewBox="0 0 120 90" aria-hidden="true">
+              <ellipse class="t" cx="60" cy="48" rx="52" ry="38"/>
+              <rect class="p" x="32" y="12" width="52" height="70" rx="4"/>
+              <rect class="tp" x="38" y="20" width="40" height="13" rx="2"/>
+              <rect class="tp" x="38" y="38" width="40" height="13" rx="2"/>
+              <rect class="tp" x="38" y="56" width="40" height="13" rx="2"/>
+              <circle class="af" cx="71" cy="26.5" r="2.2"/><circle class="af" cx="71" cy="44.5" r="2.2"/><circle class="s" cx="71" cy="62.5" r="2.2"/>
+              <path class="a" d="M84 30c14 0 12 22 26 22"/>
+            </svg>
+            <span class="node"></span>
+            <h3><span class="step-n">3</span>Implementation</h3>
+            <p>We build it to best practice, with minimal disruption.</p>
+          </li>
+          <li class="step">
+            <svg class="ill step-ill" viewBox="0 0 120 90" aria-hidden="true">
+              <ellipse class="t" cx="60" cy="48" rx="52" ry="38"/>
+              <rect class="p" x="18" y="12" width="84" height="56" rx="5"/>
+              <path class="s" d="M50 80h20M60 68v12"/>
+              <path class="s faint" d="M28 58h64"/>
+              <path class="a" d="M28 52l14-12 12 8 16-18 18-8"/>
+              <circle class="af" cx="88" cy="22" r="3.5"/>
+            </svg>
+            <span class="node"></span>
+            <h3><span class="step-n">4</span>Support &amp; growth</h3>
+            <p>We support and improve it as you grow.</p>
+          </li>
+        </ol>
       </div>
     </div>
   </section>
 
   <!-- ================= TESTIMONIALS ================= -->
-  <section class="dark-section" id="testimonials">
-    <div class="grid-overlay" style="opacity:0.3;"></div>
+  <section class="testimonials" id="testimonials">
     <div class="wrap">
-      <div style="display:flex;justify-content:space-between;align-items:end;gap:32px;flex-wrap:wrap;" class="reveal">
-        <div>
-          <span class="eyebrow">Clients Love Us</span>
-          <h2 class="h-section" style="margin-top: 20px; max-width: 640px;">Trusted by businesses across industries.</h2>
-        </div>
+      <div class="section-head reveal">
+        <h2 class="h-section">What our clients say.</h2>
       </div>
-      <div class="tm-grid reveal-children">
-        <div class="tm">
-          <p class="q" style="color:#EAF0FA;">"TekSphere delivered an exceptional cybersecurity solution that strengthened our infrastructure and gave us complete peace of mind. Their team is professional, responsive, and truly invested in our success."</p>
-          <div class="who">
+      <div class="tm-grid reveal">
+        <figure class="tm tm-feature">
+          <svg class="tm-mark" width="44" height="36" viewBox="0 0 44 36" aria-hidden="true"><path d="M0 36V22C0 9 7 2 19 0l2 6c-7 2-10 6-10 12h8v18zm24 0V22C24 9 31 2 43 0l1 6c-7 2-10 6-10 12h8v18z"/></svg>
+          <blockquote class="q">TekSphere delivered an exceptional cybersecurity solution that strengthened our infrastructure and gave us complete peace of mind. Their team is professional, responsive, and truly invested in our success.</blockquote>
+          <figcaption class="who">
             <div class="av">MK</div>
-            <div>
-              <div class="name" style="color:#EAF0FA;">Michael Adams</div>
-              <div class="role">CTO, FinSecure Group</div>
-            </div>
-          </div>
-        </div>
-        <div class="tm">
-          <p class="q" style="color:#EAF0FA;">"The cloud infrastructure transition was seamless. We've seen a 40% increase in operational efficiency since partnering with TekSphere for our digital transformation journey."</p>
-          <div class="who">
-            <div class="av" style="background: linear-gradient(135deg, #22D3EE, #6366F1);">DA</div>
-            <div>
-              <div class="name" style="color:#EAF0FA;">Sarah Jenkins</div>
-              <div class="role">Director of IT, Global Logistics</div>
-            </div>
-          </div>
-        </div>
-        <div class="tm">
-          <p class="q" style="color:#EAF0FA;">"Working with TekSphere on our custom software was a game-changer. They didn't just build an app; they built a solution that solved our core business bottlenecks."</p>
-          <div class="who">
-            <div class="av" style="background: linear-gradient(135deg, #0EA5E9, #22D3EE);">SO</div>
-            <div>
-              <div class="name" style="color:#EAF0FA;">David Chen</div>
-              <div class="role">Founder, InnovateRetail</div>
-            </div>
-          </div>
-        </div>
+            <div><div class="name">Michael Adams</div><div class="role">CTO, FinSecure Group</div></div>
+          </figcaption>
+        </figure>
+        <figure class="tm">
+          <blockquote class="q">The cloud infrastructure transition was seamless. We&rsquo;ve seen a 40% increase in operational efficiency since partnering with TekSphere for our digital transformation journey.</blockquote>
+          <figcaption class="who">
+            <div class="av">DA</div>
+            <div><div class="name">Sarah Jenkins</div><div class="role">Director of IT, Global Logistics</div></div>
+          </figcaption>
+        </figure>
+        <figure class="tm">
+          <blockquote class="q">Working with TekSphere on our custom software was a game-changer. They didn&rsquo;t just build an app; they built a solution that solved our core business bottlenecks.</blockquote>
+          <figcaption class="who">
+            <div class="av">SO</div>
+            <div><div class="name">David Chen</div><div class="role">Founder, InnovateRetail</div></div>
+          </figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
   <!-- ================= CTA ================= -->
   <section class="cta-section" id="contact">
-    <div class="mesh-blob mesh-1" style="top:-200px;left:-100px;"></div>
-    <div class="mesh-blob mesh-2" style="bottom:-200px;right:-100px;"></div>
-    <div class="grid-overlay" style="opacity:0.3;"></div>
-    <div style="position:relative;z-index:2;" class="cta-inner-container">
-      <div id="ctaIntroContent">
-        <span class="eyebrow">Get in Touch</span>
-        <h2 style="margin-top: 24px;">Ready to build the future with us?</h2>
-        <p>Let's discuss how TekSphere can help your business innovate, secure, and grow. Get in touch to discuss your next project.</p>
-        <form class="cta-form" id="ctaForm" onsubmit="return false;">
-          <input type="email" id="ctaEmail" placeholder="your@company.com" required />
-          <button type="submit" class="magnetic">Continue ➔</button>
+    <div class="cta-card">
+      <div class="cta-inner-container">
+        <div id="ctaIntroContent">
+          <h2>Tell us what you&rsquo;re working on.</h2>
+          <p>Share a few details and an engineer will get back to you.</p>
+          <form class="cta-form" id="ctaForm" onsubmit="return false;">
+            <label class="sr-only" for="ctaEmail">Work email</label>
+            <input type="email" id="ctaEmail" placeholder="you@company.com" required />
+            <button type="submit">Continue <span aria-hidden="true">&rarr;</span></button>
+          </form>
+          <div class="cta-direct">
+            <span>Prefer to talk?</span>
+            <a href="tel:+2348187245441">+234 818 724 5441</a>
+            <a href="mailto:enquiry@teksphereglobal.com">enquiry@teksphereglobal.com</a>
+          </div>
+        </div>
+
+        <!-- Expanded Contact Form (Revealed on Continue) -->
+        <form class="cta-expanded-form" id="ctaExpandedForm" onsubmit="return false;">
+          <div class="form-header-title">
+            <h3>Send us a message</h3>
+            <p>Tell us what you need and we&rsquo;ll respond quickly.</p>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="contactName">Full name</label>
+              <input type="text" id="contactName" placeholder="Enter your full name" required />
+            </div>
+            <div class="form-group">
+              <label for="contactEmail">Email address</label>
+              <input type="email" id="contactEmail" placeholder="Enter your email" required />
+            </div>
+            <div class="form-group">
+              <label for="contactCompany">Company name (optional)</label>
+              <input type="text" id="contactCompany" placeholder="Enter your company name" />
+            </div>
+            <div class="form-group">
+              <label for="contactPhone">Phone number</label>
+              <input type="tel" id="contactPhone" placeholder="Enter your phone number" required />
+            </div>
+          </div>
+          <div class="form-group mt-3">
+            <label for="contactService">Service needed</label>
+            <div class="select-wrapper">
+              <select id="contactService" required>
+                <option value="" disabled selected>Select a service</option>
+                <option value="IT Support Services">IT Support Services</option>
+                <option value="Enterprise Security Services">Enterprise Security Services</option>
+                <option value="Intelligent Building Solutions">Intelligent Building Solutions</option>
+                <option value="Network Solutions">Network Solutions</option>
+                <option value="Enterprise Infrastructure Solutions">Enterprise Infrastructure Solutions</option>
+                <option value="Application Development Services">Application Development Services</option>
+                <option value="Telephony Solutions">Telephony Solutions</option>
+              </select>
+              <span class="select-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+            </div>
+          </div>
+          <div class="form-group mt-3">
+            <label for="contactMessage">Message</label>
+            <textarea id="contactMessage" rows="4" placeholder="Tell us about your project or requirements." required></textarea>
+          </div>
+          <div class="form-actions mt-4">
+            <button type="submit" class="btn-send">
+              Send message
+              <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </button>
+          </div>
+
+          <!-- Success Confirmation Overlay -->
+          <div class="cta-ok" id="ctaOk">
+            <div class="success-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <h4>Message sent</h4>
+            <p>Thank you for reaching out. One of our engineers will contact you shortly.</p>
+          </div>
         </form>
       </div>
-
-      <!-- Expanded Contact Form (Revealed on Continue) -->
-      <form class="cta-expanded-form" id="ctaExpandedForm" onsubmit="return false;">
-        <div class="form-header-title">
-          <h3>Send Us a Message</h3>
-          <p>Tell us what you need and we will respond quickly.</p>
-        </div>
-        <div class="form-grid-2">
-          <div class="form-group">
-            <label for="contactName">Full Name</label>
-            <input type="text" id="contactName" placeholder="Enter your full name" required />
-          </div>
-          <div class="form-group">
-            <label for="contactEmail">Email Address</label>
-            <input type="email" id="contactEmail" placeholder="Enter your email" required />
-          </div>
-          <div class="form-group">
-            <label for="contactCompany">Company Name (Optional)</label>
-            <input type="text" id="contactCompany" placeholder="Enter your company name" />
-          </div>
-          <div class="form-group">
-            <label for="contactPhone">Phone Number</label>
-            <input type="tel" id="contactPhone" placeholder="Enter your phone number" required />
-          </div>
-        </div>
-        <div class="form-group mt-3">
-          <label for="contactService">Service Needed</label>
-          <div class="select-wrapper">
-            <select id="contactService" required>
-              <option value="" disabled selected>Select a service</option>
-              <option value="IT Support Services">IT Support Services</option>
-              <option value="Enterprise Security Services">Enterprise Security Services</option>
-              <option value="Intelligent Building Solutions">Intelligent Building Solutions</option>
-              <option value="Network Solutions">Network Solutions</option>
-              <option value="Application Development Services">Application Development Services</option>
-              <option value="Telephony Solutions">Telephony Solutions</option>
-            </select>
-            <span class="select-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
-          </div>
-        </div>
-        <div class="form-group mt-3">
-          <label for="contactMessage">Message</label>
-          <textarea id="contactMessage" rows="4" placeholder="Tell us about your project or requirements." required></textarea>
-        </div>
-        <div class="form-actions mt-4">
-          <button type="submit" class="btn-send magnetic">
-            Send Message
-            <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </button>
-        </div>
-
-        <!-- Success Confirmation Overlay -->
-        <div class="cta-ok" id="ctaOk">
-          <div class="success-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></div>
-          <h4>Message Sent Successfully</h4>
-          <p>Thank you for reaching out. One of our lead engineers will contact you shortly.</p>
-        </div>
-      </form>
+      <div class="cta-art"><svg viewBox="20 36 250 228" class="hero-people" aria-hidden="true"><g transform="translate(64,256) scale(1,1)"><path d="M-17,-153 L-21,-126 L-20,-100" fill="none" stroke="#141414" stroke-width="12.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-17,-153 L-21,-126 L-20,-100" fill="none" stroke="#1F5BD8" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="-20" cy="-100" r="4.2" fill="#57575C" stroke="#141414" stroke-width="1.6"/><path d="M-7,-98 L-8,-50 L-10,-9" fill="none" stroke="#141414" stroke-width="18.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-7,-98 L-8,-50 L-10,-9" fill="none" stroke="#1A1A1A" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M7,-98 L9,-50 L11,-9" fill="none" stroke="#141414" stroke-width="18.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7,-98 L9,-50 L11,-9" fill="none" stroke="#1A1A1A" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M-16,-11 L-1,-11 Q5,-8 5,0 L-17,0 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M5,-11 L20,-11 Q26,-8 26,0 L4,0 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-17,-162 Q0,-166 17,-162 Q23,-160 23,-152 L20,-102 Q0,-97 -20,-102 L-23,-152 Q-23,-160 -17,-162 Z" fill="#1F5BD8" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-7,-162 L0,-136 L7,-162 Z" fill="#FFFFFF" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-7,-162 L-2,-128 M7,-162 L2,-128" fill="none" stroke="#141414" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round" /><circle cx="-9" cy="-205" r="7.5" fill="#141414" stroke="#141414" stroke-width="1.6"/><rect x="-4.5" y="-172" width="9" height="16" rx="0" fill="#57575C" stroke="#141414" stroke-width="1.6"/><ellipse cx="1" cy="-185" rx="12.5" ry="15.5" fill="#57575C" stroke="#141414" stroke-width="1.6"/><path d="M13,-188 L17.5,-181 L12.5,-179.5" fill="#57575C" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-11.5,-182 Q-13,-200 1,-201.5 Q12,-201 13.5,-192 Q4,-196 -3,-191 Q-7,-186 -7,-178 Z" fill="#141414" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><rect x="26" y="-160" width="30" height="40" rx="4" fill="#FFFFFF" stroke="#141414" stroke-width="1.6"/><rect x="31" y="-151" width="20" height="4" rx="2" fill="#1F5BD8" stroke="none" stroke-width="1.6"/><rect x="31" y="-142" width="14" height="4" rx="2" fill="#A8C3F4" stroke="none" stroke-width="1.6"/><circle cx="41" cy="-130" r="5" fill="#1F5BD8" stroke="#141414" stroke-width="1.6"/><path d="M38.75,-130 L40.5,-128.1 L43.5,-131.75" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" /><path d="M17,-153 L22,-122 L32,-124" fill="none" stroke="#141414" stroke-width="12.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17,-153 L22,-122 L32,-124" fill="none" stroke="#1F5BD8" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="-124" r="4.2" fill="#57575C" stroke="#141414" stroke-width="1.6"/></g><g transform="translate(150,256) scale(1,1)"><path d="M-17,-153 L-21,-126 L-20,-100" fill="none" stroke="#141414" stroke-width="12.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-17,-153 L-21,-126 L-20,-100" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="-20" cy="-100" r="4.2" fill="#4A4A4F" stroke="#141414" stroke-width="1.6"/><path d="M-8,-98 L-13,-50 L-17,-9" fill="none" stroke="#141414" stroke-width="18.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-8,-98 L-13,-50 L-17,-9" fill="none" stroke="#1A1A1A" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M8,-98 L13,-50 L17,-9" fill="none" stroke="#141414" stroke-width="18.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8,-98 L13,-50 L17,-9" fill="none" stroke="#1A1A1A" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M-23,-11 L-8,-11 Q-2,-8 -2,0 L-24,0 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M11,-11 L26,-11 Q32,-8 32,0 L10,0 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-17,-162 Q0,-166 17,-162 Q23,-160 23,-152 L20,-102 Q0,-97 -20,-102 L-23,-152 Q-23,-160 -17,-162 Z" fill="#FFFFFF" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-7,-162 L0,-152 L7,-162" fill="none" stroke="#141414" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" /><rect x="-4.5" y="-172" width="9" height="16" rx="0" fill="#4A4A4F" stroke="#141414" stroke-width="1.6"/><ellipse cx="1" cy="-185" rx="12.5" ry="15.5" fill="#4A4A4F" stroke="#141414" stroke-width="1.6"/><path d="M13,-188 L17.5,-181 L12.5,-179.5" fill="#4A4A4F" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-11.5,-184 Q-12,-201 2,-202 Q13,-202 14,-191 Q7,-195 1,-192 Q-5,-189 -6,-181 Z" fill="#141414" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M3,-187 h11" fill="#141414" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><rect x="4.5" y="-189.5" width="7" height="4.5" rx="1.5" fill="#3A3A40" stroke="#141414" stroke-width="1.3"/><path d="M17,-153 L30,-128 L44,-138" fill="none" stroke="#141414" stroke-width="12.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17,-153 L30,-128 L44,-138" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="-138" r="4.2" fill="#4A4A4F" stroke="#141414" stroke-width="1.6"/></g><g transform="translate(236,256) scale(-1,1)"><path d="M-17,-153 L-21,-126 L-20,-100" fill="none" stroke="#141414" stroke-width="12.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-17,-153 L-21,-126 L-20,-100" fill="none" stroke="#A8C3F4" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="-20" cy="-100" r="4.2" fill="#636369" stroke="#141414" stroke-width="1.6"/><path d="M-7,-98 L-8,-50 L-10,-9" fill="none" stroke="#141414" stroke-width="18.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M-7,-98 L-8,-50 L-10,-9" fill="none" stroke="#1F5BD8" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M7,-98 L9,-50 L11,-9" fill="none" stroke="#141414" stroke-width="18.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7,-98 L9,-50 L11,-9" fill="none" stroke="#1F5BD8" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/><path d="M-16,-11 L-1,-11 Q5,-8 5,0 L-17,0 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M5,-11 L20,-11 Q26,-8 26,0 L4,0 Z" fill="#1A1A1A" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-17,-162 Q0,-166 17,-162 Q23,-160 23,-152 L20,-102 Q0,-97 -20,-102 L-23,-152 Q-23,-160 -17,-162 Z" fill="#A8C3F4" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-14,-128 L14,-128 L15,-100 L-15,-100 Z" fill="#1F5BD8" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><path d="M-12,-128 L-10,-160 M12,-128 L10,-160" fill="none" stroke="#141414" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" /><circle cx="-1" cy="-191" r="17.5" fill="#141414" stroke="#141414" stroke-width="1.6"/><rect x="-4.5" y="-172" width="9" height="16" rx="0" fill="#636369" stroke="#141414" stroke-width="1.6"/><ellipse cx="1" cy="-185" rx="12.5" ry="15.5" fill="#636369" stroke="#141414" stroke-width="1.6"/><path d="M13,-188 L17.5,-181 L12.5,-179.5" fill="#636369" stroke="#141414" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" /><rect x="-6" y="-100" width="36" height="24" rx="3" fill="#E04B3F" stroke="#141414" stroke-width="1.6"/><path d="M4,-100 v-6 h16 v6" fill="none" stroke="#141414" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" /><path d="M-6,-90 h36" fill="none" stroke="#141414" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round" /><path d="M17,-153 L19,-126 L12,-104" fill="none" stroke="#141414" stroke-width="12.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17,-153 L19,-126 L12,-104" fill="none" stroke="#A8C3F4" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="-104" r="4.2" fill="#636369" stroke="#141414" stroke-width="1.6"/></g><ellipse cx="150" cy="258" rx="120" ry="5" fill="rgba(14,23,38,0.10)" stroke="none" stroke-width="0"/></svg></div>
     </div>
   </section>
 
@@ -804,7 +532,7 @@
           <a href="#" class="brand" aria-label="TekSphere Home">
             <img src="/Teksphere_Logo.png" alt="TekSphere Logo" class="brand-logo" width="160" height="38" loading="lazy" decoding="async" />
           </a>
-          <p class="footer-brand-desc">We deliver intelligent technology solutions that empower businesses to operate smarter, secure data, and achieve sustainable growth.</p>
+          <p class="footer-brand-desc">We deliver technology solutions that help businesses work smarter, keep their data secure and grow sustainably.</p>
         </div>
         <div class="footer-col">
           <h5>Services</h5>
@@ -812,6 +540,7 @@
           <a href="#services">Enterprise Security Services</a>
           <a href="#services">Intelligent Building Solutions</a>
           <a href="#services">Network Solutions</a>
+          <a href="#services">Enterprise Infrastructure Solutions</a>
           <a href="#services">Application Development Services</a>
           <a href="#services">Telephony Solutions</a>
         </div>
@@ -820,7 +549,7 @@
           <a href="#about">About Us</a>
           <a href="#partners">Partners</a>
           <a href="#infra">Infrastructure</a>
-          <a href="#contact">Contact Us</a>
+          <a href="#testimonials">Testimonials</a>
         </div>
         <div class="footer-col">
           <h5>Contact</h5>
@@ -833,28 +562,7 @@
       </div>
       <div class="footer-bottom">
         <span>&copy; 2026 TekSphere Global. All rights reserved.</span>
-        <div class="pulse-line"></div>
-        <!-- <span style="font-family: var(--mono);">Mon - Fri: 8:00 AM - 6:00 PM / 24/7 support availability</span> -->
       </div>
     </div>
   </footer>
-
-  <!-- ================= TWEAKS PANEL ================= -->
-  <div class="tweaks-panel" id="tweaksPanel">
-    <h5>Tweaks</h5>
-    <div class="tweak-row">
-      <label>Theme</label>
-      <div class="theme-switch">
-        <button data-theme-set="light" class="on">Light</button>
-        <button data-theme-set="dark">Dark</button>
-      </div>
-    </div>
-    <div class="tweak-row">
-      <label>Glass blur</label>
-      <input type="range" id="blurRange" min="0" max="32" value="18" />
-    </div>
-    <div class="tweak-row">
-      <label style="font-size:12px;color:var(--muted);font-family:var(--mono);">Value: <span id="blurVal">18px</span></label>
-    </div>
-  </div>
 <!-- for the footer, i notice some few corrections, make the services column have the 6 services from the services card and also the contact in the navbar should be testimonial secttion cos we have already contact us btn at the navbar -->
