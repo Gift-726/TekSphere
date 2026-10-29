@@ -251,6 +251,50 @@
     </div>
   </section>
 
+  <!-- ================= IN THE FIELD (photos) ================= -->
+  <section class="field" id="field">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2 class="h-section">On the job.</h2>
+        <p class="lead">From server rooms to boardrooms.</p>
+      </div>
+      <div class="field-grid reveal">
+          <figure class="field-tile t-big">
+            <img src="https://images.unsplash.com/photo-1785682117346-4b114502e9b8?auto=format&amp;fit=crop&amp;w=1100&amp;h=1100&amp;q=75" alt="Technician testing a server rack with a handheld tool" loading="lazy" decoding="async" width="550" height="550" />
+            <figcaption>Data centre maintenance</figcaption>
+          </figure>
+          <figure class="field-tile ">
+            <img src="https://images.unsplash.com/photo-1739302750702-e26a61113758?auto=format&amp;fit=crop&amp;w=700&amp;h=560&amp;q=75" alt="Three colleagues reviewing work on a laptop" loading="lazy" decoding="async" width="350" height="280" />
+            <figcaption>Consultation</figcaption>
+          </figure>
+          <figure class="field-tile ">
+            <img src="https://images.unsplash.com/photo-1594915440248-1e419eba6611?auto=format&amp;fit=crop&amp;w=700&amp;h=560&amp;q=75" alt="Fibre optic cables connected to a network switch" loading="lazy" decoding="async" width="350" height="280" />
+            <figcaption>Network installation</figcaption>
+          </figure>
+          <figure class="field-tile ">
+            <img src="https://images.unsplash.com/photo-1549109926-58f039549485?auto=format&amp;fit=crop&amp;w=700&amp;h=560&amp;q=75" alt="A surveillance camera mounted on a wall" loading="lazy" decoding="async" width="350" height="280" />
+            <figcaption>CCTV and access control</figcaption>
+          </figure>
+          <figure class="field-tile ">
+            <img src="https://images.unsplash.com/photo-1787647561251-f366d6e5d2dc?auto=format&amp;fit=crop&amp;w=700&amp;h=560&amp;q=75" alt="People in a meeting room on a video call" loading="lazy" decoding="async" width="350" height="280" />
+            <figcaption>Video conferencing</figcaption>
+          </figure>
+          <figure class="field-tile t-wide">
+            <img src="https://images.unsplash.com/photo-1638482856830-16b0e15fcf2c?auto=format&amp;fit=crop&amp;w=1200&amp;h=560&amp;q=75" alt="Developer writing code on two monitors" loading="lazy" decoding="async" width="600" height="280" />
+            <figcaption>Application development</figcaption>
+          </figure>
+          <figure class="field-tile ">
+            <img src="https://images.unsplash.com/photo-1739298061757-7a3339cee982?auto=format&amp;fit=crop&amp;w=700&amp;h=560&amp;q=75" alt="A team of young professionals standing together" loading="lazy" decoding="async" width="350" height="280" />
+            <figcaption>Support that sticks around</figcaption>
+          </figure>
+          <figure class="field-tile">
+            <img src="https://images.unsplash.com/photo-1573496799515-eebbb63814f2?auto=format&amp;fit=crop&amp;w=700&amp;h=560&amp;q=75" alt="A smiling professional standing with arms crossed" loading="lazy" decoding="async" width="350" height="280" />
+            <figcaption>Project delivery</figcaption>
+          </figure>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= INFRASTRUCTURE DIAGRAM ================= -->
   <section id="infra" class="infra">
     <div class="wrap">
@@ -260,48 +304,47 @@
       </div>
 
       <div class="infra-wrap reveal">
-        <div class="infra-diagram">
-          <svg id="infraLines" class="infra-lines" viewBox="0 0 1000 580" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M180,80 Q350,200 500,232"/>
-            <path d="M820,80 Q650,200 500,232"/>
-            <path d="M180,500 Q350,380 500,300"/>
-            <path d="M820,500 Q650,380 500,300"/>
-            <path d="M60,290 L460,266"/>
-            <path d="M940,290 L540,266"/>
-          </svg>
+        <div class="infra-diagram" id="infraDiagram">
+          <svg id="infraLines" class="infra-lines" aria-hidden="true"></svg>
 
           <div class="infra-hub">
-            <canvas id="teksphereGlobeInfra" class="sphere-canvas" aria-hidden="true"></canvas>
-            <div class="hub-label">
-              <strong>TekSphere</strong>
-              <span><i class="status-dot"></i>One team, every layer</span>
-            </div>
+            <div class="hub-glow" aria-hidden="true"></div>
+            <svg class="hub-rings" viewBox="0 0 200 200" aria-hidden="true">
+              <circle cx="100" cy="100" r="97"/>
+              <circle class="spin" cx="100" cy="100" r="88"/>
+            </svg>
+            <canvas id="teksphereGlobeInfra" class="sphere-canvas" aria-label="Drag to turn the globe"></canvas>
           </div>
+          <p class="hub-caption"><i class="status-dot"></i>One team, every layer</p>
 
-          <div class="iso-node n-cctv">
-            <div class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="14" height="10" rx="2"/><path d="M17 10l4-2v8l-4-2z"/></svg></div>
-            <div><div class="tt">Intelligent Building</div><div class="ss">CCTV, access control, BMS</div></div>
-          </div>
-          <div class="iso-node n-access">
-            <div class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/></svg></div>
-            <div><div class="tt">Enterprise Security</div><div class="ss">Protection and continuity</div></div>
-          </div>
-          <div class="iso-node n-net">
-            <div class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v5M12 12l-6 5M12 12l6 5"/></svg></div>
-            <div><div class="tt">Network Solutions</div><div class="ss">LAN, WAN and audits</div></div>
-          </div>
-          <div class="iso-node n-server">
-            <div class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="7" rx="1.5"/><rect x="3" y="13" width="18" height="7" rx="1.5"/><circle cx="7" cy="7.5" r="0.6" fill="currentColor"/><circle cx="7" cy="16.5" r="0.6" fill="currentColor"/></svg></div>
-            <div><div class="tt">Infrastructure</div><div class="ss">Performance and scale</div></div>
-          </div>
-          <div class="iso-node n-voip">
-            <div class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h5l2 5-3 2a11 11 0 005 5l2-3 5 2v5a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></div>
-            <div><div class="tt">Telephony</div><div class="ss">Voice and contact centre</div></div>
-          </div>
-          <div class="iso-node n-bms">
-            <div class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg></div>
-            <div><div class="tt">Software</div><div class="ss">Automation and integration</div></div>
-          </div>
+          <a class="iso-node p-top" href="#services" data-svc="support">
+            <span class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13a8 8 0 0116 0"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19c0 1.5-1.5 2.5-4 2.5h-2"/></svg></span>
+            <span><span class="tt">IT Support</span><span class="ss">Support and outsourcing</span></span>
+          </a>
+          <a class="iso-node p-tl" href="#services" data-svc="building">
+            <span class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M10 21v-4h4v4"/></svg></span>
+            <span><span class="tt">Intelligent Buildings</span><span class="ss">CCTV, access, BMS</span></span>
+          </a>
+          <a class="iso-node p-l" href="#services" data-svc="telephony">
+            <span class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></span>
+            <span><span class="tt">Telephony</span><span class="ss">Voice, video, contact centre</span></span>
+          </a>
+          <a class="iso-node p-bl" href="#services" data-svc="network">
+            <span class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v5M12 12l-6 5M12 12l6 5"/></svg></span>
+            <span><span class="tt">Networks</span><span class="ss">LAN, WAN, data centre</span></span>
+          </a>
+          <a class="iso-node p-tr" href="#services" data-svc="security">
+            <span class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+            <span><span class="tt">Enterprise Security</span><span class="ss">Protection and continuity</span></span>
+          </a>
+          <a class="iso-node p-r" href="#services" data-svc="software">
+            <span class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg></span>
+            <span><span class="tt">Application Development</span><span class="ss">Automation and integration</span></span>
+          </a>
+          <a class="iso-node p-br" href="#services" data-svc="infra">
+            <span class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="7" rx="1.5"/><rect x="3" y="13" width="18" height="7" rx="1.5"/><path d="M7 7.5h.01M7 16.5h.01"/></svg></span>
+            <span><span class="tt">Enterprise Infrastructure</span><span class="ss">Operations and continuity</span></span>
+          </a>
         </div>
       </div>
     </div>

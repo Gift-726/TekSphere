@@ -117,9 +117,10 @@ export default function TekSpherePage() {
       markers: boolean;
       onFrame?: (phi: number, theta: number, dt: number) => void;
       register?: (api: { focus: (lon: number | null) => void }) => void;
+      scale?: number;
     };
 
-    const initGlobe = ({ canvasId, interactive, speed, markers, onFrame, register }: GlobeConfig) => {
+    const initGlobe = ({ canvasId, interactive, speed, markers, onFrame, register, scale = 1 }: GlobeConfig) => {
       const canvas = document.getElementById(canvasId) as HTMLCanvasElement | null;
       if (!canvas) return;
 
@@ -198,6 +199,7 @@ export default function TekSpherePage() {
           phi,
           theta,
           mapSamples: 16000,
+          scale,
           markerElevation: MARKER_ELEVATION,
           markers: markers ? Object.values(SERVICE_POINTS).map((location) => ({ location, size: 0.035 })) : [],
           ...globeColors(),
@@ -395,7 +397,7 @@ export default function TekSpherePage() {
         on(con.label, "blur", () => heroGlobe?.focus(null));
       });
     }
-    initGlobe({ canvasId: "teksphereGlobeInfra", interactive: true, speed: 0.15, markers: false });
+    initGlobe({ canvasId: "teksphereGlobeInfra", interactive: true, speed: 0.15, markers: false, scale: 1.14 });
 
     /* ---------------- Scroll-linked UI (one rAF-throttled handler) ---------------- */
     const nav = document.querySelector<HTMLElement>(".nav");
@@ -499,6 +501,72 @@ export default function TekSpherePage() {
         if (tab) setActive(tab);
       }),
     );
+    /* ---------------- Integration diagram: nodes wired to the second globe ---------------- */
+    const diagram = document.getElementById("infraDiagram");
+    const infraSvg = document.getElementById("infraLines");
+    const infraHub = diagram?.querySelector<HTMLElement>(".infra-hub");
+    const nodes = Array.from(document.querySelectorAll<HTMLElement>(".iso-node"));
+    if (diagram && infraSvg && infraHub) {
+      const groups = nodes.map((node, i) => {
+        const g = document.createElementNS(svgNS, "g");
+        const base = document.createElementNS(svgNS, "path");
+        const pulse = document.createElementNS(svgNS, "path");
+        const end = document.createElementNS(svgNS, "circle");
+        base.setAttribute("class", "base");
+        pulse.setAttribute("class", "pulse");
+        pulse.setAttribute("pathLength", "100");
+        pulse.style.animationDelay = `${(-i * 0.4).toFixed(1)}s`;
+        end.setAttribute("class", "end");
+        end.setAttribute("r", "4");
+        g.append(base, pulse, end);
+        infraSvg.append(g);
+        on(node, "mouseenter", () => g.classList.add("hot"));
+        on(node, "mouseleave", () => g.classList.remove("hot"));
+        on(node, "focus", () => g.classList.add("hot"));
+        on(node, "blur", () => g.classList.remove("hot"));
+        on(node, "click", () => {
+          const tab = tabs.find((t) => t.dataset.svc === node.dataset.svc);
+          if (tab) setActive(tab);
+        });
+        return { node, base, pulse, end };
+      });
+
+      const drawInfra = () => {
+        if (window.innerWidth <= 960) return;
+        const d = diagram.getBoundingClientRect();
+        const h = infraHub.getBoundingClientRect();
+        const cx = h.left + h.width / 2 - d.left;
+        const cy = h.top + h.height / 2 - d.top;
+        const r = (h.width / 2) * 0.98;
+        infraSvg.setAttribute("viewBox", `0 0 ${d.width} ${d.height}`);
+        groups.forEach(({ node, base, pulse, end }) => {
+          const b = node.getBoundingClientRect();
+          const left = b.left - d.left;
+          const top = b.top - d.top;
+          // nearest point on the card to the globe's centre
+          const ax = Math.max(left, Math.min(cx, left + b.width));
+          const ay = Math.max(top, Math.min(cy, top + b.height));
+          const angle = Math.atan2(ay - cy, ax - cx);
+          const gx = cx + Math.cos(angle) * r;
+          const gy = cy + Math.sin(angle) * r;
+          const mx = (ax + gx) / 2;
+          const my = (ay + gy) / 2;
+          const horizontal = Math.abs(ax - gx) > Math.abs(ay - gy);
+          const c1 = horizontal ? `${mx.toFixed(1)},${ay.toFixed(1)}` : `${ax.toFixed(1)},${my.toFixed(1)}`;
+          const c2 = horizontal ? `${mx.toFixed(1)},${gy.toFixed(1)}` : `${gx.toFixed(1)},${my.toFixed(1)}`;
+          const path = `M${ax.toFixed(1)},${ay.toFixed(1)} C${c1} ${c2} ${gx.toFixed(1)},${gy.toFixed(1)}`;
+          base.setAttribute("d", path);
+          pulse.setAttribute("d", path);
+          end.setAttribute("cx", gx.toFixed(1));
+          end.setAttribute("cy", gy.toFixed(1));
+        });
+      };
+      const infraRo = new ResizeObserver(drawInfra);
+      infraRo.observe(diagram);
+      cleanups.push(() => infraRo.disconnect());
+      drawInfra();
+    }
+
     // Desktop always shows one panel; restore it if the viewport grows back.
     on(window, "resize", () => {
       if (window.innerWidth > 960 && !tabs.some((t) => t.classList.contains("active"))) {
